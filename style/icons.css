@@ -1,0 +1,527 @@
+/* ════════════════════════════════════════════════════════════
+   PRECISION ENGINE v3.0 — CSS-Only Icon System
+   22 icons built with ::before / ::after pseudo-elements
+   ════════════════════════════════════════════════════════════ */
+
+/* Base icon dimensions */
+i {
+  --i-size: 24px;
+  display: inline-block;
+  width: var(--i-size);
+  height: var(--i-size);
+  position: relative;
+  vertical-align: middle;
+}
+
+/* ── Brain (circle + inner arches) ──────────────────── */
+.i-brain::before {
+  content: '';
+  position: absolute;
+  inset: 2px;
+  border-radius: 50%;
+  border: 2.5px solid var(--track-accent);
+}
+.i-brain::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--track-accent);
+  box-shadow:
+    8px -4px 0 -1.5px var(--track-accent),
+    -8px -4px 0 -1.5px var(--track-accent),
+    6px 6px 0 -1.5px var(--track-accent),
+    -6px 6px 0 -1.5px var(--track-accent);
+}
+
+/* ── Search / Debug (circle + lines) ────────────────── */
+.i-debug::before {
+  content: '';
+  position: absolute;
+  inset: 3px;
+  border-radius: 50%;
+  border: 2.5px solid var(--track-accent);
+}
+.i-debug::after {
+  content: '';
+  position: absolute;
+  bottom: 2px;
+  right: 0;
+  width: 8px;
+  height: 2.5px;
+  background: var(--track-accent);
+  transform: rotate(45deg);
+  transform-origin: right center;
+}
+
+/* ── Collaboration (two circles overlapping) ────────── */
+.i-collab::before {
+  content: '';
+  position: absolute;
+  left: 2px;
+  top: 2px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 2.5px solid var(--track-accent);
+}
+.i-collab::after {
+  content: '';
+  position: absolute;
+  right: 2px;
+  top: 4px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 2.5px solid var(--track-accent);
+}
+
+/* ── Lightbulb / Idea ──────────────────────────────── */
+.i-idea::before {
+  content: '';
+  position: absolute;
+  top: 1px;
+  left: 5px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+  border: 2.5px solid var(--track-accent);
+}
+.i-idea::after {
+  content: '';
+  position: absolute;
+  bottom: 3px;
+  left: 8px;
+  width: 2px;
+  height: 5px;
+  background: var(--track-accent);
+  box-shadow:
+    3px 0 0 0 var(--track-accent),
+    -3px 0 0 0 var(--track-accent),
+    0 3px 0 0 var(--track-accent),
+    2px 3px 0 0 var(--track-accent),
+    -2px 3px 0 0 var(--track-accent);
+}
+
+/* ── Graph / Academic ───────────────────────────────── */
+.i-graph::before {
+  content: '';
+  position: absolute;
+  bottom: 3px;
+  left: 3px;
+  width: 18px;
+  height: 2px;
+  background: var(--track-accent);
+}
+.i-graph::after {
+  content: '';
+  position: absolute;
+  bottom: 5px;
+  left: 3px;
+  width: 2px;
+  height: 14px;
+  background: var(--track-accent);
+  box-shadow:
+    5px -7px 0 0 var(--track-accent),
+    10px -2px 0 0 var(--track-accent),
+    15px -10px 0 0 var(--track-accent);
+}
+
+/* ── Globe / Global ─────────────────────────────────── */
+.i-globe::before {
+  content: '';
+  position: absolute;
+  inset: 3px;
+  border-radius: 50%;
+  border: 2.5px solid var(--track-accent);
+}
+.i-globe::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 14px;
+  height: 2px;
+  background: var(--track-accent);
+  box-shadow: 0 -5px 0 0 var(--track-accent), 0 5px 0 0 var(--track-accent);
+}
+
+/* ── Code (angle brackets) ──────────────────────────── */
+.i-code::before {
+  content: '';
+  position: absolute;
+  top: 4px;
+  left: 5px;
+  width: 5px;
+  height: 5px;
+  border: solid var(--track-accent);
+  border-width: 0 0 2px 2px;
+  transform: rotate(45deg);
+}
+.i-code::after {
+  content: '';
+  position: absolute;
+  top: 4px;
+  right: 5px;
+  width: 5px;
+  height: 5px;
+  border: solid var(--track-accent);
+  border-width: 0 2px 2px 0;
+  transform: rotate(-45deg);
+}
+
+/* ── Robot (square + antenna) ───────────────────────── */
+.i-robot::before {
+  content: '';
+  position: absolute;
+  top: 6px;
+  left: 4px;
+  width: 16px;
+  height: 12px;
+  border-radius: 3px;
+  border: 2.5px solid var(--track-accent);
+}
+.i-robot::after {
+  content: '';
+  position: absolute;
+  top: 1px;
+  left: 10px;
+  width: 4px;
+  height: 5px;
+  border-radius: 2px;
+  background: var(--track-accent);
+  box-shadow: 0 -1px 0 1px var(--track-accent);
+}
+
+/* ── Gear / Mechanics ───────────────────────────────── */
+.i-gear::before {
+  content: '';
+  position: absolute;
+  inset: 4px;
+  border-radius: 50%;
+  border: 2.5px solid var(--track-accent);
+}
+.i-gear::after {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 10px;
+  width: 4px;
+  height: 20px;
+  border-radius: 2px;
+  background: var(--track-accent);
+  box-shadow:
+    7px -3px 0 0 var(--track-accent),
+    -7px -3px 0 0 var(--track-accent),
+    0 0 0 0 var(--track-accent);
+}
+
+/* ── Circuit / Electronics ──────────────────────────── */
+.i-circuit::before {
+  content: '';
+  position: absolute;
+  top: 6px;
+  left: 2px;
+  width: 20px;
+  height: 2px;
+  background: var(--track-accent);
+  box-shadow: 0 5px 0 0 var(--track-accent), 0 10px 0 0 var(--track-accent);
+  border-radius: 1px;
+}
+.i-circuit::after {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 10px;
+  width: 2px;
+  height: 18px;
+  background: var(--track-accent);
+  border-radius: 1px;
+}
+
+/* ── Trophy / Competition ───────────────────────────── */
+.i-trophy::before {
+  content: '';
+  position: absolute;
+  top: 3px;
+  left: 6px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50% 50% 0 0;
+  border: 2.5px solid var(--track-accent);
+  border-bottom: none;
+}
+.i-trophy::after {
+  content: '';
+  position: absolute;
+  bottom: 3px;
+  left: 7px;
+  width: 10px;
+  height: 4px;
+  background: var(--track-accent);
+  border-radius: 1px;
+  box-shadow: 4px 4px 0 0 var(--track-accent), -4px 4px 0 0 var(--track-accent);
+}
+
+/* ── Star / Excellence ──────────────────────────────── */
+.i-star::before {
+  content: '★';
+  position: absolute;
+  inset: 0;
+  font-size: 1.6em;
+  line-height: 1;
+  text-align: center;
+  color: var(--track-accent);
+}
+
+/* ── Check / Verified ───────────────────────────────── */
+.i-check::before {
+  content: '';
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--secondary);
+}
+.i-check::after {
+  content: '';
+  position: absolute;
+  top: 8px;
+  left: 9px;
+  width: 6px;
+  height: 9px;
+  border: solid var(--surface-container-lowest);
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+/* ── Calendar / Event ───────────────────────────────── */
+.i-calendar::before {
+  content: '';
+  position: absolute;
+  top: 4px;
+  left: 5px;
+  width: 14px;
+  height: 14px;
+  border: 2.5px solid var(--track-accent);
+  border-radius: 2px;
+  background: transparent;
+}
+.i-calendar::after {
+  content: '';
+  position: absolute;
+  top: 1px;
+  left: 8px;
+  width: 8px;
+  height: 3px;
+  background: var(--track-accent);
+  border-radius: 1px;
+  box-shadow: 0 18px 0 0 var(--track-accent);
+}
+
+/* ── Shield / Security ──────────────────────────────── */
+.i-shield::before {
+  content: '';
+  position: absolute;
+  top: 3px;
+  left: 4px;
+  width: 16px;
+  height: 18px;
+  clip-path: polygon(50% 0%, 100% 25%, 100% 60%, 50% 100%, 0% 60%, 0% 25%);
+  border: 2.5px solid var(--track-accent);
+}
+.i-shield::after {
+  content: '';
+  position: absolute;
+  top: 8px;
+  left: 9px;
+  width: 6px;
+  height: 8px;
+  border: solid var(--track-accent);
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+/* ── Gamepad / Game Dev ─────────────────────────────── */
+.i-game::before {
+  content: '';
+  position: absolute;
+  top: 5px;
+  left: 3px;
+  width: 18px;
+  height: 14px;
+  border-radius: 7px;
+  border: 2.5px solid var(--track-accent);
+}
+.i-game::after {
+  content: '';
+  position: absolute;
+  top: 8px;
+  left: 7px;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--track-accent);
+  box-shadow:
+    7px 0 0 0 var(--track-accent),
+    0 -3px 6px 2px var(--track-accent),
+    7px -3px 6px 2px var(--track-accent);
+}
+
+/* ── Chevron / Arrow ────────────────────────────────── */
+.i-chevron {
+  width: 12px;
+  height: 12px;
+}
+.i-chevron::before {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 6px;
+  height: 6px;
+  border: solid var(--track-accent);
+  border-width: 2px 2px 0 0;
+  transform: rotate(45deg);
+}
+
+/* ── Bullet diamond ─────────────────────────────────── */
+.i-diamond {
+  width: 10px;
+  height: 10px;
+}
+.i-diamond::before {
+  content: '◆';
+  position: absolute;
+  inset: 0;
+  font-size: 0.7em;
+  line-height: 1;
+  color: var(--track-accent);
+}
+
+/* ── Python (diamond / code bracket) ─────────────────── */
+.i-python::before {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 3px;
+  width: 8px;
+  height: 8px;
+  border: 2.5px solid var(--track-accent);
+  border-radius: 50% 50% 50% 0;
+  transform: rotate(-45deg);
+}
+.i-python::after {
+  content: '';
+  position: absolute;
+  bottom: 2px;
+  right: 3px;
+  width: 8px;
+  height: 8px;
+  border: 2.5px solid var(--track-accent);
+  border-radius: 50% 50% 0 50%;
+  transform: rotate(-45deg);
+}
+
+/* ── HTML (angle brackets < />) ──────────────────────── */
+.i-html::before {
+  content: '<';
+  position: absolute;
+  inset: 0;
+  font-family: var(--font-mono);
+  font-size: 1.4em;
+  font-weight: 700;
+  line-height: 1;
+  text-align: center;
+  color: var(--track-accent);
+}
+.i-html::after {
+  content: '/>';
+  position: absolute;
+  inset: 0;
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+  font-weight: 700;
+  line-height: 1;
+  text-align: center;
+  color: var(--track-accent);
+  top: 1px;
+}
+
+/* ── CSS (curly braces) ──────────────────────────────── */
+.i-css::before {
+  content: '{';
+  position: absolute;
+  inset: 0;
+  font-family: var(--font-mono);
+  font-size: 1.6em;
+  font-weight: 700;
+  line-height: 1;
+  text-align: center;
+  color: var(--track-accent);
+}
+
+/* ── JavaScript (JS text) ───────────────────────────── */
+.i-js::before {
+  content: 'JS';
+  position: absolute;
+  inset: 0;
+  font-family: var(--font-heading);
+  font-size: 0.85em;
+  font-weight: 700;
+  line-height: 1;
+  text-align: center;
+  color: var(--track-accent);
+}
+
+/* ── Scratch (cat paw / S shape) ─────────────────────── */
+.i-scratch::before {
+  content: '';
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 18px;
+  height: 14px;
+  border: 2.5px solid var(--track-accent);
+  border-radius: 50% 50% 30% 30%;
+}
+.i-scratch::after {
+  content: '';
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: 2px solid var(--track-accent);
+  background: transparent;
+}
+
+/* ── Arduino (infinity symbol) ───────────────────────── */
+.i-arduino::before {
+  content: '';
+  position: absolute;
+  top: 6px;
+  left: 1px;
+  width: 9px;
+  height: 9px;
+  border: 2.5px solid var(--track-accent);
+  border-radius: 50%;
+}
+.i-arduino::after {
+  content: '';
+  position: absolute;
+  top: 6px;
+  right: 1px;
+  width: 9px;
+  height: 9px;
+  border: 2.5px solid var(--track-accent);
+  border-radius: 50%;
+}

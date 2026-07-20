@@ -1,0 +1,209 @@
+/* ════════════════════════════════════════════════════════════
+   PRECISION ENGINE v3.0 — Media & Placeholders
+   Logo slots · Image slots · Chart bars · Tables · Decorative
+   ════════════════════════════════════════════════════════════ */
+
+/* ── Logo Slots (placeholder zones for academy logos) */
+.logo-slot {
+  position: absolute;
+  width: 72px;
+  height: 42px;
+  border: 1.5px dashed var(--on-surface-subtle);
+  opacity: 0.3;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.4em;
+  font-weight: 500;
+  color: var(--on-surface-subtle);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  z-index: 2;
+  pointer-events: none;
+  transition: opacity 0.2s;
+  overflow: hidden;
+}
+.logo-slot img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border: none;
+  opacity: 1;
+  padding: 4px;
+  box-sizing: border-box;
+}
+.logo-slot:hover { opacity: 0.6; }
+.logo-slot:has(img) { opacity: 1; border: none; }
+.logo-slot.top-left   { top: 16px; left: 20px; }
+.logo-slot.top-right  { top: 16px; right: 20px; }
+.logo-slot.bottom-ctr { bottom: 56px; left: 50%; transform: translateX(-50%); }
+
+/* ── Image Slot (competition photos) ────────────────── */
+.image-slot {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border: 2px dashed rgba(118,113,255,0.2);
+  border-radius: var(--radius-md);
+  background: rgba(118,113,255,0.03);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  margin-top: 10px;
+  position: relative;
+  overflow: hidden;
+}
+.image-slot::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(118,113,255,0.04) 0%, transparent 100%);
+  pointer-events: none;
+}
+.image-slot .image-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background: rgba(118,113,255,0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.9em;
+  color: var(--track-accent);
+}
+.image-slot .image-label {
+  font-size: 0.6em;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--on-surface-subtle);
+}
+.image-slot.compact {
+  aspect-ratio: 4 / 3;
+  margin-top: 6px;
+}
+.image-slot.compact .image-icon { width: 24px; height: 24px; font-size: 0.7em; }
+.image-slot.compact .image-label { font-size: 0.5em; }
+.image-slot img {
+  max-width: 70%;
+  max-height: 70%;
+  object-fit: contain;
+  position: relative;
+  z-index: 1;
+}
+
+/* ── Competition Logo Slots ─────────────────────────── */
+.competition-logo {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 36px;
+  border: 1.5px dashed var(--on-surface-subtle);
+  border-radius: 6px;
+  opacity: 0.5;
+  font-size: 0.55em;
+  font-weight: 600;
+  color: var(--on-surface-subtle);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  vertical-align: middle;
+  margin-left: 6px;
+  background: rgba(255,255,255,0.04);
+  flex-shrink: 0;
+}
+.competition-logo img {
+  max-width: 56px;
+  max-height: 28px;
+  object-fit: contain;
+}
+
+/* ── Chart Bar (visual data bars) ──────────────── */
+.chart-bar-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin: 8px 0;
+}
+.chart-bar-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.chart-bar-label {
+  width: 60px;
+  flex-shrink: 0;
+  font-size: clamp(0.65em, 0.78vw, 0.72em);
+  font-weight: 600;
+  color: var(--on-surface);
+  text-align: right;
+}
+.chart-bar-track {
+  flex: 1;
+  height: 18px;
+  border-radius: 100px;
+  background: var(--surface-container);
+  overflow: hidden;
+  position: relative;
+}
+.chart-bar-fill {
+  height: 100%;
+  border-radius: 100px;
+  background: linear-gradient(90deg, var(--track-accent), var(--tertiary));
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: 8px;
+  font-size: 0.6em;
+  font-weight: 700;
+  color: var(--surface-container-lowest);
+  transition: width 0.4s;
+}
+.chart-bar-pct {
+  font-size: clamp(0.6em, 0.75vw, 0.68em);
+  font-weight: 700;
+  color: var(--track-accent);
+  min-width: 30px;
+}
+
+/* ── Decorative Icon Background ────────────────── */
+.icon-bg {
+  position: absolute;
+  font-size: clamp(6em, 12vw, 10em);
+  color: var(--track-accent);
+  opacity: 0.035;
+  pointer-events: none;
+  z-index: 0;
+  line-height: 1;
+  user-select: none;
+  font-family: var(--font-heading);
+}
+.icon-bg.tl { top: 10px; left: 20px; }
+.icon-bg.br { bottom: 10px; right: 20px; }
+.icon-bg.tr { top: 10px; right: 20px; }
+.icon-bg.bl { bottom: 10px; left: 20px; }
+.icon-bg.center { top: 50%; left: 50%; transform: translate(-50%, -50%); }
+
+/* ── Tables ─────────────────────────────────────────── */
+table {
+  border-collapse: collapse;
+  width: 100%;
+  font-size: clamp(0.72em, 0.85vw, 0.8em);
+}
+th, td {
+  padding: 7px 12px;
+  text-align: left;
+}
+th {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: 0.7em;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--surface-container-lowest);
+  background: var(--primary-container);
+}
+tr:nth-child(even) td { background: var(--surface); }
+tr:nth-child(odd) td { background: var(--surface-container-lowest); }

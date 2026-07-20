@@ -1,0 +1,405 @@
+/* ════════════════════════════════════════════════════════════
+   PRECISION ENGINE v3.0 — Presentation Base
+   Techno Kids, Techno Future
+   ════════════════════════════════════════════════════════════ */
+
+/* ── Reset ──────────────────────────────────────────── */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+/* ── Custom Properties ──────────────────────────────── */
+:root {
+  --primary: #000000;
+  --primary-container: #131b2e;
+  --secondary: #006a61;
+  --secondary-fixed: #89f5e7;
+  --tertiary: #7671ff;
+  --tertiary-light: #a5a1ff;
+  --surface: #f8f9ff;
+  --surface-container: #e5eeff;
+  --surface-container-low: #eff4ff;
+  --surface-container-lowest: #ffffff;
+  --on-background: #0b1c30;
+  --on-surface: #0b1c30;
+  --on-surface-muted: #4a5070;
+  --on-surface-subtle: #7a8295;
+  --error: #D32F2F;
+  --font-heading: 'Space Grotesk', 'Segoe UI', Arial, sans-serif;
+  --font-body: 'Inter', 'Segoe UI', Arial, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Consolas', monospace;
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --track-accent: var(--section-color);
+  --track-accent-light: var(--section-color-light);
+  /* Optimized for 100% zoom at 1920x1080 projection */
+  --slide-padding-x: 5vw;
+  --slide-padding-y: 3.5vh;
+  --content-max-height: 85vh;
+}
+
+/* ── Section Color Mapping (from presentation-design skill) ── */
+[data-section="opening"]     { --section-color: #14b8a6; --section-color-light: #5eead4; }
+[data-section="curriculum"]  { --section-color: #a78bfa; --section-color-light: #c4b5fd; }
+[data-section="competition"] { --section-color: #fbbf24; --section-color-light: #fde68a; }
+[data-section="results"]     { --section-color: #34d399; --section-color-light: #6ee7b7; }
+[data-section="closing"]     { --section-color: #60a5fa; --section-color-light: #93c5fd; }
+:root { --section-color: #7671ff; --section-color-light: #a5a1ff; }
+
+/* ── Typography ─────────────────────────────────────── */
+html { 
+  scroll-behavior: smooth; 
+  scroll-snap-type: y mandatory; 
+  font-size: clamp(16px, 1.15vw, 22px); 
+  /* Prevent zoom issues on projectors */
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+body {
+  font-family: var(--font-body);
+  font-weight: 400;
+  color: var(--on-surface);
+  background: var(--primary-container);
+  -webkit-font-smoothing: antialiased;
+  /* Ensure no overflow */
+  overflow-x: hidden;
+}
+
+/* ── Slide Geometry (Full-Width, 100% optimized) ────── */
+.slide {
+  width: 100vw;
+  height: 100vh;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  /* Top pad clears logo slots (42px slot + 16px top + 4px gap = 62px → 68px) */
+  padding: calc(var(--slide-padding-y) + 52px) var(--slide-padding-x) calc(var(--slide-padding-y) + 28px);
+  position: relative;
+  overflow: hidden;
+  scroll-snap-align: start;
+  /* Ensure content fits */
+  box-sizing: border-box;
+}
+
+.slide:nth-child(odd)  { background: var(--surface-container-lowest); }
+.slide:nth-child(even) { background: var(--surface); }
+
+/* Power gradient accent bar (top) */
+.slide::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--section-color), var(--tertiary));
+  z-index: 1;
+}
+
+/* Bottom progress bar (section color) — subtle 1px line */
+.slide::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, var(--section-color) 0%, transparent 60%);
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.4;
+}
+
+/* Slide number — bottom right, minimal */
+.slide-number {
+  position: absolute;
+  bottom: 20px;
+  right: 24px;
+  font-family: var(--font-heading);
+  font-size: 0.65em;
+  font-weight: 500;
+  color: var(--on-surface-muted);
+  opacity: 0.45;
+  z-index: 2;
+  letter-spacing: 0.05em;
+}
+
+/* ── Content (Full Width, JS auto-scale handles overflow) */
+.slide-content {
+  width: 100%;
+  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  /* transform-origin for fitSlides() scale */
+  transform-origin: top center;
+  /* Smooth transitions when scale changes on resize */
+  transition: transform 0.15s ease;
+}
+
+/* Allow flex children to shrink if needed */
+.slide-content > * {
+  flex-shrink: 1;
+  min-height: 0;
+}
+
+/* ── Section Label ──────────────────────────────────── */
+.section-label {
+  font-size: 0.78em;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--section-color);
+  margin-bottom: 0.4em;
+}
+
+.slide-section h2 {
+  font-family: var(--font-heading);
+  font-weight: 500;
+  font-size: clamp(1.8em, 3.2vw, 3em);
+  color: var(--primary-container);
+  letter-spacing: -0.035em;
+  margin-bottom: 0.8em;
+  line-height: 1.1;
+}
+
+.slide-section h3 {
+  font-family: var(--font-heading);
+  font-weight: 500;
+  font-size: clamp(0.95em, 1.3vw, 1.15em);
+  color: var(--primary-container);
+  margin-bottom: 0.4em;
+}
+
+/* ── Title Slide (Full-Width Hero) ──────────────────── */
+.slide-title {
+  text-align: center;
+  justify-content: center;
+  min-height: 100vh;
+  /* Override the logo-clearance padding — title slide centres its own content */
+  padding: var(--slide-padding-y) var(--slide-padding-x) !important;
+  background: linear-gradient(165deg, var(--surface-container-lowest) 0%, var(--surface) 100%) !important;
+}
+.slide-title::before { height: 4px; }
+.slide-title .slide-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+  gap: 6px;
+}
+.slide-title .pre-title {
+  font-family: var(--font-body);
+  font-size: clamp(0.78em, 1.1vw, 0.9em);
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: var(--section-color);
+  margin-bottom: 0.3em;
+}
+.slide-title h1 {
+  font-family: var(--font-heading);
+  font-weight: 500;
+  font-size: clamp(2.8em, 6vw, 4.8em);
+  color: var(--primary-container);
+  letter-spacing: -0.04em;
+  line-height: 1.02;
+  margin-bottom: 0.25em;
+  max-width: 900px;
+}
+.slide-title .subtitle {
+  font-size: clamp(1em, 1.6vw, 1.35em);
+  color: var(--on-surface-muted);
+  line-height: 1.5;
+  max-width: 700px;
+}
+.slide-title .hero-tagline {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 0.5em;
+}
+.slide-title .hero-tagline span {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 18px;
+  border-radius: 100px;
+  font-size: clamp(0.7em, 0.9vw, 0.8em);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  background: var(--primary-container);
+  color: var(--surface-container-lowest);
+}
+.slide-title .hero-tagline span::before {
+  font-size: 1.1em;
+  line-height: 1;
+}
+.slide-title .hero-tagline .tag-robotics::before  { content: '⚙'; }
+.slide-title .hero-tagline .tag-software::before   { content: '⟨/⟩'; font-family: var(--font-mono); font-size: 0.9em; }
+.slide-title .hero-tagline .tag-compete::before    { content: '★'; }
+.slide-title .hero-stats {
+  display: flex;
+  gap: 24px;
+  margin-top: 1.25em;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.slide-title .hero-stat {
+  text-align: center;
+}
+.slide-title .hero-stat-num {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: clamp(1.3em, 2vw, 1.8em);
+  color: var(--track-accent);
+  line-height: 1;
+}
+.slide-title .hero-stat-label {
+  font-size: clamp(0.6em, 0.75vw, 0.7em);
+  color: var(--on-surface-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-top: 0.15em;
+}
+.slide-title .arabic {
+  font-size: clamp(0.85em, 1.1vw, 1em);
+  margin-top: 0.6em;
+  color: var(--on-surface-muted);
+}
+
+/* ── Arabic ─────────────────────────────────────────── */
+.arabic {
+  direction: rtl;
+  unicode-bidi: embed;
+  font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
+  font-size: 0.95em;
+  line-height: 1.55;
+  color: var(--on-surface-muted);
+  /* Reduced from 6px to avoid layout shift in tight slides */
+  padding: 0.15em 0;
+  max-width: 100%;
+  word-break: break-word;
+}
+
+/* ── Divider ────────────────────────────────────────── */
+.divider {
+  border: none;
+  height: 2px;
+  background: linear-gradient(90deg, var(--section-color), var(--tertiary));
+  margin: 1.1em 0;
+}
+
+/* ── Badge / Tag ────────────────────────────────────── */
+.tag {
+  display: inline-block;
+  font-size: 0.62em;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 3px;
+  letter-spacing: 0.04em;
+}
+.tag-foundation { background: var(--secondary); color: var(--surface-container-lowest); }
+.tag-intermediate { background: var(--primary-container); color: var(--surface-container-lowest); }
+.tag-advanced { background: var(--primary); color: var(--surface-container-lowest); }
+.tag-competition { background: #e65100; color: var(--surface-container-lowest); }
+.tag-accent { background: var(--track-accent); color: var(--surface-container-lowest); }
+
+.level-badge {
+  display: inline-block;
+  margin-top: 0.75em;
+  padding: 5px 18px;
+  border-radius: 100px;
+  font-size: 0.75em;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+.level-badge.foundation   { background: var(--secondary); color: var(--surface-container-lowest); }
+.level-badge.intermediate { background: var(--primary-container); color: var(--surface-container-lowest); }
+.level-badge.advanced     { background: var(--primary); color: var(--surface-container-lowest); }
+
+/* ── Navigation ─────────────────────────────────────── */
+.slide-nav {
+  position: fixed;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 5px;
+  z-index: 100;
+  background: rgba(255,255,255,0.75);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  padding: 4px 10px;
+  border-radius: 100px;
+  box-shadow: 0 1px 6px rgba(11,28,48,0.06);
+}
+.slide-nav a {
+  display: block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--on-surface-muted);
+  opacity: 0.2;
+  transition: all 0.2s;
+}
+.slide-nav a:hover, .slide-nav a:focus {
+  opacity: 0.6;
+  background: var(--section-color);
+  transform: scale(1.3);
+}
+
+.keyboard-hint {
+  position: fixed;
+  bottom: 12px;
+  left: 16px;
+  font-size: 0.55em;
+  color: var(--on-surface-muted);
+  opacity: 0.18;
+  z-index: 100;
+  background: rgba(255,255,255,0.7);
+  backdrop-filter: blur(4px);
+  padding: 3px 10px;
+  border-radius: 100px;
+}
+
+/* ── Description text ───────────────────────────────── */
+.desc {
+  font-size: clamp(0.85em, 1.1vw, 0.95em);
+  color: var(--on-surface-muted);
+  line-height: 1.55;
+  margin-bottom: 0.6em;
+}
+
+/* ── Responsive ─────────────────────────────────────── */
+@media (max-width: 1200px) {
+  :root {
+    --slide-padding-x: 4vw;
+    --slide-padding-y: 3vh;
+  }
+}
+@media (max-width: 900px) {
+  :root {
+    --slide-padding-x: 28px;
+    --slide-padding-y: 24px;
+  }
+}
+@media (max-width: 600px) {
+  :root {
+    --slide-padding-x: 16px;
+    --slide-padding-y: 16px;
+  }
+  .slide-nav { display: none; }
+  .keyboard-hint { display: none; }
+}
+
+/* ── Print / Projection Optimized ───────────────────── */
+@media (min-width: 1920px) {
+  :root {
+    --slide-padding-x: 6vw;
+    --slide-padding-y: 4vh;
+  }
+}

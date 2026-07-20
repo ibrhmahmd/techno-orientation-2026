@@ -1,0 +1,21 @@
+# OS
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Export artifacts
+export/
+*.pptx
+*.pdf
+
+# Node
+node_modules/
+
+# Scripts (local dev only)
+script/*.bak

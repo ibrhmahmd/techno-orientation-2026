@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Techno Kids & Techno Future Academy — 2026 Academic Orientation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style/base.css">
+<link rel="stylesheet" href="style/cards.css">
+<link rel="stylesheet" href="style/grids.css">
+<link rel="stylesheet" href="style/tree-flow.css">
+<link rel="stylesheet" href="style/icons.css">
+<link rel="stylesheet" href="style/media.css">
+<link rel="stylesheet" href="style/animations.css">
+<link rel="stylesheet" href="style/print.css">
+<style>
+  /* Loading indicator */
+  .slides-loading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    gap: 16px;
+  }
+  .slides-loading .spinner {
+    width: 40px;
+    height: 40px;
+    border: 3px solid var(--surface);
+    border-top-color: var(--primary-container);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+  }
+  @keyframes spin {
+    to { transform: rotate(360deg); }
+  }
+  .slides-loading p {
+    color: var(--on-surface-muted);
+    font-size: 0.9em;
+  }
+</style>
+</head>
+<body>
+
+<!-- ════════════════════ LOADING STATE ════════════════════ -->
+<div id="slides-loading" class="slides-loading">
+  <div class="spinner"></div>
+  <p>Loading presentation...</p>
+</div>
+
+<!-- ════════════════════ SLIDES CONTAINER ════════════════════ -->
+<div id="slides-container"></div>
+
+<!-- ════════════════════ NAVIGATION ════════════════════ -->
+<nav class="slide-nav" aria-label="Slide navigation" id="slide-nav">
+  <!-- Populated dynamically after slides load -->
+</nav>
+
+<script>
+/* ════════════════════════════════════════════════════════════
+   SLIDE LOADER — Fetches individual slide files
+   ════════════════════════════════════════════════════════════ */
+const SLIDES = [
+  'slides/s01_title.html',
+  'slides/s02_skill_gap.html',
+  'slides/s03_competences.html',
+  'slides/s04_age_window.html',
+  'slides/s05_outcomes.html',
+  'slides/s06_software.html',
+  'slides/s07_robotics.html',
+  'slides/s08_scratch.html',
+  'slides/s09_web_languages.html',
+  'slides/s10_weDo_spike.html',
+  'slides/s11_spike_ev3_arduino.html',
+  'slides/s12_competitions.html',
+  'slides/s13_fll_tiers.html',
+  'slides/s14_robofest_afroasian.html',
+  'slides/s15_roadmap.html',
+  'slides/s16_achievement.html',
+  'slides/s17_testimonials.html',
+  'slides/s18_results.html',
+  'slides/s19_why_us.html',
+  'slides/s20_additional_tracks.html',
+  'slides/s21_enrol.html',
+  'slides/s22_closing.html'
+];
+
+async function loadSlides() {
+  const container = document.getElementById('slides-container');
+  const loading = document.getElementById('slides-loading');
+  const nav = document.getElementById('slide-nav');
+  
+  try {
+    for (let i = 0; i < SLIDES.length; i++) {
+      const response = await fetch(SLIDES[i]);
+      if (!response.ok) throw new Error(`Failed to load ${SLIDES[i]}`);
+      const html = await response.text();
+      container.insertAdjacentHTML('beforeend', html);
+    }
+    
+    // Build navigation dots
+    const slides = container.querySelectorAll('.slide');
+    const totalSlides = slides.length;
+    slides.forEach((slide, i) => {
+      const link = document.createElement('a');
+      link.href = `#${slide.id}`;
+      link.setAttribute('aria-label', `Slide ${i + 1}`);
+      nav.appendChild(link);
+    });
+
+    // Dynamic page numbering — remove all hardcoded slide-number spans
+    // then re-inject with correct X / Y values (title slide s1 gets no number)
+    slides.forEach((slide, i) => {
+      // Remove any hardcoded slide-number element
+      const existing = slide.querySelector('.slide-number');
+      if (existing) existing.remove();
+
+      // Skip the title slide
+      if (slide.id === 's1') return;
+
+      const numEl = document.createElement('span');
+      numEl.className = 'slide-number';
+      numEl.textContent = `${i + 1} / ${totalSlides}`;
+      slide.appendChild(numEl);
+    });
+    
+    // Hide loading, show slides
+    loading.style.display = 'none';
+    container.style.display = 'block';
+    
+    // Initialize interactions after slides are in DOM
+    initScrollReveal();
+    initNavHighlight();
+    initArrowNavigation();
+
+    // Scale content to fit viewport at any resolution (Bug 1, Bug 10)
+    fitSlides();
+    let _resizeTimer;
+    window.addEventListener('resize', () => {
+      clearTimeout(_resizeTimer);
+      _resizeTimer = setTimeout(fitSlides, 120);
+    });
+    
+  } catch (error) {
+    loading.innerHTML = `
+      <p style="color:#ef4444;">Error loading slides</p>
+      <p style="font-size:0.8em;">${error.message}</p>
+      <p style="font-size:0.75em;margin-top:16px;">Make sure you're running a local server:<br><code>python -m http.server</code> or <code>npx serve</code></p>
+    `;
+  }
+}
+
+/* ════════════════════════════════════════════════════════════
+   SCROLL REVEAL — Animate elements on scroll
+   ════════════════════════════════════════════════════════════ */
+function initScrollReveal() {
+  if ('IntersectionObserver' in window) {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+          }
+        });
+      },
+      { threshold: 0.15, rootMargin: '0px 0px -40px 0px' }
+    );
+    document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
+  } else {
+    document.querySelectorAll('.reveal').forEach((el) => el.classList.add('visible'));
+  }
+}
+
+/* ════════════════════════════════════════════════════════════
+   NAV HIGHLIGHT — Highlight current slide in navigation
+   ════════════════════════════════════════════════════════════ */
+function initNavHighlight() {
+  const navLinks = document.querySelectorAll('.slide-nav a');
+  
+  if ('IntersectionObserver' in window) {
+    const slideObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const id = entry.target.id;
+            navLinks.forEach((link) => {
+              link.style.opacity = link.getAttribute('href') === `#${id}` ? '0.9' : '0.25';
+              link.style.background = link.getAttribute('href') === `#${id}` ? 'var(--section-color)' : '';
+            });
+          }
+        });
+      },
+      { threshold: 0.4 }
+    );
+    document.querySelectorAll('.slide').forEach((slide) => slideObserver.observe(slide));
+  }
+}
+
+/* ════════════════════════════════════════════════════════════
+   ARROW NAVIGATION — Keyboard shortcuts
+   ════════════════════════════════════════════════════════════ */
+function initArrowNavigation() {
+  const slides = document.querySelectorAll('.slide');
+  
+  function getCurrentSlide() {
+    const scrollY = window.scrollY || window.pageYOffset;
+    let best = 0;
+    let bestDist = Infinity;
+    slides.forEach((slide, i) => {
+      const rect = slide.getBoundingClientRect();
+      const dist = Math.abs(rect.top);
+      if (dist < bestDist) {
+        bestDist = dist;
+        best = i;
+      }
+    });
+    return best;
+  }
+  
+  function scrollToSlide(index) {
+    if (index < 0 || index >= slides.length) return;
+    slides[index].scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+  
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowDown' || e.key === 'ArrowRight' || e.key === 'PageDown') {
+      e.preventDefault();
+      scrollToSlide(getCurrentSlide() + 1);
+    } else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft' || e.key === 'PageUp') {
+      e.preventDefault();
+      scrollToSlide(getCurrentSlide() - 1);
+    } else if (e.key === 'Home') {
+      e.preventDefault();
+      scrollToSlide(0);
+    } else if (e.key === 'End') {
+      e.preventDefault();
+      scrollToSlide(slides.length - 1);
+    }
+  });
+}
+
+/* ════════════════════════════════════════════════════════════
+   FIT SLIDES — Auto-scale slide-content to always fit viewport
+   Uses transform: scale() so layout is never clipped or scrolled
+   ════════════════════════════════════════════════════════════ */
+function fitSlides() {
+  const slides = document.querySelectorAll('.slide');
+
+  // Temporarily make all reveal elements visible for accurate measurement
+  const revealEls = document.querySelectorAll('.reveal');
+  revealEls.forEach(el => {
+    el.style.opacity = '1';
+    el.style.transform = 'none';
+  });
+
+  slides.forEach(slide => {
+    const content = slide.querySelector('.slide-content');
+    if (!content) return;
+
+    // Reset any previous scale before measuring
+    content.style.transform = '';
+    content.style.marginTop  = '';
+
+    const slideH = slide.clientHeight;
+    const slideW = slide.clientWidth;
+
+    // Force a layout flush before measuring
+    const contentH = content.scrollHeight;
+    const contentW = content.scrollWidth;
+
+    // Read computed padding applied by CSS
+    const cs = getComputedStyle(slide);
+    const padTop    = parseFloat(cs.paddingTop);
+    const padBottom = parseFloat(cs.paddingBottom);
+    const padLeft   = parseFloat(cs.paddingLeft);
+    const padRight  = parseFloat(cs.paddingRight);
+
+    const availH = slideH - padTop - padBottom;
+    const availW = slideW - padLeft - padRight;
+
+    // Allow scaling up (above 1) up to a maximum of 1.3 to avoid empty space
+    const scaleH = availH > 0 ? availH / contentH : 1;
+    const scaleW = availW > 0 ? availW / contentW : 1;
+    let scale  = Math.min(scaleH, scaleW);
+
+    // Limit maximum scale up to prevent overly giant text on sparse slides
+    scale = Math.min(scale, 1.3);
+
+    if (scale !== 1) {
+      content.style.transform      = `scale(${scale.toFixed(4)})`;
+      content.style.transformOrigin = 'top center';
+      // Compensate vertical: scaling shrinks/grows height visually, shift up/down
+      const savedPx = contentH * (1 - scale);
+      content.style.marginBottom = `-${Math.round(savedPx)}px`;
+    } else {
+      content.style.transform      = '';
+      content.style.marginBottom   = '';
+    }
+  });
+
+  // Restore reveal elements to their original state (JS observer controls visibility)
+  revealEls.forEach(el => {
+    el.style.opacity  = '';
+    el.style.transform = '';
+  });
+  // Re-trigger visible state for already-observed elements
+  document.querySelectorAll('.reveal.visible').forEach(el => {
+    el.style.opacity = '1';
+    el.style.transform = 'translateY(0)';
+  });
+}
+
+/* ════════════════════════════════════════════════════════════
+   INIT — Load slides on page ready
+   ════════════════════════════════════════════════════════════ */
+document.addEventListener('DOMContentLoaded', loadSlides);
+</script>
+
+</body>
+</html>

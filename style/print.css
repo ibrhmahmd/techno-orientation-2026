@@ -1,0 +1,147 @@
+/* ════════════════════════════════════════════════════════════
+   PRECISION ENGINE v3.0 — Print / PDF
+   A4 landscape: 297mm × 210mm  (usable after 10mm margin each)
+   ════════════════════════════════════════════════════════════ */
+
+@media print {
+  @page {
+    size: A4 landscape;
+    margin: 10mm 12mm;
+  }
+
+  /* ── Each slide = one A4 landscape page ─────────────── */
+  .slide {
+    width: 273mm;           /* 297 - 2×12mm margin */
+    height: 190mm;          /* 210 - 2×10mm margin */
+    min-height: unset;
+    max-height: 190mm;
+    page-break-after: always;
+    break-after: page;
+    /* Reset the screen padding that accounts for logo slots */
+    padding: 14mm 16mm 12mm;
+    overflow: hidden;
+    scroll-snap-align: none;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+  }
+
+  /* Reset JS-applied transform scale for print */
+  .slide-content {
+    transform: none !important;
+    max-height: unset;
+    overflow: visible;
+    margin-bottom: 0 !important;
+  }
+
+  /* ── Hide interactive UI elements ───────────────────── */
+  .slide-nav,
+  .keyboard-hint,
+  .slide-number { display: none !important; }
+
+  /* ── Make reveal elements always visible ────────────── */
+  .reveal,
+  .reveal-delay-1,
+  .reveal-delay-2,
+  .reveal-delay-3 {
+    opacity: 1 !important;
+    transform: none !important;
+    visibility: visible !important;
+  }
+
+  /* ── Gradient accents ───────────────────────────────── */
+  .slide::before {
+    height: 2px;
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+  .slide::after { display: none; }
+
+  body {
+    background: white;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  /* ── Grid layouts stay multi-column in print ─────────── */
+  .card-grid-3 { grid-template-columns: repeat(3, 1fr); }
+  .card-grid-4 { grid-template-columns: repeat(4, 1fr); }
+  .card-grid-6 { grid-template-columns: repeat(3, 1fr); }
+  .bento-grid-6 {
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-areas:
+      "feat1 feat1 s1    s2"
+      "feat1 feat1 s3    s4"
+      "feat2 feat2 feat2 feat2";
+  }
+  .bento-grid-5 {
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-areas:
+      "hero hero s1"
+      "hero hero s2"
+      "s3   s4   s5";
+  }
+
+  /* ── Flow / tree ────────────────────────────────────── */
+  .tree::before { display: none; }
+  .flow-row { flex-wrap: nowrap; }
+  .sw-tree { overflow: visible; }
+
+  /* ── Logo slots ─────────────────────────────────────── */
+  .logo-slot {
+    border: 1px solid #ccc;
+    opacity: 0.6;
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+
+  /* ── Cards ───────────────────────────────────────────── */
+  .card,
+  .card-competence,
+  .card-track,
+  .card-stat,
+  .card-event,
+  .card-outcome,
+  .bento-featured,
+  .bento-small,
+  .bento-hero,
+  .bento-tech-col {
+    break-inside: avoid;
+    box-shadow: none;
+    border: 1px solid #e0e0e0;
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+  .card-competence::after { display: none; }
+  .icon-bg { display: none; }
+
+  /* ── Typography ─────────────────────────────────────── */
+  .arabic { font-size: 0.85em; }
+  h2 { font-size: 1.6em; }
+  h3 { font-size: 0.95em; }
+  .stat-num { font-size: 1.5em; }
+
+  .slide-section h2,
+  .slide-section h3 { color: #131b2e; }
+
+  /* ── Chart bars ─────────────────────────────────────── */
+  .chart-bar-fill {
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+
+  /* ── Background colors ──────────────────────────────── */
+  .slide:nth-child(odd),
+  .slide:nth-child(even) {
+    background: white !important;
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+  .card-track {
+    background: #131b2e !important;
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+}
+
