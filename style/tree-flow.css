@@ -302,31 +302,9 @@
 }
 
 /* ════════════════════════════════════════════════════════════
-   SOFTWARE TRACK — Horizontal Branching Tree
-   Entry → Two specialization paths (Web / Python)
+   SOFTWARE TRACK — Shared styles
+   Entry sequence, node cards, track containers
    ════════════════════════════════════════════════════════════ */
-
-/* ── Main Tree Container ─────────────────────────────────── */
-.sw-tree {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 8px 0;
-  /* overflow is handled by JS fitSlides() scale — not by scrollbar */
-  overflow: visible;
-  flex-wrap: nowrap;
-  min-width: 0;
-  flex-shrink: 1;
-  /* Anchor point for JS scale transform */
-  transform-origin: top center;
-}
-
-/* Ensure tracks don't overflow */
-.sw-tracks {
-  flex: 1;
-  min-width: 0;
-  overflow: hidden;
-}
 
 /* Scale track flows to fit */
 .sw-track-flow {
@@ -410,8 +388,8 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  min-width: 70px;
-  padding: 10px 12px 8px;
+  min-width: 80px;
+  padding: 12px 14px 10px;
   border-radius: var(--radius-md);
   background: var(--surface-container-lowest);
   border: 2px solid transparent;
@@ -459,12 +437,12 @@
 
 /* ── Node Content ────────────────────────────────────── */
 .sw-node-logo {
-  height: 22px;
+  height: 30px;
   margin-bottom: 3px;
   object-fit: contain;
 }
 .sw-node-logo-sm {
-  height: 16px;
+  height: 24px;
   margin-bottom: 2px;
   object-fit: contain;
 }
@@ -493,48 +471,128 @@
 }
 
 /* ════════════════════════════════════════════════════════════
-   BRANCH SPLIT — Visual connector from entry to tracks
+   SOFTWARE TRACK — 4-Column Horizontal Tree
+   Col 1: Entry → Col 2: Intro → Col 3: Specs → Col 4: Database
    ════════════════════════════════════════════════════════════ */
 
-.sw-branch-split {
+/* ── Main Tree Container (vertical by default) ────────────────── */
+.sw-tree {
   display: flex;
   flex-direction: column;
   align-items: center;
-  position: relative;
-  height: 100px;
-  flex-shrink: 0;
-  width: 20px;
-}
-.sw-branch-line {
-  width: 20px;
-  height: 100%;
-  border: 2px solid var(--on-surface-muted);
-  border-left: none;
-  border-radius: 0 10px 10px 0;
-  opacity: 0.3;
-}
-.sw-branch-dot {
-  position: absolute;
-  top: 50%;
-  left: 10px;
-  transform: translateY(-50%);
-  width: 8px;
-  height: 8px;
-  background: var(--track-accent);
-  border-radius: 50%;
-  box-shadow: 0 0 8px rgba(118,113,255,0.4);
+  gap: 8px;
+  padding: 8px 0;
+  overflow: visible;
+  min-width: 0;
+  flex-shrink: 1;
+  transform-origin: top center;
 }
 
-/* ════════════════════════════════════════════════════════════
-   TRACKS — Two parallel specialization paths
-   ════════════════════════════════════════════════════════════ */
+/* ── Horizontal modifier (4-column layout) ───────────────────── */
+.sw-tree.sw-tree-h {
+  flex-direction: row;
+  align-items: center;
+  gap: 2px;
+  flex-wrap: nowrap;
+}
 
-.sw-tracks {
+/* ── Column (vertical flex) ──────────────────────────────────── */
+.sw-col {
   display: flex;
   flex-direction: column;
   gap: 10px;
   flex: 1;
   min-width: 0;
+  align-items: center;
+}
+
+/* ── Column: Entry courses ───────────────────────────────────── */
+.sw-col-entry {
+  flex: 0 0 auto;
+}
+
+/* ── Column: Intro containers ────────────────────────────────── */
+.sw-col-intro {
+  gap: 12px;
+}
+
+/* ── Column: Specializations ─────────────────────────────────── */
+.sw-col-spec {
+  gap: 12px;
+}
+
+/* ── Column: Database ────────────────────────────────────────── */
+.sw-col-db {
+  flex: 0 0 auto;
+}
+
+/* ── Single branch between columns ───────────────────────────── */
+.sw-col-branch {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+/* ── Two branches between columns (stacked) ──────────────────── */
+.sw-col-branches {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+/* ── Specification group (stacked vertically with subtle background) */
+.sw-spec-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  background: rgba(118,113,255,0.03);
+  border: 1px solid rgba(118,113,255,0.08);
+  border-radius: var(--radius-md);
+  padding: 8px 12px;
+}
+
+/* ════════════════════════════════════════════════════════════
+   BRANCH JUNCTION — Line + Circle style
+   Clean, minimal junction for split and converge points
+   ════════════════════════════════════════════════════════════ */
+
+/* ── Base junction container ─────────────────────────────────── */
+.sw-branch-junction {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+/* ── Junction circle (accent color) ──────────────────────────── */
+.sw-branch-circle {
+  width: 6px;
+  height: 6px;
+  background: var(--track-accent);
+  border-radius: 50%;
+  box-shadow: 0 0 6px rgba(118,113,255,0.4);
+  flex-shrink: 0;
+  margin: 0 -1px;
+}
+
+/* ── Horizontal line ─────────────────────────────────────────── */
+.sw-branch-h-line {
+  width: 14px;
+  height: 2px;
+  background: var(--on-surface-muted);
+  opacity: 0.3;
+}
+
+/* ── Vertical lines container ────────────────────────────────── */
+.sw-branch-v-lines {
+  display: none;
+}
+
+/* ── Individual vertical line ────────────────────────────────── */
+.sw-branch-v-line {
+  display: none;
 }
 
 /* ── Track Container ────────────────────────────────── */
@@ -637,214 +695,174 @@
 }
 
 /* ════════════════════════════════════════════════════════════
-   PYTHON SPECIALIZATIONS — Y-fork → Web/Game columns → re-join → DB
+   TRACK BRANCHES — Split after main flow (Frontend/Backend, Web/Game)
+   Uses same bracket + dot style as main entry split
    ════════════════════════════════════════════════════════════ */
 
-/* ── Wrapper that holds the split + branches + rejoin + DB ── */
-.sw-python-branches {
-  margin-top: 8px;
+/* ── Wrapper below each intro container ──────────────────────── */
+.sw-track-branches {
+  margin-top: 4px;
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 100%;
 }
 
-/* ── Y-FORK: horizontal bar with two downward arrows ────── */
-.sw-spec-split {
-  position: relative;
-  display: flex;
-  justify-content: center;
-  width: 160px;
-  height: 20px;
-  margin-bottom: 0;
+/* ── Individual specialization container ─────────────────────── */
+.sw-spec-container {
+  background: rgba(118,113,255,0.03);
+  border: 1px solid rgba(118,113,255,0.08);
+  border-radius: var(--radius-md);
+  padding: 6px 10px;
+  flex: 1;
+  min-width: 0;
 }
-/* Horizontal bar */
-.sw-spec-split::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 20%;
-  right: 20%;
-  height: 2px;
-  background: var(--on-surface-muted);
-  opacity: 0.35;
+.sw-spec-container .sw-track-flow {
+  gap: 0;
 }
-/* Vertical stem feeding the bar from PS L2 */
-.sw-spec-split::after {
-  content: '';
-  position: absolute;
-  top: -10px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 2px;
-  height: 10px;
-  background: var(--on-surface-muted);
-  opacity: 0.35;
+.sw-spec-container .sw-track-header {
+  margin-bottom: 4px;
+  padding-bottom: 4px;
 }
 
-/* ── ROW OF BRANCHES side by side ──────────────────────── */
-.sw-spec-row {
-  display: flex;
-  gap: 16px;
-  justify-content: center;
-  width: 100%;
+/* ── Branch column label (kept for reference) ────────────────── */
+.sw-branch-col-label {
+  font-family: var(--font-heading);
+  font-size: 0.55em;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 2px 10px;
+  border-radius: 100px;
+  color: white;
+  margin-bottom: 5px;
+  white-space: nowrap;
+}
+.sw-branch-frontend { background: #1565c0; }
+.sw-branch-backend  { background: #6a1b9a; }
+.sw-branch-pyweb    { background: #2e7d32; }
+.sw-branch-gamedev  { background: #e65100; }
+
+/* ── Backend node variant ───────────────────────────────────── */
+.sw-node-backend {
+  border-color: #6a1b9a;
+  box-shadow: 0 2px 8px rgba(106,27,154,0.1);
 }
 
-/* ── Each branch column ─────────────────────────────────── */
-.sw-spec-branch {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  flex-shrink: 0;
+/* ── Game Dev node variant ──────────────────────────────────── */
+.sw-node-gamedev {
+  border-color: #e65100;
+  box-shadow: 0 2px 8px rgba(230,81,0,0.1);
 }
 
-/* ── Entry arrow (short stub + arrowhead) into each branch ── */
-.sw-spec-branch-entry {
-  width: 2px;
-  height: 14px;
-  background: var(--on-surface-muted);
-  opacity: 0.35;
-  position: relative;
-  margin-bottom: 2px;
-}
-.sw-spec-branch-entry::after {
-  content: '';
-  position: absolute;
-  bottom: -4px;
-  left: -3px;
-  width: 0;
-  height: 0;
-  border-left: 4px solid transparent;
-  border-right: 4px solid transparent;
-  border-top: 5px solid var(--on-surface-muted);
-  opacity: 0.35;
+/* ── Backend track variant ──────────────────────────────────── */
+.sw-track-backend {
+  background: rgba(106,27,154,0.03);
+  border-color: rgba(106,27,154,0.1);
 }
 
-/* ── Branch tail (downward stub from last node before rejoin) */
-.sw-spec-branch-tail {
-  width: 2px;
-  height: 14px;
-  background: var(--on-surface-muted);
-  opacity: 0.35;
-  margin-top: 2px;
+/* ── Game Dev track variant ─────────────────────────────────── */
+.sw-track-gamedev {
+  background: rgba(230,81,0,0.03);
+  border-color: rgba(230,81,0,0.1);
 }
 
-/* ── UPSIDE-DOWN Y RE-JOIN ─────────────────────────────── */
-.sw-spec-rejoin {
-  position: relative;
-  display: flex;
-  justify-content: center;
-  width: 160px;
-  height: 20px;
-  margin-top: 0;
-}
-/* Horizontal bar */
-.sw-spec-rejoin::before {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 20%;
-  right: 20%;
-  height: 2px;
-  background: var(--on-surface-muted);
-  opacity: 0.35;
-}
-/* Downward stem from bar to DB section */
-.sw-spec-rejoin::after {
-  content: '';
-  position: absolute;
-  bottom: -10px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 2px;
-  height: 10px;
-  background: var(--on-surface-muted);
-  opacity: 0.35;
-}
-
-/* ── Spec node card sizing ──────────────────────────────── */
-.sw-node-spec {
-  min-width: 85px;
-  padding: 8px 10px 6px;
-}
-.sw-node-spec .sw-node-name {
-  font-size: 0.68em;
+/* ── Database track variant ─────────────────────────────────── */
+.sw-track-database {
+  background: rgba(0,137,123,0.03);
+  border-color: rgba(0,137,123,0.1);
 }
 
 /* ════════════════════════════════════════════════════════════
-   CONVERGENCE ZONE — below both tracks, DB nodes with connectors
+   CONVERGENCE ZONE — Backend + Python Web → shared Database column
    ════════════════════════════════════════════════════════════ */
 
-/* Outer wrapper placed as a sibling of .sw-tracks inside .sw-tree */
-.sw-convergence-outer {
+/* ── Outer wrapper (sibling of .sw-col in .sw-tree) ──────────── */
+.sw-convergence-zone {
   display: flex;
   flex-direction: column;
   align-items: center;
   flex-shrink: 0;
-  padding-left: 8px;
+  padding-left: 6px;
 }
 
-/* Horizontal bar connecting the two incoming lines */
-.sw-conv-bar {
-  position: relative;
-  height: 20px;
-  width: 120px;
+/* ── Connector visual: two stubs → horizontal bar → stem down ── */
+.sw-conv-connector {
   display: flex;
-  align-items: flex-start;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  width: 80px;
+  height: 40px;
 }
-/* Horizontal line spanning both branch entry points */
-.sw-conv-bar::before {
+
+/* Top stubs (two vertical lines feeding into the bar) */
+.sw-conv-stub-top {
+  position: relative;
+  width: 100%;
+  height: 14px;
+}
+/* Left stub (from Backend) */
+.sw-conv-stub-top::before {
   content: '';
   position: absolute;
   top: 0;
-  left: 10%;
-  right: 10%;
-  height: 2px;
+  left: 15%;
+  width: 2px;
+  height: 100%;
   background: var(--on-surface-muted);
-  opacity: 0.32;
+  opacity: 0.3;
 }
-/* Left stub going up (from Python Web 2) */
-.sw-conv-bar::after {
+/* Right stub (from Python Web) */
+.sw-conv-stub-top::after {
   content: '';
   position: absolute;
-  top: -14px;
-  left: 10%;
+  top: 0;
+  right: 15%;
   width: 2px;
-  height: 14px;
+  height: 100%;
   background: var(--on-surface-muted);
-  opacity: 0.32;
+  opacity: 0.3;
 }
 
-/* Right stub (from Frontend track) - separate element */
-.sw-conv-bar-right {
-  position: absolute;
-  top: -14px;
-  right: 10%;
-  width: 2px;
-  height: 14px;
+/* Horizontal bar connecting both stubs */
+.sw-conv-horizontal-bar {
+  width: 100%;
+  height: 2px;
   background: var(--on-surface-muted);
-  opacity: 0.32;
+  opacity: 0.3;
 }
 
-/* Downward stem from horizontal bar to DB 1 */
-.sw-conv-stem {
+/* Downward stem from bar to Database 1 */
+.sw-conv-stem-down {
   width: 2px;
-  height: 12px;
+  height: 10px;
   background: var(--on-surface-muted);
-  opacity: 0.32;
+  opacity: 0.3;
 }
 
-/* Stacked DB column */
+/* ── Database column ─────────────────────────────────────────── */
 .sw-conv-db-col {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
+/* ── Database node (shared by both tracks) ───────────────────── */
+.sw-node-database {
+  border-color: #00897b;
+  background: linear-gradient(135deg, rgba(0,137,123,0.08), rgba(0,137,123,0.02));
+  box-shadow: 0 2px 12px rgba(0,137,123,0.15);
+}
+.sw-node-database .sw-node-name,
+.sw-node-database .sw-node-icon,
+.sw-node-database .sw-node-level {
+  color: #00897b;
+}
+
 
 /* ════════════════════════════════════════════════════════════
-   CHECKPOINT NODE — Diamond decision shape
+   CHECKPOINT NODE — Diamond decision shape (kept for reuse)
    ════════════════════════════════════════════════════════════ */
 
 .sw-checkpoint {
@@ -916,144 +934,7 @@
   transform: translateX(-50%);
 }
 
-/* Branches from checkpoint */
-.sw-checkpoint-branches {
-  display: flex;
-  justify-content: center;
-  gap: 16px;
-  margin-top: 12px;
-  position: relative;
-}
-.sw-checkpoint-branches::before {
-  content: '';
-  position: absolute;
-  top: -12px;
-  left: calc(50% - 100px);
-  width: 200px;
-  height: 2px;
-  background: var(--on-surface-muted);
-  opacity: 0.3;
-}
-.sw-branch-down {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-.sw-branch-down-line {
-  width: 2px;
-  height: 12px;
-  background: var(--on-surface-muted);
-  opacity: 0.3;
-}
-
-/* Kit color variants */
-.sw-node-ev3 {
-  border-color: #1976d2;
-  box-shadow: 0 2px 8px rgba(25,118,210,0.1);
-}
-.sw-node-electronics {
-  border-color: #9c27b0;
-  box-shadow: 0 2px 8px rgba(156,39,176,0.1);
-}
-.sw-node-database {
-  border-color: #00897b;
-  background: linear-gradient(135deg, rgba(0,137,123,0.08), rgba(0,137,123,0.02));
-  box-shadow: 0 2px 12px rgba(0,137,123,0.15);
-}
-.sw-node-database .sw-node-name,
-.sw-node-database .sw-node-icon,
-.sw-node-database .sw-node-level {
-  color: #00897b;
-}
-
-/* ════════════════════════════════════════════════════════════
-   CONVERGENCE ZONE — Database node with connecting lines
-   ════════════════════════════════════════════════════════════ */
-
-.sw-convergence {
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
-  margin-top: 10px;
-  padding-top: 8px;
-  position: relative;
-}
-
-/* Left connector (from Frontend track) */
-.sw-converge-left {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100px;
-  margin-right: -8px;
-}
-
-.sw-converge-left .sw-converge-vertical {
-  width: 2px;
-  height: 20px;
-  background: var(--on-surface-muted);
-  opacity: 0.4;
-}
-
-.sw-converge-left .sw-converge-horizontal {
-  width: 60px;
-  height: 2px;
-  background: var(--on-surface-muted);
-  opacity: 0.4;
-}
-
-/* Right connector (from Python Web track) */
-.sw-converge-right {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100px;
-  margin-left: -8px;
-}
-
-.sw-converge-right .sw-converge-vertical {
-  width: 2px;
-  height: 20px;
-  background: var(--on-surface-muted);
-  opacity: 0.4;
-}
-
-.sw-converge-right .sw-converge-horizontal {
-  width: 60px;
-  height: 2px;
-  background: var(--on-surface-muted);
-  opacity: 0.4;
-}
-
-/* Database node */
-.sw-database-node {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  flex-shrink: 0;
-  z-index: 2;
-  position: relative;
-}
-
-.sw-database-node::before {
-  content: '';
-  position: absolute;
-  top: -10px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 2px;
-  height: 10px;
-  background: var(--on-surface-muted);
-  opacity: 0.4;
-}
-
-.sw-database-node .sw-node-card {
-  min-width: 100px;
-  padding: 12px 16px 10px;
-  border-width: 2px;
-}
-
-/* Vertical arrow down from tracks */
+/* ── Vertical arrow down from tracks ────────────────────── */
 .sw-flow-arrow-down {
   width: 2px;
   height: 14px;
@@ -1084,11 +965,11 @@
     gap: 4px !important;
   }
   .sw-node-card {
-    min-width: 60px;
-    padding: 8px 10px 6px;
+    min-width: 70px;
+    padding: 10px 12px 8px;
   }
   .sw-node-logo {
-    height: 18px;
+    height: 24px;
   }
   .sw-node-name {
     font-size: 0.65em;
@@ -1107,14 +988,14 @@
     flex-wrap: nowrap;
   }
   .sw-node-card {
-    min-width: 55px;
-    padding: 6px 8px 5px;
+    min-width: 60px;
+    padding: 8px 10px 6px;
   }
   .sw-node-logo {
-    height: 16px;
+    height: 20px;
   }
   .sw-node-logo-sm {
-    height: 14px;
+    height: 16px;
   }
   .sw-node-name {
     font-size: 0.6em;
@@ -1126,11 +1007,11 @@
     font-size: 0.45em;
     padding: 2px 6px;
   }
-  .sw-branch-split {
-    width: 12px;
+  .sw-col-branch {
+    width: 24px;
   }
-  .sw-branch-line {
-    width: 12px;
+  .sw-col-branches {
+    width: 24px;
   }
 }
 
@@ -1143,25 +1024,22 @@
     justify-content: center;
     gap: 6px;
   }
-  .sw-branch-split {
-    width: 100%;
-    height: 20px;
-    flex-direction: row;
+  .sw-col-branch,
+  .sw-col-branches {
+    display: none;
   }
-  .sw-branch-line {
-    width: 100%;
-    height: 2px;
-    border: 2px solid var(--on-surface-muted);
-    border-top: none;
-    border-radius: 0 0 10px 10px;
+  .sw-tree-h {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
   }
-  .sw-branch-dot {
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+  .sw-tree-h .sw-col {
+    flex: 1 1 100%;
+    min-width: 200px;
   }
-  .sw-tracks {
-    flex-direction: column;
+  .sw-tree-h .sw-col-branch,
+  .sw-tree-h .sw-col-branches {
+    display: none;
   }
   .sw-track-flow {
     flex-wrap: wrap;
@@ -1172,9 +1050,9 @@
   .sw-flow-arrow-split {
     display: none;
   }
-  .sw-spec-row {
-    padding-left: 0;
-    justify-content: center;
+  .sw-spec-container {
+    width: 100%;
+    max-width: 300px;
   }
 }
 
@@ -1205,10 +1083,5 @@
   .sw-node-label {
     font-size: 0.42em;
     padding: 1px 6px;
-  }
-  .sw-spec-row {
-    flex-direction: column;
-    align-items: center;
-    gap: 6px;
   }
 }
