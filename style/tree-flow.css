@@ -529,9 +529,12 @@
 /* ── Single branch between columns ───────────────────────────── */
 .sw-col-branch {
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  align-items: stretch;
+  align-self: stretch;
   justify-content: center;
   flex-shrink: 0;
+  min-width: 50px;
 }
 
 /* ── Two branches between columns (stacked) ──────────────────── */
@@ -539,8 +542,10 @@
   display: flex;
   flex-direction: column;
   gap: 12px;
-  align-items: center;
+  align-items: stretch;
+  align-self: stretch;
   flex-shrink: 0;
+  min-width: 50px;
 }
 
 /* ── Specification group (stacked vertically with subtle background) */
@@ -559,40 +564,57 @@
    Clean, minimal junction for split and converge points
    ════════════════════════════════════════════════════════════ */
 
-/* ── Base junction container ─────────────────────────────────── */
+/* ── Base junction container (cross/plus shape) ──────────────── */
 .sw-branch-junction {
+  position: relative;
   display: flex;
   align-items: center;
-  flex-shrink: 0;
+  justify-content: center;
+  flex: 1;
+  min-height: 40px;
 }
 
 /* ── Junction circle (accent color) ──────────────────────────── */
 .sw-branch-circle {
-  width: 6px;
-  height: 6px;
+  width: 8px;
+  height: 8px;
   background: var(--track-accent);
   border-radius: 50%;
   box-shadow: 0 0 6px rgba(118,113,255,0.4);
   flex-shrink: 0;
-  margin: 0 -1px;
+  z-index: 2;
+  position: relative;
 }
 
-/* ── Horizontal line ─────────────────────────────────────────── */
+/* ── Horizontal line (spans full width of junction) ──────────── */
 .sw-branch-h-line {
-  width: 14px;
+  position: absolute;
+  width: 100%;
   height: 2px;
   background: var(--on-surface-muted);
   opacity: 0.3;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
-/* ── Vertical lines container ────────────────────────────────── */
+/* ── Vertical lines container (spans full height) ────────────── */
 .sw-branch-v-lines {
-  display: none;
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
-/* ── Individual vertical line ────────────────────────────────── */
+/* ── Individual vertical line (each fills half the height) ───── */
 .sw-branch-v-line {
-  display: none;
+  display: block;
+  width: 2px;
+  flex: 1;
+  background: var(--on-surface-muted);
+  opacity: 0.3;
 }
 
 /* ── Track Container ────────────────────────────────── */
@@ -1008,10 +1030,10 @@
     padding: 2px 6px;
   }
   .sw-col-branch {
-    width: 24px;
+    min-width: 30px;
   }
   .sw-col-branches {
-    width: 24px;
+    min-width: 30px;
   }
 }
 
