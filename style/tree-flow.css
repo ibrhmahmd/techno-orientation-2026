@@ -174,35 +174,6 @@
   --i-size: 18px;
 }
 
-/* ── Flow Subgraph (dashed group container) ─────────── */
-.flow-subgraph {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background: rgba(118,113,255,0.06);
-  border: 1px dashed rgba(118,113,255,0.25);
-  border-radius: var(--radius-sm);
-  padding: 14px 8px 8px;
-  position: relative;
-}
-.flow-subgraph-label {
-  position: absolute;
-  top: -8px;
-  left: 10px;
-  background: inherit;
-  padding: 0 6px;
-  font-size: 0.55em;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: var(--track-accent);
-}
-.flow-subgraph-inner {
-  display: flex;
-  align-items: center;
-  gap: 0;
-}
-
 /* ── Timeline Tree (competition roadmap) ────────────── */
 .timeline-tree {
   display: grid;
@@ -243,62 +214,6 @@
 }
 .timeline-content:last-child {
   border-left-color: transparent;
-}
-
-/* ── Organic Tree (freeform positioned nodes) ────────── */
-.tree-organic {
-  position: relative;
-  width: 100%;
-  min-height: 380px;
-  padding-bottom: 20px;
-}
-.tree-organic .org-node {
-  position: absolute;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  z-index: 2;
-}
-.tree-organic .org-node .flow-node {
-  white-space: nowrap;
-}
-.tree-organic .org-node .org-detail {
-  font-size: 0.65em;
-  color: var(--on-surface-muted);
-  margin-top: 6px;
-  max-width: 170px;
-  line-height: 1.35;
-}
-.tree-organic svg.org-connectors {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 1;
-  pointer-events: none;
-}
-.tree-organic svg.org-connectors line {
-  stroke: var(--on-surface-muted);
-  stroke-width: 2;
-  stroke-dasharray: 8 4;
-  opacity: 0.4;
-}
-.tree-organic svg.org-connectors .conn-highlight {
-  stroke: var(--on-surface);
-  stroke-width: 2.5;
-  stroke-dasharray: 10 5;
-  opacity: 0.5;
-}
-
-/* ── Animated dashed connectors ──────────────────────── */
-@keyframes dash-flow {
-  to { stroke-dashoffset: -24; }
-}
-.tree-organic svg.org-connectors line,
-.tree-organic svg.org-connectors .conn-highlight {
-  animation: dash-flow 1.2s linear infinite;
 }
 
 /* ════════════════════════════════════════════════════════════
@@ -460,11 +375,6 @@
   white-space: nowrap;
 }
 .sw-node-level {
-  font-size: 0.48em;
-  color: var(--on-surface-muted);
-  margin-top: 1px;
-}
-.sw-node-sub {
   font-size: 0.48em;
   color: var(--on-surface-muted);
   margin-top: 1px;
@@ -693,42 +603,10 @@
   opacity: 0.3;
 }
 
-/* Split arrow for Python branching */
-.sw-flow-arrow-split {
-  width: 12px;
-  height: 2px;
-  background: var(--on-surface-muted);
-  opacity: 0.3;
-  position: relative;
-  margin: 0 2px;
-  flex-shrink: 0;
-}
-.sw-flow-arrow-split::after {
-  content: '';
-  position: absolute;
-  right: -3px;
-  top: -3px;
-  width: 0;
-  height: 0;
-  border-left: 5px solid var(--on-surface-muted);
-  border-top: 4px solid transparent;
-  border-bottom: 4px solid transparent;
-  opacity: 0.3;
-}
-
 /* ════════════════════════════════════════════════════════════
    TRACK BRANCHES — Split after main flow (Frontend/Backend, Web/Game)
    Uses same bracket + dot style as main entry split
    ════════════════════════════════════════════════════════════ */
-
-/* ── Wrapper below each intro container ──────────────────────── */
-.sw-track-branches {
-  margin-top: 4px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-}
 
 /* ── Individual specialization container ─────────────────────── */
 .sw-spec-container {
@@ -746,24 +624,6 @@
   margin-bottom: 4px;
   padding-bottom: 4px;
 }
-
-/* ── Branch column label (kept for reference) ────────────────── */
-.sw-branch-col-label {
-  font-family: var(--font-heading);
-  font-size: 0.55em;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  padding: 2px 10px;
-  border-radius: 100px;
-  color: white;
-  margin-bottom: 5px;
-  white-space: nowrap;
-}
-.sw-branch-frontend { background: #1565c0; }
-.sw-branch-backend  { background: #6a1b9a; }
-.sw-branch-pyweb    { background: #2e7d32; }
-.sw-branch-gamedev  { background: #e65100; }
 
 /* ── Backend node variant ───────────────────────────────────── */
 .sw-node-backend {
@@ -798,77 +658,6 @@
 /* ════════════════════════════════════════════════════════════
    CONVERGENCE ZONE — Backend + Python Web → shared Database column
    ════════════════════════════════════════════════════════════ */
-
-/* ── Outer wrapper (sibling of .sw-col in .sw-tree) ──────────── */
-.sw-convergence-zone {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  flex-shrink: 0;
-  padding-left: 6px;
-}
-
-/* ── Connector visual: two stubs → horizontal bar → stem down ── */
-.sw-conv-connector {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  position: relative;
-  width: 80px;
-  height: 40px;
-}
-
-/* Top stubs (two vertical lines feeding into the bar) */
-.sw-conv-stub-top {
-  position: relative;
-  width: 100%;
-  height: 14px;
-}
-/* Left stub (from Backend) */
-.sw-conv-stub-top::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 15%;
-  width: 2px;
-  height: 100%;
-  background: var(--on-surface-muted);
-  opacity: 0.3;
-}
-/* Right stub (from Python Web) */
-.sw-conv-stub-top::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  right: 15%;
-  width: 2px;
-  height: 100%;
-  background: var(--on-surface-muted);
-  opacity: 0.3;
-}
-
-/* Horizontal bar connecting both stubs */
-.sw-conv-horizontal-bar {
-  width: 100%;
-  height: 2px;
-  background: var(--on-surface-muted);
-  opacity: 0.3;
-}
-
-/* Downward stem from bar to Database 1 */
-.sw-conv-stem-down {
-  width: 2px;
-  height: 10px;
-  background: var(--on-surface-muted);
-  opacity: 0.3;
-}
-
-/* ── Database column ─────────────────────────────────────────── */
-.sw-conv-db-col {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
 
 /* ── Database node (shared by both tracks) ───────────────────── */
 .sw-node-database {
@@ -954,28 +743,6 @@
   background: var(--on-surface-muted);
   opacity: 0.3;
   transform: translateX(-50%);
-}
-
-/* ── Vertical arrow down from tracks ────────────────────── */
-.sw-flow-arrow-down {
-  width: 2px;
-  height: 14px;
-  background: var(--on-surface-muted);
-  opacity: 0.3;
-  position: relative;
-  margin: 2px auto 0;
-}
-.sw-flow-arrow-down::after {
-  content: '';
-  position: absolute;
-  bottom: -4px;
-  left: -3px;
-  width: 0;
-  height: 0;
-  border-left: 4px solid transparent;
-  border-right: 4px solid transparent;
-  border-top: 5px solid var(--on-surface-muted);
-  opacity: 0.3;
 }
 
 /* ────────────────────────────────────────────────────────────
@@ -1068,8 +835,7 @@
     justify-content: center;
     gap: 6px;
   }
-  .sw-flow-arrow,
-  .sw-flow-arrow-split {
+  .sw-flow-arrow {
     display: none;
   }
   .sw-spec-container {
@@ -1098,8 +864,7 @@
   .sw-node-name {
     font-size: 0.6em;
   }
-  .sw-node-level,
-  .sw-node-sub {
+  .sw-node-level {
     font-size: 0.38em;
   }
   .sw-node-label {

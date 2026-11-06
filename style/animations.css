@@ -20,6 +20,4 @@
 
 @media (prefers-reduced-motion: reduce) {
   .reveal { opacity: 1; transform: none; transition: none; }
-  .tree-organic svg.org-connectors line,
-  .tree-organic svg.org-connectors .conn-highlight { animation: none; }
 }
