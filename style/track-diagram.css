@@ -140,9 +140,10 @@
 
 /* ════════════════════════════════════════════════════════════
    TRACK GRID (s06, s07) — swim-lane grid
-   Lanes and connector cells are placed by grid area. The four
-   rows are equal (1fr) with no row gap, so every row boundary is
-   a lane centre and the bracket pieces can use 50% / 0 / 100%.
+   Lanes and connector cells are placed by grid area. The rows are
+   equal (1fr) with no row gap and each lane spans two of them, so
+   lane centres sit on row lines and the bracket pieces can use
+   50% / 0 / 100%.
    ════════════════════════════════════════════════════════════ */
 
 /* ── Main Tree Container ──── */
@@ -157,13 +158,20 @@
 .track-tree.track-tree-grid {
   --track-line: color-mix(in srgb, var(--on-surface-muted) 35%, transparent);
   display: grid;
-  grid-template-columns: auto 40px auto minmax(40px, 1fr) auto 40px auto 40px auto;
-  grid-template-rows: repeat(4, 1fr);
+  /* Columns 10–11: the competition splits (s4 Database, s5 Game & Story) and cards.
+     Row 9 holds the lower half of the last card. */
+  grid-template-columns: auto 40px auto minmax(40px, 1fr) auto 40px auto 40px auto 40px auto;
+  grid-template-rows: repeat(9, 1fr);
   grid-template-areas:
-    "entry s1a web  web  web  s2a fe    .  .  "
-    "entry s1a web  web  web  s2b be    ma db "
-    "entry s1b prog s3a  ps   arr pyweb mb db "
-    "entry s1b prog s3b  game game game game game";
+    "entry s1a web  web  web  s2a fe    .    .    .   comp"
+    "entry s1a web  web  web  s2a fe    .    .    .   comp"
+    "entry s1a web  web  web  s2b be    ma   db   .   comp"
+    "entry s1a web  web  web  s2b be    ma   db   s4a comp"
+    "entry s1b prog s3a  ps   arr pyweb mb   db   s4b comp"
+    "entry s1b prog s3a  ps   arr pyweb mb   db   .   comp"
+    "entry s1b prog s3b  game game game game game s5a comp"
+    "entry s1b prog s3b  game game game game game s5b comp"
+    ".     .   .    .    .    .   .     .    .    .   comp";
   gap: 0;
   align-items: stretch; /* connector cells fill their rows */
   width: max-content; /* real width, so fitSlides scales it */
@@ -176,7 +184,7 @@
 .track-at-prog  { grid-area: prog; }
 .track-at-ps    { grid-area: ps; }
 .track-at-pyweb { grid-area: pyweb; }
-.track-at-game  { grid-area: game; justify-self: start; }
+.track-at-game  { grid-area: game; }
 .track-at-db    { grid-area: db; }
 .track-at-s1a { grid-area: s1a; }
 .track-at-s1b { grid-area: s1b; }
@@ -187,6 +195,19 @@
 .track-at-ma  { grid-area: ma; }
 .track-at-mb  { grid-area: mb; }
 .track-at-arr { grid-area: arr; }
+.track-at-s4a { grid-area: s4a; }
+.track-at-s4b { grid-area: s4b; }
+.track-at-s5a { grid-area: s5a; }
+.track-at-s5b { grid-area: s5b; }
+/* Competition cards: each spans the two rows around the line it is centred on
+   (Database splits on line 5, Game & Story on line 8). */
+.track-at-c1 { grid-area: 3 / comp / 5 / comp; }
+.track-at-c2 { grid-area: 4 / comp / 6 / comp; }
+.track-at-c3 { grid-area: 5 / comp / 7 / comp; }
+.track-at-c4 { grid-area: 6 / comp / 8 / comp; }
+.track-at-c5 { grid-area: 7 / comp / 9 / comp; }
+.track-at-c6 { grid-area: 8 / comp / 10 / comp; }
+:is(.track-at-c1, .track-at-c2, .track-at-c3, .track-at-c4, .track-at-c5, .track-at-c6) { align-self: center; }
 /* Robotics (s07): Foundation → Checkpoint → 3-way split. Each lane spans
    2 of 6 equal rows, so lane centres sit on lines 1, 3, 5 and the split
    point (line 3) is the middle lane's centre. */
@@ -265,10 +286,12 @@
   box-shadow: 0 0 6px rgba(118,113,255,0.4);
 }
 .track-merge-bottom::after { left: calc(50% - 5px); }
-/* 3-way split over two 3-row cells: elbows at the outer lane centres (1/3 in),
-   and the stub runs straight on into the middle lane. */
+/* 3-way split: the stub runs straight on into the middle lane and the elbows sit
+   at the outer lane centres — 1/3 in for s07's 3-row cells, at the far edge for
+   s06's 1-row cells (s4, s5). */
 .track-split-3 { --track-elbow: calc(100% / 3); }
 .track-split-top.track-split-3::after { width: 100%; }
+:is(.track-at-s4a, .track-at-s4b, .track-at-s5a, .track-at-s5b) { --track-elbow: 0%; }
 
 /* ── Lane (tint follows --track-color) ──────────────── */
 .track-lane {
@@ -332,6 +355,10 @@
   align-items: stretch;
   flex-shrink: 0;
 }
+
+/* Spread: cards span the lane's full width; the arrows grow (from 14px) to fill it. */
+.track-flow-spread > .track-flow-node:has(> .track-flow-arrow) { flex: 1; }
+.track-flow-spread .track-flow-arrow { flex: 1 0 14px; }
 
 /* ── Flow Arrow ─────────────────────────────────────── */
 .track-flow-arrow {
