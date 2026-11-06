@@ -105,28 +105,11 @@ async function loadSlides() {
     
     // Build navigation dots
     const slides = container.querySelectorAll('.slide');
-    const totalSlides = slides.length;
     slides.forEach((slide, i) => {
       const link = document.createElement('a');
       link.href = `#${slide.id}`;
       link.setAttribute('aria-label', `Slide ${i + 1}`);
       nav.appendChild(link);
-    });
-
-    // Dynamic page numbering — remove all hardcoded slide-number spans
-    // then re-inject with correct X / Y values (title slide s1 gets no number)
-    slides.forEach((slide, i) => {
-      // Remove any hardcoded slide-number element
-      const existing = slide.querySelector('.slide-number');
-      if (existing) existing.remove();
-
-      // Skip the title slide
-      if (slide.id === 's1') return;
-
-      const numEl = document.createElement('span');
-      numEl.className = 'slide-number';
-      numEl.textContent = `${i + 1} / ${totalSlides}`;
-      slide.appendChild(numEl);
     });
     
     // Hide loading, show slides

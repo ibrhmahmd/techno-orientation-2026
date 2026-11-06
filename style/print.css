@@ -37,8 +37,7 @@
 
   /* ── Hide interactive UI elements ───────────────────── */
   .slide-nav,
-  .keyboard-hint,
-  .slide-number { display: none !important; }
+  .keyboard-hint { display: none !important; }
 
   /* ── Make reveal elements always visible ────────────── */
   .reveal,

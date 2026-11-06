@@ -72,7 +72,7 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  /* Top pad clears logo slots (42px slot + 16px top + 4px gap = 62px → 68px) */
+  /* Top pad clears logo slots (28px slot + 16px top = 44px; 52px leaves a gap) */
   padding: calc(var(--slide-padding-y) + 52px) var(--slide-padding-x) calc(var(--slide-padding-y) + 28px);
   position: relative;
   overflow: hidden;
@@ -108,20 +108,6 @@ body {
   z-index: 1;
   pointer-events: none;
   opacity: 0.4;
-}
-
-/* Slide number — bottom right, minimal */
-.slide-number {
-  position: absolute;
-  bottom: 20px;
-  right: 24px;
-  font-family: var(--font-heading);
-  font-size: 0.65em;
-  font-weight: 500;
-  color: var(--on-surface-muted);
-  opacity: 0.45;
-  z-index: 2;
-  letter-spacing: 0.05em;
 }
 
 /* ── Content (Full Width, JS auto-scale handles overflow) */

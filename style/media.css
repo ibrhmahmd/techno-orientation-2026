@@ -6,8 +6,8 @@
 /* ── Logo Slots (placeholder zones for academy logos) */
 .logo-slot {
   position: absolute;
-  width: 72px;
-  height: 42px;
+  width: auto;
+  height: 28px; /* wide 5:1 logo: fixed height, width follows the image */
   border: 1.5px dashed var(--on-surface-subtle);
   opacity: 0.3;
   border-radius: 4px;
@@ -25,19 +25,17 @@
   overflow: hidden;
 }
 .logo-slot img {
-  width: 100%;
+  width: auto;
   height: 100%;
-  object-fit: contain;
   border: none;
   opacity: 1;
-  padding: 4px;
-  box-sizing: border-box;
 }
 .logo-slot:hover { opacity: 0.6; }
 .logo-slot:has(img) { opacity: 1; border: none; }
 .logo-slot.top-left   { top: 16px; left: 20px; }
 .logo-slot.top-right  { top: 16px; right: 20px; }
 .logo-slot.bottom-ctr { bottom: 56px; left: 50%; transform: translateX(-50%); }
+@media (max-width: 600px) { .logo-slot { height: 20px; } }
 
 /* ── Image Slot (competition photos) ────────────────── */
 .image-slot {
