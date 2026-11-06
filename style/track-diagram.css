@@ -103,17 +103,27 @@
   margin-bottom: 2px;
   object-fit: contain;
 }
-/* Inline line icon; stroke follows the card colour. Sized like .track-node-logo-sm. */
-.track-node-svg {
+/* Line icon drawn as a mask so it takes the card colour. Sized like .track-node-logo-sm.
+   Not inline SVG: Live Server injects its script before every </svg> and truncates the slide. */
+.track-icon {
+  display: inline-block;
   height: 24px;
   aspect-ratio: 1;
   margin-bottom: 2px;
-  fill: none;
-  stroke: var(--track-color);
-  stroke-width: 2;
-  stroke-linecap: round;
-  stroke-linejoin: round;
+  background-color: var(--track-color);
+  -webkit-mask: var(--icon) center / contain no-repeat;
+  mask: var(--icon) center / contain no-repeat;
 }
+.track-icon-rocket { --icon: url("../assets/icons/rocket.svg"); }
+.track-icon-puzzle { --icon: url("../assets/icons/puzzle.svg"); }
+.track-icon-book   { --icon: url("../assets/icons/book.svg"); }
+.track-icon-layout { --icon: url("../assets/icons/layout.svg"); }
+.track-icon-truck  { --icon: url("../assets/icons/truck.svg"); }
+.track-icon-zap    { --icon: url("../assets/icons/zap.svg"); }
+.track-icon-map    { --icon: url("../assets/icons/map.svg"); }
+.track-icon-wrench { --icon: url("../assets/icons/wrench.svg"); }
+.track-icon-cpu    { --icon: url("../assets/icons/cpu.svg"); }
+.track-icon-scale  { --icon: url("../assets/icons/scale.svg"); }
 .track-node-name {
   font-family: var(--font-heading);
   font-weight: 600;
@@ -384,16 +394,12 @@
   color: white;
   font-weight: 700;
 }
-/* 1em box = the old glyph size; stroke follows the white text colour. */
-.track-checkpoint-svg {
+/* 1em box = the old glyph size; follows the white text colour. */
+.track-checkpoint-icon .track-icon {
   display: block;
   height: 1em;
-  aspect-ratio: 1;
-  fill: none;
-  stroke: currentColor;
-  stroke-width: 2;
-  stroke-linecap: round;
-  stroke-linejoin: round;
+  margin-bottom: 0;
+  background-color: currentColor;
 }
 .track-checkpoint-caption {
   position: absolute;
@@ -481,7 +487,7 @@
     height: 20px;
   }
   .track-node-logo-sm,
-  .track-node-svg {
+  .track-icon {
     height: 16px;
   }
   .track-node-name {
@@ -508,7 +514,7 @@
     height: 16px;
   }
   .track-node-logo-sm,
-  .track-node-svg {
+  .track-icon {
     height: 12px;
   }
   .track-node-name {
