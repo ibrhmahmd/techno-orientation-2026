@@ -1,28 +1,22 @@
-/* track-diagram.css — Track diagram module (.sw-*), shared by the Software (s06) and Robotics (s07) slides. */
+/* track-diagram.css — Track diagram module (.track-*), shared by the Software (s06) and Robotics (s07) slides. */
 /* ════════════════════════════════════════════════════════════
    SOFTWARE TRACK — Shared styles
    Entry sequence, node cards, track containers
    ════════════════════════════════════════════════════════════ */
 
-/* Scale track flows to fit */
-.sw-track-flow {
-  flex-wrap: nowrap;
-  overflow: hidden;
-}
-
 /* ── Entry Sequence (Linear: Scratch Jr → Scratch → PictoBlox) */
-.sw-entry-sequence {
+.track-entry-sequence {
   display: flex;
   align-items: center;
   gap: 4px;
   flex-shrink: 0;
 }
-.sw-entry-node {
+.track-entry-node {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
-.sw-entry-arrow {
+.track-entry-arrow {
   width: 16px;
   height: 2px;
   background: var(--on-surface-muted);
@@ -31,7 +25,7 @@
   margin: 0 2px;
   flex-shrink: 0;
 }
-.sw-entry-arrow::after {
+.track-entry-arrow::after {
   content: '';
   position: absolute;
   right: -3px;
@@ -43,7 +37,7 @@
   border-bottom: 4px solid transparent;
   opacity: 0.3;
 }
-.sw-node-label {
+.track-node-label {
   font-size: 0.52em;
   font-weight: 600;
   text-transform: uppercase;
@@ -52,36 +46,12 @@
   padding: 2px 8px;
   border-radius: 100px;
   color: white;
-}
-
-/* Node color variants by level */
-.sw-node-discovery {
-  border-color: #8b5cf6;
-  box-shadow: 0 2px 10px rgba(139,92,246,0.15);
-}
-.sw-node-discovery + .sw-node-label,
-.sw-entry-node:has(.sw-node-discovery) .sw-node-label {
-  background: #8b5cf6;
-}
-
-.sw-node-foundation {
-  border-color: #006a61;
-  box-shadow: 0 2px 10px rgba(0,106,97,0.15);
-}
-.sw-entry-node:has(.sw-node-foundation) .sw-node-label {
-  background: #006a61;
-}
-
-.sw-node-bridge {
-  border-color: #e65100;
-  box-shadow: 0 2px 10px rgba(230,81,0,0.15);
-}
-.sw-entry-node:has(.sw-node-bridge) .sw-node-label {
-  background: #e65100;
+  background: var(--track-color);
 }
 
 /* ── Node Card (shared) ─────────────────────────────── */
-.sw-node-card {
+/* Border, glow, label, tag and dot colours all read --track-color. */
+.track-node-card {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -90,66 +60,82 @@
   padding: 12px 14px 10px;
   border-radius: var(--radius-md);
   background: var(--surface-container-lowest);
-  border: 2px solid transparent;
+  border: 2px solid var(--track-color, transparent);
   box-shadow: 0 2px 8px rgba(11,28,48,0.06);
   transition: all 0.2s ease;
   position: relative;
 }
-.sw-node-card:hover {
+.track-node-card:hover {
   transform: translateY(-2px);
   box-shadow: 0 6px 20px rgba(11,28,48,0.1);
 }
 
-/* Node variants by track */
-.sw-node-web {
-  border-color: #1565c0;
-  box-shadow: 0 2px 8px rgba(21,101,192,0.1);
+/* ── Colour variants: each sets only --track-color ──── */
+/* Put on a card, or on a wrapper so card/label/tags/dots inherit it. */
+.track-node-web         { --track-color: #1565c0; }
+.track-node-python      { --track-color: #2e7d32; }
+.track-node-problem     { --track-color: #e65100; }
+.track-node-backend     { --track-color: #6a1b9a; }
+.track-node-gamedev     { --track-color: #e65100; }
+.track-node-project     { --track-color: #7c4dff; }
+.track-node-database    { --track-color: #00897b; }
+.track-node-wedo        { --track-color: #7c4dff; }
+.track-node-spike-ess   { --track-color: #00c853; }
+.track-node-ev3         { --track-color: #1976d2; }
+.track-node-spike-prime { --track-color: #388e3c; }
+.track-node-electronics { --track-color: #9c27b0; }
+.track-node-arduino     { --track-color: #ff6d00; }
+
+/* ── Glow (coloured shadow) ─────────────────────────── */
+/* Flow nodes: soft. :where keeps 0,1,0 so the per-variant rules below can override it. */
+:where(.track-flow-node) > .track-node-card {
+  box-shadow: 0 2px 8px color-mix(in srgb, var(--track-color) 10%, transparent);
 }
-.sw-node-python {
-  border-color: #2e7d32;
-  box-shadow: 0 2px 8px rgba(46,125,50,0.1);
+/* Labelled entry nodes (kits): strong; beats :hover, like the inline style it replaced. */
+.track-entry-node:has(> .track-node-label) > .track-node-card {
+  box-shadow: 0 2px 10px color-mix(in srgb, var(--track-color) 15%, transparent);
 }
-.sw-node-problem {
-  border-color: #e65100;
-  box-shadow: 0 2px 8px rgba(230,81,0,0.1);
+
+/* ── Per-variant overrides (differ in more than colour) ── */
+.track-node-project,
+.track-node-database {
+  background: linear-gradient(135deg, color-mix(in srgb, var(--track-color) 8%, transparent), color-mix(in srgb, var(--track-color) 2%, transparent));
+  box-shadow: 0 2px 10px color-mix(in srgb, var(--track-color) 15%, transparent);
 }
-.sw-node-project {
-  border-color: #7c4dff;
-  background: linear-gradient(135deg, rgba(124,77,255,0.08), rgba(124,77,255,0.02));
-  box-shadow: 0 2px 10px rgba(124,77,255,0.15);
+.track-node-database {
+  box-shadow: 0 2px 12px color-mix(in srgb, var(--track-color) 15%, transparent);
 }
-.sw-node-project .sw-node-name,
-.sw-node-project .sw-node-icon,
-.sw-node-project .sw-node-level {
-  color: #7c4dff;
+:is(.track-node-project, .track-node-database) :is(.track-node-name, .track-node-icon, .track-node-level) {
+  color: var(--track-color);
 }
-.sw-node-final {
+/* Dark capstone node: keeps its parent variant's glow, own border/text colour. */
+.track-node-final {
   background: linear-gradient(135deg, #0a0e1a, #131b2e);
   border-color: #7671ff;
 }
-.sw-node-final .sw-node-name,
-.sw-node-final .sw-node-icon,
-.sw-node-final .sw-node-level {
+.track-node-final .track-node-name,
+.track-node-final .track-node-icon,
+.track-node-final .track-node-level {
   color: #7671ff;
 }
 
 /* ── Node Content ────────────────────────────────────── */
-.sw-node-logo {
+.track-node-logo {
   height: 30px;
   margin-bottom: 3px;
   object-fit: contain;
 }
-.sw-node-logo-sm {
+.track-node-logo-sm {
   height: 24px;
   margin-bottom: 2px;
   object-fit: contain;
 }
-.sw-node-icon {
+.track-node-icon {
   font-size: 1.1em;
   margin-bottom: 1px;
   line-height: 1;
 }
-.sw-node-name {
+.track-node-name {
   font-family: var(--font-heading);
   font-weight: 600;
   font-size: 0.72em;
@@ -157,7 +143,7 @@
   line-height: 1.15;
   white-space: nowrap;
 }
-.sw-node-level {
+.track-node-level {
   font-size: 0.48em;
   color: var(--on-surface-muted);
   margin-top: 1px;
@@ -169,7 +155,7 @@
    ════════════════════════════════════════════════════════════ */
 
 /* ── Main Tree Container (vertical by default) ────────────────── */
-.sw-tree {
+.track-tree {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -182,7 +168,7 @@
 }
 
 /* ── Horizontal modifier (4-column layout) ───────────────────── */
-.sw-tree.sw-tree-h {
+.track-tree.track-tree-h {
   flex-direction: row;
   align-items: center;
   gap: 2px;
@@ -190,7 +176,7 @@
 }
 
 /* ── Column (vertical flex) ──────────────────────────────────── */
-.sw-col {
+.track-col {
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -200,27 +186,27 @@
 }
 
 /* ── Column: Entry courses ───────────────────────────────────── */
-.sw-col-entry {
+.track-col-entry {
   flex: 0 0 auto;
 }
 
 /* ── Column: Intro containers ────────────────────────────────── */
-.sw-col-intro {
+.track-col-intro {
   gap: 12px;
 }
 
 /* ── Column: Specializations ─────────────────────────────────── */
-.sw-col-spec {
+.track-col-spec {
   gap: 12px;
 }
 
 /* ── Column: Database ────────────────────────────────────────── */
-.sw-col-db {
+.track-col-db {
   flex: 0 0 auto;
 }
 
 /* ── Single branch between columns ───────────────────────────── */
-.sw-col-branch {
+.track-col-branch {
   display: flex;
   flex-direction: column;
   align-items: stretch;
@@ -231,7 +217,7 @@
 }
 
 /* ── Two branches between columns (stacked) ──────────────────── */
-.sw-col-branches {
+.track-col-branches {
   display: flex;
   flex-direction: column;
   gap: 12px;
@@ -242,7 +228,7 @@
 }
 
 /* ── Specification group (stacked vertically with subtle background) */
-.sw-spec-group {
+.track-spec-group {
   display: flex;
   flex-direction: column;
   gap: 6px;
@@ -258,7 +244,7 @@
    ════════════════════════════════════════════════════════════ */
 
 /* ── Base junction container (cross/plus shape) ──────────────── */
-.sw-branch-junction {
+.track-branch-junction {
   position: relative;
   display: flex;
   align-items: center;
@@ -268,7 +254,7 @@
 }
 
 /* ── Junction circle (accent color) ──────────────────────────── */
-.sw-branch-circle {
+.track-branch-circle {
   width: 8px;
   height: 8px;
   background: var(--track-accent);
@@ -280,7 +266,7 @@
 }
 
 /* ── Horizontal line (spans full width of junction) ──────────── */
-.sw-branch-h-line {
+.track-branch-h-line {
   position: absolute;
   width: 100%;
   height: 2px;
@@ -291,7 +277,7 @@
 }
 
 /* ── Vertical lines container (spans full height) ────────────── */
-.sw-branch-v-lines {
+.track-branch-v-lines {
   display: flex;
   flex-direction: column;
   position: absolute;
@@ -302,7 +288,7 @@
 }
 
 /* ── Individual vertical line (each fills half the height) ───── */
-.sw-branch-v-line {
+.track-branch-v-line {
   display: block;
   width: 2px;
   flex: 1;
@@ -311,7 +297,7 @@
 }
 
 /* ── Track Container ────────────────────────────────── */
-.sw-track {
+.track-lane {
   background: rgba(118,113,255,0.03);
   border: 1px solid rgba(118,113,255,0.08);
   border-radius: var(--radius-md);
@@ -319,7 +305,7 @@
 }
 
 /* ── Track Header ────────────────────────────────────── */
-.sw-track-header {
+.track-header {
   display: flex;
   align-items: center;
   gap: 6px;
@@ -327,7 +313,7 @@
   padding-bottom: 5px;
   border-bottom: 1px solid rgba(118,113,255,0.08);
 }
-.sw-track-icon {
+.track-icon {
   font-size: 0.95em;
   width: 22px;
   height: 22px;
@@ -340,7 +326,7 @@
   font-weight: 700;
   color: var(--track-accent);
 }
-.sw-track-title {
+.track-title {
   font-family: var(--font-heading);
   font-weight: 600;
   font-size: 0.8em;
@@ -348,23 +334,25 @@
 }
 
 /* ── Track Flow (horizontal nodes) ──────────────────── */
-.sw-track-flow {
+.track-flow {
   display: flex;
+  flex-wrap: nowrap;
   align-items: center;
   gap: 0;
   overflow-x: auto;
+  overflow-y: hidden;
   padding: 4px 0;
 }
 
 /* ── Flow Node Container ────────────────────────────── */
-.sw-flow-node {
+.track-flow-node {
   display: flex;
   align-items: center;
   flex-shrink: 0;
 }
 
 /* ── Flow Arrow ─────────────────────────────────────── */
-.sw-flow-arrow {
+.track-flow-arrow {
   width: 14px;
   height: 2px;
   background: var(--on-surface-muted);
@@ -373,7 +361,7 @@
   margin: 0 2px;
   flex-shrink: 0;
 }
-.sw-flow-arrow::after {
+.track-flow-arrow::after {
   content: '';
   position: absolute;
   right: -3px;
@@ -392,7 +380,7 @@
    ════════════════════════════════════════════════════════════ */
 
 /* ── Individual specialization container ─────────────────────── */
-.sw-spec-container {
+.track-spec-container {
   background: rgba(118,113,255,0.03);
   border: 1px solid rgba(118,113,255,0.08);
   border-radius: var(--radius-md);
@@ -400,73 +388,37 @@
   flex: 1;
   min-width: 0;
 }
-.sw-spec-container .sw-track-flow {
+.track-spec-container .track-flow {
   gap: 0;
 }
-.sw-spec-container .sw-track-header {
+.track-spec-container .track-header {
   margin-bottom: 4px;
   padding-bottom: 4px;
 }
 
-/* ── Backend node variant ───────────────────────────────────── */
-.sw-node-backend {
-  border-color: #6a1b9a;
-  box-shadow: 0 2px 8px rgba(106,27,154,0.1);
+/* ── Tinted lane variants (tint follows --track-color) ─────── */
+.track-lane-backend  { --track-color: #6a1b9a; }
+.track-lane-gamedev  { --track-color: #e65100; }
+.track-lane-database { --track-color: #00897b; }
+.track-lane-backend,
+.track-lane-gamedev,
+.track-lane-database {
+  background: color-mix(in srgb, var(--track-color) 3%, transparent);
+  border-color: color-mix(in srgb, var(--track-color) 10%, transparent);
 }
-
-/* ── Game Dev node variant ──────────────────────────────────── */
-.sw-node-gamedev {
-  border-color: #e65100;
-  box-shadow: 0 2px 8px rgba(230,81,0,0.1);
-}
-
-/* ── Backend track variant ──────────────────────────────────── */
-.sw-track-backend {
-  background: rgba(106,27,154,0.03);
-  border-color: rgba(106,27,154,0.1);
-}
-
-/* ── Game Dev track variant ─────────────────────────────────── */
-.sw-track-gamedev {
-  background: rgba(230,81,0,0.03);
-  border-color: rgba(230,81,0,0.1);
-}
-
-/* ── Database track variant ─────────────────────────────────── */
-.sw-track-database {
-  background: rgba(0,137,123,0.03);
-  border-color: rgba(0,137,123,0.1);
-}
-
-/* ════════════════════════════════════════════════════════════
-   CONVERGENCE ZONE — Backend + Python Web → shared Database column
-   ════════════════════════════════════════════════════════════ */
-
-/* ── Database node (shared by both tracks) ───────────────────── */
-.sw-node-database {
-  border-color: #00897b;
-  background: linear-gradient(135deg, rgba(0,137,123,0.08), rgba(0,137,123,0.02));
-  box-shadow: 0 2px 12px rgba(0,137,123,0.15);
-}
-.sw-node-database .sw-node-name,
-.sw-node-database .sw-node-icon,
-.sw-node-database .sw-node-level {
-  color: #00897b;
-}
-
 
 /* ════════════════════════════════════════════════════════════
    CHECKPOINT NODE — Diamond decision shape (kept for reuse)
    ════════════════════════════════════════════════════════════ */
 
-.sw-checkpoint {
+.track-checkpoint {
   display: flex;
   flex-direction: column;
   align-items: center;
   flex-shrink: 0;
   padding: 0 12px;
 }
-.sw-checkpoint-diamond {
+.track-checkpoint-diamond {
   width: 60px;
   height: 60px;
   background: linear-gradient(135deg, #f9a825, #f57f17);
@@ -478,20 +430,20 @@
   box-shadow: 0 4px 16px rgba(249,168,37,0.3);
   position: relative;
 }
-.sw-checkpoint-diamond::after {
+.track-checkpoint-diamond::after {
   content: '';
   position: absolute;
   inset: 3px;
   border: 2px solid rgba(255,255,255,0.4);
   border-radius: 6px;
 }
-.sw-checkpoint-icon {
+.track-checkpoint-icon {
   transform: rotate(-45deg);
   font-size: 1.4em;
   color: white;
   font-weight: 700;
 }
-.sw-checkpoint-label {
+.track-checkpoint-label {
   font-family: var(--font-heading);
   font-size: 0.6em;
   font-weight: 700;
@@ -501,7 +453,7 @@
   margin-top: 8px;
   text-align: center;
 }
-.sw-checkpoint-sub {
+.track-checkpoint-sub {
   font-size: 0.5em;
   color: var(--on-surface-muted);
   margin-top: 2px;
@@ -509,14 +461,14 @@
 }
 
 /* Vertical connector to checkpoint */
-.sw-connector-to-checkpoint {
+.track-connector-to-checkpoint {
   display: flex;
   justify-content: center;
   width: 100%;
   height: 16px;
   position: relative;
 }
-.sw-connector-to-checkpoint::after {
+.track-connector-to-checkpoint::after {
   content: '';
   position: absolute;
   left: 50%;
@@ -528,22 +480,110 @@
   transform: translateX(-50%);
 }
 
+/* ════════════════════════════════════════════════════════════
+   SMALL NODES, LEVEL TAGS, LEGEND — used by the Robotics slide
+   ════════════════════════════════════════════════════════════ */
+
+/* Compact node card. 0,2,0 so it beats the .track-node-card media-query sizes. */
+.track-node-card.track-node-card--sm {
+  min-width: 65px;
+  padding: 6px 8px 5px;
+}
+.track-node-card--sm .track-node-icon {
+  font-size: 0.9em;
+}
+.track-node-card--sm .track-node-name {
+  font-size: 0.58em;
+}
+
+/* Row of per-kit level groups */
+.track-levels {
+  display: flex;
+  gap: 12px;
+  width: 100%;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 8px;
+}
+.track-level-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  min-width: 80px;
+}
+.track-tag-row {
+  display: flex;
+  gap: 4px;
+}
+.track-tag {
+  padding: 3px 8px;
+  background: color-mix(in srgb, var(--track-color) 10%, transparent);
+  border-radius: 4px;
+  font-size: 0.52em;
+  color: var(--track-color);
+  font-weight: 600;
+}
+.track-tag-note {
+  font-size: 0.45em;
+  color: var(--on-surface-muted);
+}
+
+/* Hand-off to a follow-on course (dot + label) */
+.track-handoff {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  margin-top: 2px;
+}
+.track-handoff-label {
+  font-size: 0.45em;
+  color: var(--track-color);
+  font-weight: 600;
+}
+
+/* Colour legend */
+.track-legend {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 8px;
+  flex-wrap: wrap;
+}
+.track-legend-item {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.52em;
+  color: var(--on-surface-muted);
+}
+.track-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--track-color);
+}
+.track-handoff .track-dot {
+  width: 6px;
+  height: 6px;
+}
+
 /* ────────────────────────────────────────────────────────────
    SCALING — Fit content to viewport at 100% zoom
    ──────────────────────────────────────────────────────────── */
 
 @media (max-width: 1400px) {
-  .sw-entry-sequence {
+  .track-entry-sequence {
     gap: 4px !important;
   }
-  .sw-node-card {
+  .track-node-card {
     min-width: 70px;
     padding: 10px 12px 8px;
   }
-  .sw-node-logo {
+  .track-node-logo {
     height: 24px;
   }
-  .sw-node-name {
+  .track-node-name {
     font-size: 0.65em;
   }
 }
@@ -552,105 +592,105 @@
    Merged @media (max-width: 1100px) — previously duplicated
    ──────────────────────────────────────────────────────────── */
 @media (max-width: 1100px) {
-  .sw-tree {
+  .track-tree {
     gap: 4px;
   }
-  .sw-entry-sequence {
+  .track-entry-sequence {
     gap: 2px;
     flex-wrap: nowrap;
   }
-  .sw-node-card {
+  .track-node-card {
     min-width: 60px;
     padding: 8px 10px 6px;
   }
-  .sw-node-logo {
+  .track-node-logo {
     height: 20px;
   }
-  .sw-node-logo-sm {
+  .track-node-logo-sm {
     height: 16px;
   }
-  .sw-node-name {
+  .track-node-name {
     font-size: 0.6em;
   }
-  .sw-node-level {
+  .track-node-level {
     font-size: 0.42em;
   }
-  .sw-node-label {
+  .track-node-label {
     font-size: 0.45em;
     padding: 2px 6px;
   }
-  .sw-col-branch {
+  .track-col-branch {
     min-width: 30px;
   }
-  .sw-col-branches {
+  .track-col-branches {
     min-width: 30px;
   }
 }
 
 @media (max-width: 900px) {
-  .sw-tree {
+  .track-tree {
     flex-direction: column;
     align-items: stretch;
   }
-  .sw-entry-sequence {
+  .track-entry-sequence {
     justify-content: center;
     gap: 6px;
   }
-  .sw-col-branch,
-  .sw-col-branches {
+  .track-col-branch,
+  .track-col-branches {
     display: none;
   }
-  .sw-tree-h {
+  .track-tree-h {
     flex-wrap: wrap;
     justify-content: center;
     gap: 8px;
   }
-  .sw-tree-h .sw-col {
+  .track-tree-h .track-col {
     flex: 1 1 100%;
     min-width: 200px;
   }
-  .sw-tree-h .sw-col-branch,
-  .sw-tree-h .sw-col-branches {
+  .track-tree-h .track-col-branch,
+  .track-tree-h .track-col-branches {
     display: none;
   }
-  .sw-track-flow {
+  .track-flow {
     flex-wrap: wrap;
     justify-content: center;
     gap: 6px;
   }
-  .sw-flow-arrow {
+  .track-flow-arrow {
     display: none;
   }
-  .sw-spec-container {
+  .track-spec-container {
     width: 100%;
     max-width: 300px;
   }
 }
 
 @media (max-width: 600px) {
-  .sw-entry-sequence {
+  .track-entry-sequence {
     flex-wrap: wrap;
   }
-  .sw-entry-arrow {
+  .track-entry-arrow {
     display: none;
   }
-  .sw-node-card {
+  .track-node-card {
     min-width: 55px;
     padding: 6px 8px 5px;
   }
-  .sw-node-logo {
+  .track-node-logo {
     height: 16px;
   }
-  .sw-node-logo-sm {
+  .track-node-logo-sm {
     height: 12px;
   }
-  .sw-node-name {
+  .track-node-name {
     font-size: 0.6em;
   }
-  .sw-node-level {
+  .track-node-level {
     font-size: 0.38em;
   }
-  .sw-node-label {
+  .track-node-label {
     font-size: 0.42em;
     padding: 1px 6px;
   }

@@ -86,7 +86,6 @@
   /* ── Flow / tree ────────────────────────────────────── */
   .tree::before { display: none; }
   .flow-row { flex-wrap: nowrap; }
-  .sw-tree { overflow: visible; }
 
   /* ── Logo slots ─────────────────────────────────────── */
   .logo-slot {
