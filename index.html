@@ -318,7 +318,10 @@ function drawRails(tree) {
   const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
   svg.setAttribute('class', 'compete-rails');
   tree.appendChild(svg);
-  const path = d => { const p = document.createElementNS(svg.namespaceURI, 'path'); p.setAttribute('d', d); svg.appendChild(p); };
+  const g = document.createElementNS(svg.namespaceURI, 'g');
+  g.setAttribute('transform', 'translate(0 80)'); // matches the 80px the SVG extends above the tree (compete.css)
+  svg.appendChild(g);
+  const path = d => { const p = document.createElementNS(svg.namespaceURI, 'path'); p.setAttribute('d', d); g.appendChild(p); };
   const tag = (x, y) => { const t = document.createElement('div'); t.className = 'compete-tag'; t.textContent = '+3 sessions'; t.style.left = x + 'px'; t.style.top = y + 'px'; tree.appendChild(t); };
 
   cards.forEach(card => {
