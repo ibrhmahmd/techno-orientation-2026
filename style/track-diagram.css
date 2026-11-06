@@ -550,35 +550,14 @@
     justify-content: center;
     gap: 6px;
   }
-  /* s06: drop the grid and stack the lanes in reading (DOM) order. */
-  .track-tree.track-tree-grid {
-    display: flex;
-    width: auto;
-    align-self: stretch;
-    gap: 8px;
-  }
-  .track-tree-grid > :is(.track-split-top, .track-split-bottom, .track-merge-top, .track-merge-bottom, .track-flow-arrow) {
-    display: none;
-  }
-  .track-tree-grid > .track-lane {
-    align-self: stretch;
-    margin: 0;
-  }
-  .track-flow {
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 6px;
-  }
-  .track-flow-arrow {
-    display: none;
-  }
 }
 
 @media (max-width: 600px) {
-  .track-entry-sequence {
+  /* s07 only: s06's grid stays horizontal and fitSlides scales it. */
+  .track-tree:not(.track-tree-grid) .track-entry-sequence {
     flex-wrap: wrap;
   }
-  .track-entry-arrow {
+  .track-tree:not(.track-tree-grid) .track-entry-arrow {
     display: none;
   }
   .track-node-card {
