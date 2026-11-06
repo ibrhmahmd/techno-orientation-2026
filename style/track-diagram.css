@@ -37,20 +37,8 @@
   border-bottom: 4px solid transparent;
   opacity: 0.3;
 }
-.track-node-label {
-  font-size: 0.52em;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  margin-top: 4px;
-  padding: 2px 8px;
-  border-radius: 100px;
-  color: white;
-  background: var(--track-color);
-}
-
 /* ── Node Card (shared) ─────────────────────────────── */
-/* Border, glow, label, tag and dot colours all read --track-color. */
+/* Border, glow and dot colours all read --track-color. */
 .track-node-card {
   display: flex;
   flex-direction: column;
@@ -71,7 +59,7 @@
 }
 
 /* ── Colour variants: each sets only --track-color ──── */
-/* Put on a card, or on a wrapper so card/label/tags/dots inherit it. */
+/* Put on a card, or on a wrapper so cards/dots inherit it. */
 .track-node-web         { --track-color: #1565c0; }
 .track-node-python      { --track-color: #2e7d32; }
 .track-node-problem     { --track-color: #e65100; }
@@ -90,10 +78,6 @@
 /* Flow nodes: soft. :where keeps 0,1,0 so the per-variant rules below can override it. */
 :where(.track-flow-node) > .track-node-card {
   box-shadow: 0 2px 8px color-mix(in srgb, var(--track-color) 10%, transparent);
-}
-/* Labelled entry nodes (kits): strong; beats :hover, like the inline style it replaced. */
-.track-entry-node:has(> .track-node-label) > .track-node-card {
-  box-shadow: 0 2px 10px color-mix(in srgb, var(--track-color) 15%, transparent);
 }
 
 /* ── Per-variant overrides (differ in more than colour) ── */
@@ -145,18 +129,14 @@
 }
 
 /* ════════════════════════════════════════════════════════════
-   SOFTWARE TRACK (s06) — swim-lane grid
+   TRACK GRID (s06, s07) — swim-lane grid
    Lanes and connector cells are placed by grid area. The four
    rows are equal (1fr) with no row gap, so every row boundary is
    a lane centre and the bracket pieces can use 50% / 0 / 100%.
    ════════════════════════════════════════════════════════════ */
 
-/* ── Main Tree Container (vertical by default; used by s07) ──── */
+/* ── Main Tree Container ──── */
 .track-tree {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
   padding: 8px 0;
   overflow: visible;
   min-width: 0;
@@ -197,6 +177,25 @@
 .track-at-ma  { grid-area: ma; }
 .track-at-mb  { grid-area: mb; }
 .track-at-arr { grid-area: arr; }
+/* Robotics (s07): Foundation → Checkpoint → 3-way split. Each lane spans
+   2 of 6 equal rows, so lane centres sit on lines 1, 3, 5 and the split
+   point (line 3) is the middle lane's centre. */
+.track-tree.track-tree-grid.track-tree-robotics {
+  grid-template-columns: auto 40px auto 40px auto;
+  grid-template-rows: repeat(6, 1fr);
+  grid-template-areas:
+    "entry arr cp s1a ev3"
+    "entry arr cp s1a ev3"
+    "entry arr cp s1a sp "
+    "entry arr cp s1b sp "
+    "entry arr cp s1b el "
+    "entry arr cp s1b el ";
+}
+.track-at-cp  { grid-area: cp; align-self: center; }
+.track-at-ev3 { grid-area: ev3; }
+.track-at-sp  { grid-area: sp; }
+.track-at-el  { grid-area: el; }
+.track-tree-robotics > .track-lane { justify-self: start; }
 .track-tree-grid > .track-lane {
   align-self: center;
   margin: 6px 0;
@@ -225,8 +224,8 @@
   position: absolute;
   border: 0 solid var(--track-line);
 }
-.track-split-top::before    { top: calc(50% - 1px); bottom: 0; left: 50%; right: 0; border-width: 2px 0 0 2px; border-top-left-radius: 8px; }
-.track-split-bottom::before { top: 0; bottom: calc(50% - 1px); left: 50%; right: 0; border-width: 0 0 2px 2px; border-bottom-left-radius: 8px; }
+.track-split-top::before    { top: calc(var(--track-elbow, 50%) - 1px); bottom: 0; left: 50%; right: 0; border-width: 2px 0 0 2px; border-top-left-radius: 8px; }
+.track-split-bottom::before { top: 0; bottom: calc(var(--track-elbow, 50%) - 1px); left: 50%; right: 0; border-width: 0 0 2px 2px; border-bottom-left-radius: 8px; }
 .track-merge-top::before    { top: calc(50% - 1px); bottom: 0; left: 0; right: 50%; border-width: 2px 2px 0 0; border-top-right-radius: 8px; }
 .track-merge-bottom::before { top: 0; bottom: calc(50% - 1px); left: 0; right: 50%; border-width: 0 2px 2px 0; border-bottom-right-radius: 8px; }
 /* Stub between the joined side and the elbow, on the shared row boundary. */
@@ -256,6 +255,10 @@
   box-shadow: 0 0 6px rgba(118,113,255,0.4);
 }
 .track-merge-bottom::after { left: calc(50% - 5px); }
+/* 3-way split over two 3-row cells: elbows at the outer lane centres (1/3 in),
+   and the stub runs straight on into the middle lane. */
+.track-split-3 { --track-elbow: calc(100% / 3); }
+.track-split-top.track-split-3::after { width: 100%; }
 
 /* ── Lane (tint follows --track-color) ──────────────── */
 .track-lane {
@@ -266,6 +269,37 @@
 }
 .track-lane > .track-title {
   margin-bottom: 6px;
+}
+.track-lane > .track-title:has(+ .track-lane-sub) {
+  margin-bottom: 0;
+}
+.track-lane-sub {
+  font-size: 0.5em;
+  color: var(--on-surface-muted);
+  margin-bottom: 6px;
+}
+/* Sub-group of cards inside a lane: stronger tint, no outline. */
+.track-group {
+  background: color-mix(in srgb, var(--track-color) 9%, transparent);
+  border-radius: var(--radius-md);
+  padding: 4px 8px 8px;
+}
+.track-group-title {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-bottom: 4px;
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: 0.55em;
+  color: var(--track-color);
+}
+.track-group-logo {
+  height: 14px;
+}
+/* A lead card next to a group centres on the group, not its full height. */
+.track-flow:has(> .track-group) {
+  align-items: center;
 }
 .track-title {
   font-family: var(--font-heading);
@@ -318,6 +352,7 @@
    ════════════════════════════════════════════════════════════ */
 
 .track-checkpoint {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -360,6 +395,13 @@
   stroke-linecap: round;
   stroke-linejoin: round;
 }
+.track-checkpoint-caption {
+  position: absolute;
+  top: calc(100% + 8px); /* clear the rotated diamond tip */
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+}
 .track-checkpoint-label {
   font-family: var(--font-heading);
   font-size: 0.6em;
@@ -377,89 +419,9 @@
   text-align: center;
 }
 
-/* Vertical connector to checkpoint */
-.track-connector-to-checkpoint {
-  display: flex;
-  justify-content: center;
-  width: 100%;
-  height: 16px;
-  position: relative;
-}
-.track-connector-to-checkpoint::after {
-  content: '';
-  position: absolute;
-  left: 50%;
-  top: 0;
-  width: 2px;
-  height: 100%;
-  background: var(--on-surface-muted);
-  opacity: 0.3;
-  transform: translateX(-50%);
-}
-
 /* ════════════════════════════════════════════════════════════
-   SMALL NODES, LEVEL TAGS, LEGEND — used by the Robotics slide
+   LEGEND — used by s06 and s07
    ════════════════════════════════════════════════════════════ */
-
-/* Compact node card. 0,2,0 so it beats the .track-node-card media-query sizes. */
-.track-node-card.track-node-card--sm {
-  min-width: 65px;
-  padding: 6px 8px 5px;
-}
-/* 0.9em box (the old sm emoji size); 0,2,0 beats the media-query heights. */
-.track-node-card--sm .track-node-svg {
-  height: 0.9em;
-  margin-bottom: 1px;
-}
-.track-node-card--sm .track-node-name {
-  font-size: 0.58em;
-}
-
-/* Row of per-kit level groups */
-.track-levels {
-  display: flex;
-  gap: 12px;
-  width: 100%;
-  justify-content: center;
-  flex-wrap: wrap;
-  margin-top: 8px;
-}
-.track-level-group {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 4px;
-  min-width: 80px;
-}
-.track-tag-row {
-  display: flex;
-  gap: 4px;
-}
-.track-tag {
-  padding: 3px 8px;
-  background: color-mix(in srgb, var(--track-color) 10%, transparent);
-  border-radius: 4px;
-  font-size: 0.52em;
-  color: var(--track-color);
-  font-weight: 600;
-}
-.track-tag-note {
-  font-size: 0.45em;
-  color: var(--on-surface-muted);
-}
-
-/* Hand-off to a follow-on course (dot + label) */
-.track-handoff {
-  display: flex;
-  align-items: center;
-  gap: 3px;
-  margin-top: 2px;
-}
-.track-handoff-label {
-  font-size: 0.45em;
-  color: var(--track-color);
-  font-weight: 600;
-}
 
 /* Colour legend */
 .track-legend {
@@ -481,10 +443,6 @@
   height: 7px;
   border-radius: 50%;
   background: var(--track-color);
-}
-.track-handoff .track-dot {
-  width: 6px;
-  height: 6px;
 }
 
 /* ────────────────────────────────────────────────────────────
@@ -511,9 +469,6 @@
    Merged @media (max-width: 1100px) — previously duplicated
    ──────────────────────────────────────────────────────────── */
 @media (max-width: 1100px) {
-  .track-tree {
-    gap: 4px;
-  }
   .track-entry-sequence {
     gap: 2px;
     flex-wrap: nowrap;
@@ -535,17 +490,9 @@
   .track-node-level {
     font-size: 0.42em;
   }
-  .track-node-label {
-    font-size: 0.45em;
-    padding: 2px 6px;
-  }
 }
 
 @media (max-width: 900px) {
-  .track-tree {
-    flex-direction: column;
-    align-items: stretch;
-  }
   .track-entry-sequence {
     justify-content: center;
     gap: 6px;
@@ -553,13 +500,6 @@
 }
 
 @media (max-width: 600px) {
-  /* s07 only: s06's grid stays horizontal and fitSlides scales it. */
-  .track-tree:not(.track-tree-grid) .track-entry-sequence {
-    flex-wrap: wrap;
-  }
-  .track-tree:not(.track-tree-grid) .track-entry-arrow {
-    display: none;
-  }
   .track-node-card {
     min-width: 55px;
     padding: 6px 8px 5px;
@@ -576,9 +516,5 @@
   }
   .track-node-level {
     font-size: 0.38em;
-  }
-  .track-node-label {
-    font-size: 0.42em;
-    padding: 1px 6px;
   }
 }

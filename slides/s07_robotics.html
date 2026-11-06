@@ -7,153 +7,167 @@
     <h2>Robotics Track</h2>
     <p class="desc" style="margin-bottom:10px;">From LEGO blocks to real circuits — evaluation-driven specialization</p>
 
-    <!-- ════════════════ MAIN TREE ════════════════ -->
-    <div class="track-tree">
-      
-      <!-- ═══ ENTRY KITS ═══ -->
-      <div class="track-entry-sequence">
-        <!-- WeDo 2.0 -->
-        <div class="track-entry-node track-node-wedo">
-          <div class="track-node-card">
-            <img src="assets/wedo2.0_logo.png" alt="WeDo 2.0" class="track-node-logo">
-            <div class="track-node-name">WeDo 2.0</div>
-            <div class="track-node-level">2 Levels</div>
-          </div>
-          <div class="track-node-label">Ages 7–9</div>
-        </div>
-        
-        <div class="track-entry-arrow"></div>
-        
-        <!-- SPIKE Essential -->
-        <div class="track-entry-node track-node-spike-ess">
-          <div class="track-node-card">
-            <img src="assets/spike-ess_logo.png" alt="SPIKE Essential" class="track-node-logo">
-            <div class="track-node-name">SPIKE Essential</div>
-            <div class="track-node-level">4 Levels</div>
-          </div>
-          <div class="track-node-label">Ages 7–9</div>
-        </div>
-      </div>
+    <div class="track-tree track-tree-grid track-tree-robotics">
 
-      <!-- ═══ SPIKE ESSENTIAL LEVELS (as nodes) ═══ -->
-      <div class="track-entry-sequence" style="justify-content:center;gap:6px;margin-top:8px;">
-        <div class="track-entry-node track-node-spike-ess">
-          <div class="track-node-card track-node-card--sm">
-            <svg class="track-node-svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2"/><path d="M15 18H9"/><path d="M19 18h2a1 1 0 0 0 1-1v-3.65a1 1 0 0 0-.22-.624l-3.48-4.35A1 1 0 0 0 17.52 8H14"/><circle cx="17" cy="18" r="2"/><circle cx="7" cy="18" r="2"/></svg>
-            <div class="track-node-name">Transporter</div>
-            <div class="track-node-level">L1</div>
+      <!-- Foundation: WeDo 2.0 → SPIKE Essential (4 levels) -->
+      <div class="track-lane track-node-spike-ess track-at-entry">
+        <div class="track-title">Foundation · Ages 7–9</div>
+        <div class="track-lane-sub">LEGO Education kits</div>
+        <div class="track-flow">
+          <div class="track-flow-node">
+            <div class="track-node-card track-node-wedo">
+              <img src="assets/wedo2.0_logo.png" alt="WeDo 2.0" class="track-node-logo-sm">
+              <div class="track-node-name">WeDo 2.0</div>
+              <div class="track-node-level">2 Levels</div>
+            </div>
+            <div class="track-flow-arrow"></div>
           </div>
-        </div>
-        <div class="track-entry-node track-node-spike-ess">
-          <div class="track-node-card track-node-card--sm">
-            <svg class="track-node-svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"/></svg>
-            <div class="track-node-name">Energy Games</div>
-            <div class="track-node-level">L2</div>
-          </div>
-        </div>
-        <div class="track-entry-node track-node-spike-ess">
-          <div class="track-node-card track-node-card--sm">
-            <svg class="track-node-svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M14.106 5.553a2 2 0 0 0 1.788 0l3.659-1.83A1 1 0 0 1 21 4.619v12.764a1 1 0 0 1-.553.894l-4.553 2.277a2 2 0 0 1-1.788 0l-4.212-2.106a2 2 0 0 0-1.788 0l-3.659 1.83A1 1 0 0 1 3 19.381V6.618a1 1 0 0 1 .553-.894l4.553-2.277a2 2 0 0 1 1.788 0z"/><path d="M15 5.764v15"/><path d="M9 3.236v15"/></svg>
-            <div class="track-node-name">Great Adventures</div>
-            <div class="track-node-level">L3</div>
-          </div>
-        </div>
-        <div class="track-entry-node track-node-spike-ess">
-          <div class="track-node-card track-node-card--sm">
-            <svg class="track-node-svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
-            <div class="track-node-name">Creations</div>
-            <div class="track-node-level">L4</div>
+          <div class="track-group">
+            <div class="track-group-title"><img src="assets/spike-ess_logo.png" alt="" class="track-group-logo">SPIKE Essential</div>
+            <div class="track-flow">
+              <div class="track-flow-node">
+                <div class="track-node-card">
+                  <svg class="track-node-svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2"/><path d="M15 18H9"/><path d="M19 18h2a1 1 0 0 0 1-1v-3.65a1 1 0 0 0-.22-.624l-3.48-4.35A1 1 0 0 0 17.52 8H14"/><circle cx="17" cy="18" r="2"/><circle cx="7" cy="18" r="2"/></svg>
+                  <div class="track-node-name">Transporter</div>
+                  <div class="track-node-level">Level 1</div>
+                </div>
+                <div class="track-flow-arrow"></div>
+              </div>
+              <div class="track-flow-node">
+                <div class="track-node-card">
+                  <svg class="track-node-svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"/></svg>
+                  <div class="track-node-name">Energy Games</div>
+                  <div class="track-node-level">Level 2</div>
+                </div>
+                <div class="track-flow-arrow"></div>
+              </div>
+              <div class="track-flow-node">
+                <div class="track-node-card">
+                  <svg class="track-node-svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M14.106 5.553a2 2 0 0 0 1.788 0l3.659-1.83A1 1 0 0 1 21 4.619v12.764a1 1 0 0 1-.553.894l-4.553 2.277a2 2 0 0 1-1.788 0l-4.212-2.106a2 2 0 0 0-1.788 0l-3.659 1.83A1 1 0 0 1 3 19.381V6.618a1 1 0 0 1 .553-.894l4.553-2.277a2 2 0 0 1 1.788 0z"/><path d="M15 5.764v15"/><path d="M9 3.236v15"/></svg>
+                  <div class="track-node-name">Great Adventures</div>
+                  <div class="track-node-level">Level 3</div>
+                </div>
+                <div class="track-flow-arrow"></div>
+              </div>
+              <div class="track-flow-node">
+                <div class="track-node-card">
+                  <svg class="track-node-svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+                  <div class="track-node-name">Creations</div>
+                  <div class="track-node-level">Level 4</div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
 
-      <!-- ═══ CONNECTOR TO CHECKPOINT ═══ -->
-      <div class="track-connector-to-checkpoint"></div>
+      <div class="track-flow-arrow track-at-arr"></div>
 
-      <!-- ═══ CHECKPOINT ═══ -->
-      <div class="track-checkpoint">
+      <!-- Checkpoint: evaluation decides the specialization -->
+      <div class="track-checkpoint track-at-cp">
         <div class="track-checkpoint-diamond">
           <div class="track-checkpoint-icon"><svg class="track-checkpoint-svg" viewBox="0 0 24 24" aria-hidden="true"><path d="m16 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/><path d="m2 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/><path d="M7 21h10"/><path d="M12 3v18"/><path d="M3 7h2c2 0 5-1 7-2 2 1 5 2 7 2h2"/></svg></div>
         </div>
-        <div class="track-checkpoint-label">Checkpoint</div>
-        <div class="track-checkpoint-sub">Student Evaluation</div>
-      </div>
-
-      <!-- ═══ CONNECTOR FROM CHECKPOINT ═══ -->
-      <div class="track-connector-to-checkpoint"></div>
-
-      <!-- ═══ BRANCHING TO SPECIALIZATION NODES ═══ -->
-      <div class="track-entry-sequence" style="justify-content:center;gap:10px;">
-        
-        <!-- EV3 Node -->
-        <div class="track-entry-node track-node-ev3">
-          <div class="track-node-card">
-            <img src="assets/ev3_logo.png" alt="EV3" class="track-node-logo">
-            <div class="track-node-name">EV3</div>
-            <div class="track-node-level">Word → Python</div>
-          </div>
-          <div class="track-node-label">Ages 10+</div>
-        </div>
-
-        <!-- SPIKE Prime Node -->
-        <div class="track-entry-node track-node-spike-prime">
-          <div class="track-node-card">
-            <img src="assets/spike-prime_logo.png" alt="SPIKE Prime" class="track-node-logo">
-            <div class="track-node-name">SPIKE Prime</div>
-            <div class="track-node-level">Word → Python</div>
-          </div>
-          <div class="track-node-label">Ages 10+</div>
-        </div>
-
-        <!-- Electronics Node -->
-        <div class="track-entry-node track-node-electronics">
-          <div class="track-node-card">
-            <img src="assets/arduino_logo.png" alt="Electronics" class="track-node-logo">
-            <div class="track-node-name">Electronics</div>
-            <div class="track-node-level">Circuits & Sensors</div>
-          </div>
-          <div class="track-node-label">Ages 13+</div>
+        <div class="track-checkpoint-caption">
+          <div class="track-checkpoint-label">Checkpoint</div>
+          <div class="track-checkpoint-sub">Student Evaluation</div>
         </div>
       </div>
 
-      <!-- ═══ LEVEL NUMBERS FOR EACH ═══ -->
-      <div class="track-levels">
-        
-        <!-- EV3 Levels -->
-        <div class="track-level-group track-node-ev3">
-          <div class="track-tag-row">
-            <div class="track-tag">L1</div>
-            <div class="track-tag">L2</div>
-            <div class="track-tag">L3</div>
-          </div>
-          <div class="track-tag-note">4 sessions each</div>
-        </div>
+      <!-- Split: Checkpoint → EV3 / SPIKE Prime / Electronics -->
+      <div class="track-split-top track-split-3 track-at-s1a"></div>
+      <div class="track-split-bottom track-split-3 track-at-s1b"></div>
 
-        <!-- SPIKE Prime Levels -->
-        <div class="track-level-group track-node-spike-prime">
-          <div class="track-tag-row">
-            <div class="track-tag">L1</div>
-            <div class="track-tag">L2</div>
-            <div class="track-tag">L3</div>
+      <div class="track-lane track-node-ev3 track-at-ev3">
+        <div class="track-title">EV3 · Ages 10+</div>
+        <div class="track-lane-sub">Word → Python · 4 sessions per level</div>
+        <div class="track-flow">
+          <div class="track-flow-node">
+            <div class="track-node-card">
+              <img src="assets/ev3_logo.png" alt="EV3" class="track-node-logo-sm">
+              <div class="track-node-name">Level 1</div>
+            </div>
+            <div class="track-flow-arrow"></div>
           </div>
-          <div class="track-tag-note">4 sessions each</div>
-        </div>
-
-        <!-- Electronics Levels -->
-        <div class="track-level-group track-node-electronics">
-          <div class="track-tag-row">
-            <div class="track-tag">L1</div>
-            <div class="track-tag">L2</div>
-            <div class="track-tag">L3</div>
+          <div class="track-flow-node">
+            <div class="track-node-card">
+              <img src="assets/ev3_logo.png" alt="EV3" class="track-node-logo-sm">
+              <div class="track-node-name">Level 2</div>
+            </div>
+            <div class="track-flow-arrow"></div>
           </div>
-          <div class="track-tag-note">4 sessions each</div>
-          <div class="track-handoff track-node-arduino">
-            <div class="track-dot"></div>
-            <div class="track-handoff-label">→ Arduino</div>
+          <div class="track-flow-node">
+            <div class="track-node-card">
+              <img src="assets/ev3_logo.png" alt="EV3" class="track-node-logo-sm">
+              <div class="track-node-name">Level 3</div>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+
+      <div class="track-lane track-node-spike-prime track-at-sp">
+        <div class="track-title">SPIKE Prime · Ages 10+</div>
+        <div class="track-lane-sub">Word → Python · 4 sessions per level</div>
+        <div class="track-flow">
+          <div class="track-flow-node">
+            <div class="track-node-card">
+              <img src="assets/spike-prime_logo.png" alt="SPIKE Prime" class="track-node-logo-sm">
+              <div class="track-node-name">Level 1</div>
+            </div>
+            <div class="track-flow-arrow"></div>
+          </div>
+          <div class="track-flow-node">
+            <div class="track-node-card">
+              <img src="assets/spike-prime_logo.png" alt="SPIKE Prime" class="track-node-logo-sm">
+              <div class="track-node-name">Level 2</div>
+            </div>
+            <div class="track-flow-arrow"></div>
+          </div>
+          <div class="track-flow-node">
+            <div class="track-node-card">
+              <img src="assets/spike-prime_logo.png" alt="SPIKE Prime" class="track-node-logo-sm">
+              <div class="track-node-name">Level 3</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="track-lane track-node-electronics track-at-el">
+        <div class="track-title">Electronics · Ages 13+</div>
+        <div class="track-lane-sub">Circuits &amp; Sensors · 4 sessions per level</div>
+        <div class="track-flow">
+          <div class="track-flow-node">
+            <div class="track-node-card">
+              <svg class="track-node-svg" viewBox="0 0 24 24" aria-hidden="true"><rect width="16" height="16" x="4" y="4" rx="2"/><rect width="6" height="6" x="9" y="9" rx="1"/><path d="M15 2v2"/><path d="M15 20v2"/><path d="M2 15h2"/><path d="M2 9h2"/><path d="M20 15h2"/><path d="M20 9h2"/><path d="M9 2v2"/><path d="M9 20v2"/></svg>
+              <div class="track-node-name">Level 1</div>
+            </div>
+            <div class="track-flow-arrow"></div>
+          </div>
+          <div class="track-flow-node">
+            <div class="track-node-card">
+              <svg class="track-node-svg" viewBox="0 0 24 24" aria-hidden="true"><rect width="16" height="16" x="4" y="4" rx="2"/><rect width="6" height="6" x="9" y="9" rx="1"/><path d="M15 2v2"/><path d="M15 20v2"/><path d="M2 15h2"/><path d="M2 9h2"/><path d="M20 15h2"/><path d="M20 9h2"/><path d="M9 2v2"/><path d="M9 20v2"/></svg>
+              <div class="track-node-name">Level 2</div>
+            </div>
+            <div class="track-flow-arrow"></div>
+          </div>
+          <div class="track-flow-node">
+            <div class="track-node-card">
+              <svg class="track-node-svg" viewBox="0 0 24 24" aria-hidden="true"><rect width="16" height="16" x="4" y="4" rx="2"/><rect width="6" height="6" x="9" y="9" rx="1"/><path d="M15 2v2"/><path d="M15 20v2"/><path d="M2 15h2"/><path d="M2 9h2"/><path d="M20 15h2"/><path d="M20 9h2"/><path d="M9 2v2"/><path d="M9 20v2"/></svg>
+              <div class="track-node-name">Level 3</div>
+            </div>
+            <div class="track-flow-arrow"></div>
+          </div>
+          <div class="track-flow-node">
+            <div class="track-node-card track-node-arduino">
+              <img src="assets/arduino_logo.png" alt="Arduino" class="track-node-logo-sm">
+              <div class="track-node-name">Arduino</div>
+              <div class="track-node-level">Next step</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- end track-tree -->
 
     <!-- ═══ COLOR LEGEND ═══ -->
     <div class="track-legend">
