@@ -138,6 +138,8 @@ async function loadSlides() {
 
     // Scale content to fit viewport at any resolution (Bug 1, Bug 10)
     fitSlides();
+    // Re-fit once web fonts and slide images are in: the first fit may measure fallback fonts (shifts s13/s14 scale)
+    Promise.all([document.fonts.ready, ...[...container.querySelectorAll('img')].map(img => img.decode().catch(() => {}))]).then(fitSlides);
     let _resizeTimer;
     window.addEventListener('resize', () => {
       clearTimeout(_resizeTimer);
@@ -249,12 +251,8 @@ function initArrowNavigation() {
 function fitSlides() {
   const slides = document.querySelectorAll('.slide');
 
-  // Temporarily make all reveal elements visible for accurate measurement
-  const revealEls = document.querySelectorAll('.reveal');
-  revealEls.forEach(el => {
-    el.style.opacity = '1';
-    el.style.transform = 'none';
-  });
+  // Freeze .reveal transforms (CSS) so translateY doesn't skew measurement
+  document.body.classList.add('measuring');
 
   slides.forEach(slide => {
     const content = slide.querySelector('.slide-content');
@@ -262,7 +260,7 @@ function fitSlides() {
 
     // Reset any previous scale before measuring
     content.style.transform = '';
-    content.style.marginTop  = '';
+    content.style.marginBottom = '';
 
     const slideH = slide.clientHeight;
     const slideW = slide.clientWidth;
@@ -301,16 +299,7 @@ function fitSlides() {
     }
   });
 
-  // Restore reveal elements to their original state (JS observer controls visibility)
-  revealEls.forEach(el => {
-    el.style.opacity  = '';
-    el.style.transform = '';
-  });
-  // Re-trigger visible state for already-observed elements
-  document.querySelectorAll('.reveal.visible').forEach(el => {
-    el.style.opacity = '1';
-    el.style.transform = 'translateY(0)';
-  });
+  document.body.classList.remove('measuring');
 }
 
 /* ════════════════════════════════════════════════════════════

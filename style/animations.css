@@ -12,6 +12,8 @@
   opacity: 1;
   transform: translateY(0);
 }
+/* fitSlides() measuring mode: drop the offset without animating so layout reads true */
+.measuring .reveal { transform: none; transition: none; }
 .reveal-delay-1 { transition-delay: 0.08s; }
 .reveal-delay-2 { transition-delay: 0.16s; }
 .reveal-delay-3 { transition-delay: 0.24s; }
