@@ -1,124 +1,78 @@
-# SPEC: Split `tree-flow.css` into `tree.css` + `sw-track.css`
+# SPEC: Split `tree-flow.css` into `tree.css` + `track-diagram.css`
 
-## Status: DRAFT
+## Status: Implemented
 
 ## Context
 
-`style/tree-flow.css` is **1109 lines** — the largest CSS file in the project. It contains
-two unrelated subsystems bundled together:
+After the dead-code deletion in commit 7ea9cd5, `style/tree-flow.css` was **874 lines** holding
+two separate things:
 
-1. **Generic tree/flow/timeline components** (lines 1–302) — reusable across any slide
-2. **Software track diagram** (lines 304–1109) — slide-6-specific styles for the
-   `.sw-*` namespace
+1. **Generic tree/flow/timeline components** (lines 1–218)
+2. **Track diagram module** (lines 219–874): every `.sw-*` rule. It is used by both
+   `slides/s06_software.html` and `slides/s07_robotics.html`, so it is a shared module
+   and not specific to slide 6.
 
-Splitting these into separate files improves maintainability without changing any behavior.
-
----
+The split is a pure move. No selector, value or rule order changes.
 
 ## Scope
 
 | In scope | Out of scope |
 |----------|-------------|
-| Create `style/tree.css` with generic tree/flow/timeline rules | CSS variable extraction |
-| Create `style/sw-track.css` with software-track rules | Renaming `media.css` |
-| Remove `tree-flow.css` | Dead variable cleanup |
-| Update `index.html` load order | `!important` fixes |
-| Verify no visual regression | Inline `<style>` moves |
+| Create `style/tree.css` (original lines 1–218) | CSS variable extraction |
+| Create `style/track-diagram.css` (original lines 219–874) | Renaming `.sw-*` selectors |
+| Delete `style/tree-flow.css` | `!important` fixes |
+| Replace the `<link>` in `index.html` | Doc updates (AGENTS.md, CLAUDE.md, README.md) |
 
----
+Each new file starts with one added header comment line. Everything below it is copied
+byte-for-byte from the original.
 
 ## File Assignments
 
-### `style/tree.css` (~302 lines)
+### `style/tree.css` (original lines 1–218)
 
-Source: `tree-flow.css` lines 1–302.
-
-| Lines | Section | Selector patterns |
-|-------|---------|-------------------|
+| Original lines | Section | Selectors |
+|----------------|---------|-----------|
+| 1–4 | File banner | — |
 | 6–11 | Shared heading font | `.tree-node .node-label`, `.flow-node`, `.timeline-age` |
-| 13–61 | Vertical tree | `.tree`, `.tree::before`, `.tree-node`, `.tree-node::before`, `.tree-node .node-label`, `.tree-node .node-sub`, `.tree-node .node-tags` |
+| 13–61 | Vertical tree | `.tree`, `.tree-node` and children (`.node-label`, `.node-sub`, `.node-tags`) |
 | 63–84 | Enhanced tree nodes | `.tree-node.xl`, `.tree-node.highlight` |
-| 86–175 | Horizontal flow | `.flow-row`, `.flow-node`, `.flow-node small`, `.flow-node.accent`, `.flow-node.compact`, `.flow-arrow`, `.flow-arrow.dim`, `.flow-node.bold`, `.flow-node.highlight`, `.flow-node.icon-plate` |
-| 177–204 | Flow subgraph | `.flow-subgraph`, `.flow-subgraph-label`, `.flow-subgraph-inner` |
-| 206–246 | Timeline tree | `.timeline-tree`, `.timeline-age`, `.timeline-content` |
-| 248–302 | Organic tree + animation | `.tree-organic`, `.tree-organic .org-node`, `.tree-organic svg.org-connectors`, `@keyframes dash-flow` |
+| 86–175 | Horizontal flow | `.flow-row`, `.flow-node` (+ `small`, `.accent`, `.compact`, `.bold`, `.highlight`, `.icon-plate`), `.flow-arrow`, `.flow-arrow.dim` |
+| 177–216 | Timeline tree | `.timeline-tree`, `.timeline-age`, `.timeline-content` |
 
-### `style/sw-track.css` (~807 lines)
+### `style/track-diagram.css` (original lines 219–874)
 
-Source: `tree-flow.css` lines 304–1109.
+| Original lines | Section | Selectors |
+|----------------|---------|-----------|
+| 219–381 | Shared styles | `.sw-track-flow`, `.sw-entry-sequence`, `.sw-entry-node`, `.sw-entry-arrow`, `.sw-node-label`, `.sw-node-discovery/foundation/bridge`, `.sw-node-card`, `.sw-node-web/python/problem/project/final`, `.sw-node-logo`, `.sw-node-logo-sm`, `.sw-node-icon`, `.sw-node-name`, `.sw-node-level` |
+| 383–470 | 4-column tree | `.sw-tree`, `.sw-tree-h`, `.sw-col`, `.sw-col-entry/intro/spec/db`, `.sw-col-branch`, `.sw-col-branches`, `.sw-spec-group` |
+| 472–528 | Branch junction | `.sw-branch-junction`, `.sw-branch-circle`, `.sw-branch-h-line`, `.sw-branch-v-lines`, `.sw-branch-v-line` |
+| 530–604 | Track containers | `.sw-track`, `.sw-track-header`, `.sw-track-icon`, `.sw-track-title`, `.sw-track-flow`, `.sw-flow-node`, `.sw-flow-arrow` |
+| 606–656 | Track branches + variants | `.sw-spec-container`, `.sw-node-backend`, `.sw-node-gamedev`, `.sw-track-backend`, `.sw-track-gamedev`, `.sw-track-database` |
+| 658–672 | Convergence zone | `.sw-node-database` |
+| 675–746 | Checkpoint | `.sw-checkpoint`, `.sw-checkpoint-diamond`, `.sw-checkpoint-icon/label/sub`, `.sw-connector-to-checkpoint` |
+| 748–874 | Responsive | `@media` at 1400px, 1100px, 900px, 600px |
 
-| Lines | Section | Selector patterns |
-|-------|---------|-------------------|
-| 304–471 | Software track shared styles | `.sw-track-flow`, `.sw-entry-sequence`, `.sw-entry-node`, `.sw-entry-arrow`, `.sw-node-label`, `.sw-node-discovery`, `.sw-node-foundation`, `.sw-node-bridge`, `.sw-node-card`, `.sw-node-web`, `.sw-node-python`, `.sw-node-problem`, `.sw-node-project`, `.sw-node-final`, `.sw-node-logo`, `.sw-node-logo-sm`, `.sw-node-icon`, `.sw-node-name`, `.sw-node-level`, `.sw-node-sub` |
-| 473–561 | 4-column horizontal tree | `.sw-tree`, `.sw-tree.sw-tree-h`, `.sw-col`, `.sw-col-entry`, `.sw-col-intro`, `.sw-col-spec`, `.sw-col-db`, `.sw-col-branch`, `.sw-col-branches`, `.sw-spec-group` |
-| 562–618 | Branch junction | `.sw-branch-junction`, `.sw-branch-circle`, `.sw-branch-h-line`, `.sw-branch-v-lines`, `.sw-branch-v-line` |
-| 620–694 | Track containers | `.sw-track`, `.sw-track-header`, `.sw-track-icon`, `.sw-track-title`, `.sw-track-flow`, `.sw-flow-node`, `.sw-flow-arrow`, `.sw-flow-arrow-split` |
-| 696–796 | Track branches + variants | `.sw-track-branches`, `.sw-spec-container`, `.sw-branch-col-label`, `.sw-branch-frontend/backend/pyweb/gamedev`, `.sw-node-backend`, `.sw-node-gamedev`, `.sw-track-backend`, `.sw-track-gamedev`, `.sw-track-database` |
-| 798–983 | Convergence + checkpoint | `.sw-convergence-zone`, `.sw-conv-*`, `.sw-conv-db-col`, `.sw-node-database`, `.sw-checkpoint`, `.sw-checkpoint-diamond`, `.sw-connector-to-checkpoint`, `.sw-flow-arrow-down` |
-| 985–1109 | Responsive (software track) | `@media (max-width: 1400px)`, `@media (max-width: 1100px)`, `@media (max-width: 900px)`, `@media (max-width: 600px)` — only the `.sw-*` rules |
+### `@media` blocks
 
-**Note on responsive rules (985–1109):** Some breakpoints contain mixed rules.
-The `.sw-*` rules go to `sw-track.css`. Any generic `.flow-node`, `.flow-arrow`,
-`.tree` rules that appear in those breakpoints stay in `tree.css`. Specifically:
+All four `@media` blocks sit at the end of the file (lines 752–874) and contain **only
+`.sw-*` rules**. The generic section has no `@media` blocks. No block mixes generic and
+`.sw-*` rules, so the cut at line 218/219 is clean. Likewise, no `.sw-*` rule appears in
+lines 1–218 and no non-`.sw-*` rule appears in lines 219–874.
 
-- At `1400px`: `.sw-entry-sequence`, `.sw-node-card`, `.sw-node-logo`, `.sw-node-name`
-  → all `.sw-*`, goes to `sw-track.css`
-- At `1100px`: `.sw-tree`, `.sw-entry-sequence`, `.sw-node-card`, `.sw-node-logo`,
-  `.sw-node-logo-sm`, `.sw-node-name`, `.sw-node-level`, `.sw-node-label`,
-  `.sw-col-branch`, `.sw-col-branches`
-  → all `.sw-*`, goes to `sw-track.css`
-- At `900px`: `.sw-tree`, `.sw-entry-sequence`, `.sw-col-branch`, `.sw-col-branches`,
-  `.sw-tree-h`, `.sw-track-flow`, `.sw-flow-arrow`, `.sw-flow-arrow-split`,
-  `.sw-spec-container`
-  → all `.sw-*`, goes to `sw-track.css`
-- At `600px`: `.sw-entry-sequence`, `.sw-entry-arrow`, `.sw-node-card`, `.sw-node-logo`,
-  `.sw-node-logo-sm`, `.sw-node-name`, `.sw-node-level`, `.sw-node-sub`, `.sw-node-label`
-  → all `.sw-*`, goes to `sw-track.css`
+## HTML Change
 
-All responsive rules in lines 985–1109 are exclusively `.sw-*` selectors.
-**No generic tree/flow rules exist in the responsive section.** This makes the split clean.
+In `index.html`, the single link is replaced in the same position (after `grids.css`,
+before `icons.css`), so cascade order is unchanged:
 
----
-
-## HTML Changes
-
-### `index.html` — update stylesheet links
-
-**Before:**
-```html
-<link rel="stylesheet" href="style/tree-flow.css">
-```
-
-**After:**
 ```html
 <link rel="stylesheet" href="style/tree.css">
-<link rel="stylesheet" href="style/sw-track.css">
+<link rel="stylesheet" href="style/track-diagram.css">
 ```
 
-Both files load after `grids.css` and before `icons.css` to preserve cascade order.
-
-### Delete `style/tree-flow.css`
-
-After both new files are verified, remove the original.
-
----
-
-## Verification Checklist
+## Verification
 
 | # | Check | Method |
 |---|-------|--------|
-| 1 | No CSS rules lost | Diff line count: `tree.css` lines + `sw-track.css` lines ≈ 1109 |
-| 2 | No visual regression | Open `index.html` in browser, navigate to slide 6, compare before/after |
-| 3 | Generic trees still work | Check any slide using `.tree`, `.flow-row`, `.flow-node`, `.timeline-tree` |
-| 4 | Load order correct | Both new `<link>` tags replace the single old one in same position |
-| 5 | No 404s | Browser dev tools → Network tab → no failed CSS loads |
-
----
-
-## Risk Assessment
-
-**Risk: Low.** This is a mechanical file split with no style changes.
-- No selectors are modified, renamed, or removed
-- No specificity changes
-- No cascade reordering (both files load in the same position as the original)
-- The only change is which `.css` file each rule lives in
+| 1 | Rules unchanged | Strip the first line of each new file, concatenate (tree then track-diagram), and diff against `git show 7ea9cd5:style/tree-flow.css` → no diff |
+| 2 | No visual regression | Pixel-diff screenshots of every slide before/after, especially s06 and s07 |
+| 3 | No 404s | Browser dev tools → Network → both CSS files load |
