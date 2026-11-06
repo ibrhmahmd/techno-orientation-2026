@@ -5,340 +5,314 @@
   <div class="slide-content">
     <p class="section-label">03 — Curriculum Architecture</p>
     <h2>Software Track</h2>
-    <p class="desc">From visual blocks to professional development — two paths converging to full-stack</p>
+    <p class="desc">From visual blocks to professional development — two paths, four specializations, one data layer</p>
 
-    <div class="track-tree track-tree-h">
+    <div class="track-tree track-tree-grid">
 
-      <!-- ═══════════════════════════════════════════════════════ -->
-      <!-- COLUMN 1 — Entry Courses (horizontal flow) -->
-      <!-- ═══════════════════════════════════════════════════════ -->
-      <div class="track-col track-col-entry">
-        <div class="track-entry-sequence">
-          <div class="track-entry-node">
+      <!-- Entry: Scratch Jr → Scratch → PictoBlox -->
+      <div class="track-entry-sequence track-at-entry">
+        <div class="track-entry-node">
+          <div class="track-node-card">
+            <img src="assets/scratch-jr_logo.png" alt="Scratch Jr" class="track-node-logo">
+            <div class="track-node-name">Scratch Jr</div>
+          </div>
+        </div>
+        <div class="track-entry-arrow"></div>
+        <div class="track-entry-node">
+          <div class="track-node-card">
+            <img src="assets/scratch_logo.png" alt="Scratch" class="track-node-logo">
+            <div class="track-node-name">Scratch</div>
+          </div>
+        </div>
+        <div class="track-entry-arrow"></div>
+        <div class="track-entry-node">
+          <div class="track-node-card">
+            <img src="assets/pictoblox_logo.png" alt="PictoBlox" class="track-node-logo">
+            <div class="track-node-name">PictoBlox</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Split: Entry → Web / Programming -->
+      <div class="track-split-top track-at-s1a"></div>
+      <div class="track-split-bottom track-at-s1b"></div>
+
+      <!-- Intro to Web Development -->
+      <div class="track-lane track-node-web track-at-web">
+        <div class="track-title">Intro to Web Development</div>
+        <div class="track-flow">
+          <div class="track-flow-node">
             <div class="track-node-card">
-              <img src="assets/scratch-jr_logo.png" alt="Scratch Jr" class="track-node-logo">
-              <div class="track-node-name">Scratch Jr</div>
+              <img src="assets/html_logo.png" alt="HTML" class="track-node-logo-sm">
+              <div class="track-node-name">HTML</div>
+              <div class="track-node-level">Level 1</div>
             </div>
+            <div class="track-flow-arrow"></div>
           </div>
-          <div class="track-entry-arrow"></div>
-          <div class="track-entry-node">
+          <div class="track-flow-node">
             <div class="track-node-card">
-              <img src="assets/scratch_logo.png" alt="Scratch" class="track-node-logo">
-              <div class="track-node-name">Scratch</div>
+              <img src="assets/css_logo.png" alt="CSS" class="track-node-logo-sm">
+              <div class="track-node-name">CSS</div>
+              <div class="track-node-level">Level 1</div>
             </div>
+            <div class="track-flow-arrow"></div>
           </div>
-          <div class="track-entry-arrow"></div>
-          <div class="track-entry-node">
+          <div class="track-flow-node">
             <div class="track-node-card">
-              <img src="assets/pictoblox_logo.png" alt="PictoBlox" class="track-node-logo">
-              <div class="track-node-name">PictoBlox</div>
+              <img src="assets/css_logo.png" alt="CSS" class="track-node-logo-sm">
+              <div class="track-node-name">CSS</div>
+              <div class="track-node-level">Level 2</div>
+            </div>
+            <div class="track-flow-arrow"></div>
+          </div>
+          <div class="track-flow-node">
+            <div class="track-node-card track-node-project">
+              <svg class="track-node-svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/></svg>
+              <div class="track-node-name">HTML+CSS</div>
+              <div class="track-node-level">Project</div>
+            </div>
+            <div class="track-flow-arrow"></div>
+          </div>
+          <div class="track-flow-node">
+            <div class="track-node-card">
+              <img src="assets/js_logo.png" alt="JS" class="track-node-logo-sm">
+              <div class="track-node-name">JS</div>
+              <div class="track-node-level">Level 1</div>
+            </div>
+            <div class="track-flow-arrow"></div>
+          </div>
+          <div class="track-flow-node">
+            <div class="track-node-card">
+              <img src="assets/js_logo.png" alt="JS" class="track-node-logo-sm">
+              <div class="track-node-name">JS</div>
+              <div class="track-node-level">Level 2</div>
+            </div>
+            <div class="track-flow-arrow"></div>
+          </div>
+          <div class="track-flow-node">
+            <div class="track-node-card">
+              <img src="assets/js_logo.png" alt="JS" class="track-node-logo-sm">
+              <div class="track-node-name">JS</div>
+              <div class="track-node-level">Level 3</div>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- ═══ BRANCH 1→2 (PictoBlox → Intro Web Dev + Intro Programming) ═══ -->
-      <div class="track-col-branch">
-        <div class="track-branch-junction">
-          <div class="track-branch-h-line"></div>
-          <div class="track-branch-circle"></div>
-          <div class="track-branch-v-lines">
-            <div class="track-branch-v-line"></div>
-            <div class="track-branch-v-line"></div>
+      <!-- Split: Web → Frontend / Backend -->
+      <div class="track-split-top track-at-s2a"></div>
+      <div class="track-split-bottom track-at-s2b"></div>
+
+      <!-- Intro to Frontend -->
+      <div class="track-lane track-node-web track-at-fe">
+        <div class="track-title">Intro to Frontend</div>
+        <div class="track-flow">
+          <div class="track-flow-node">
+            <div class="track-node-card">
+              <svg class="track-node-svg" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>
+              <div class="track-node-name">Level 1</div>
+            </div>
+            <div class="track-flow-arrow"></div>
+          </div>
+          <div class="track-flow-node">
+            <div class="track-node-card">
+              <svg class="track-node-svg" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>
+              <div class="track-node-name">Level 2</div>
+            </div>
           </div>
         </div>
       </div>
 
-      <!-- ═══════════════════════════════════════════════════════ -->
-      <!-- COLUMN 2 — Intro Containers (stacked vertically) -->
-      <!-- ═══════════════════════════════════════════════════════ -->
-      <div class="track-col track-col-intro">
-
-        <!-- Intro to Web Development -->
-        <div class="track-lane track-lane-web">
-          <div class="track-header">
-            <div class="track-icon">⟨/⟩</div>
-            <div class="track-title">Intro to Web Development</div>
+      <!-- Intro to Backend -->
+      <div class="track-lane track-node-backend track-at-be">
+        <div class="track-title">Intro to Backend</div>
+        <div class="track-flow">
+          <div class="track-flow-node">
+            <div class="track-node-card">
+              <img src="assets/nodejs_logo.svg" alt="Node.js" class="track-node-logo-sm">
+              <div class="track-node-name">Level 1</div>
+              <div class="track-node-level">Node.js</div>
+            </div>
+            <div class="track-flow-arrow"></div>
           </div>
-          <div class="track-flow">
-            <div class="track-flow-node">
-              <div class="track-node-card track-node-web">
-                <img src="assets/html_logo.png" alt="HTML" class="track-node-logo-sm">
-                <div class="track-node-name">HTML</div>
-                <div class="track-node-level">Level 1</div>
-              </div>
-              <div class="track-flow-arrow"></div>
+          <div class="track-flow-node">
+            <div class="track-node-card">
+              <img src="assets/nodejs_logo.svg" alt="Node.js" class="track-node-logo-sm">
+              <div class="track-node-name">Level 2</div>
+              <div class="track-node-level">Node.js</div>
             </div>
-            <div class="track-flow-node">
-              <div class="track-node-card track-node-web">
-                <img src="assets/css_logo.png" alt="CSS" class="track-node-logo-sm">
-                <div class="track-node-name">CSS</div>
-                <div class="track-node-level">Level 1</div>
-              </div>
-              <div class="track-flow-arrow"></div>
-            </div>
-            <div class="track-flow-node">
-              <div class="track-node-card track-node-web">
-                <img src="assets/css_logo.png" alt="CSS" class="track-node-logo-sm">
-                <div class="track-node-name">CSS</div>
-                <div class="track-node-level">Level 2</div>
-              </div>
-              <div class="track-flow-arrow"></div>
-            </div>
-            <div class="track-flow-node">
-              <div class="track-node-card track-node-web track-node-project">
-                <div class="track-node-icon">🚀</div>
-                <div class="track-node-name">HTML+CSS</div>
-                <div class="track-node-level">Project</div>
-              </div>
-              <div class="track-flow-arrow"></div>
-            </div>
-            <div class="track-flow-node">
-              <div class="track-node-card track-node-web">
-                <img src="assets/js_logo.png" alt="JS" class="track-node-logo-sm">
-                <div class="track-node-name">JS</div>
-                <div class="track-node-level">Level 1</div>
-              </div>
-              <div class="track-flow-arrow"></div>
-            </div>
-            <div class="track-flow-node">
-              <div class="track-node-card track-node-web">
-                <img src="assets/js_logo.png" alt="JS" class="track-node-logo-sm">
-                <div class="track-node-name">JS</div>
-                <div class="track-node-level">Level 2</div>
-              </div>
-              <div class="track-flow-arrow"></div>
-            </div>
-            <div class="track-flow-node">
-              <div class="track-node-card track-node-web">
-                <img src="assets/js_logo.png" alt="JS" class="track-node-logo-sm">
-                <div class="track-node-name">JS</div>
-                <div class="track-node-level">Level 3</div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Intro to Programming -->
-        <div class="track-lane track-lane-python">
-          <div class="track-header">
-            <div class="track-icon">🐍</div>
-            <div class="track-title">Intro to Programming</div>
-          </div>
-          <div class="track-flow">
-            <div class="track-flow-node">
-              <div class="track-node-card track-node-python">
-                <img src="assets/python_logo.png" alt="Python" class="track-node-logo-sm">
-                <div class="track-node-name">Python</div>
-                <div class="track-node-level">Level 1</div>
-              </div>
-              <div class="track-flow-arrow"></div>
-            </div>
-            <div class="track-flow-node">
-              <div class="track-node-card track-node-python">
-                <img src="assets/python_logo.png" alt="Python" class="track-node-logo-sm">
-                <div class="track-node-name">Python</div>
-                <div class="track-node-level">Level 2</div>
-              </div>
-              <div class="track-flow-arrow"></div>
-            </div>
-            <div class="track-flow-node">
-              <div class="track-node-card track-node-python track-node-project">
-                <div class="track-node-icon">🚀</div>
-                <div class="track-node-name">Python</div>
-                <div class="track-node-level">Project</div>
-              </div>
-              <div class="track-flow-arrow"></div>
-            </div>
-            <div class="track-flow-node">
-              <div class="track-node-card track-node-problem">
-                <div class="track-node-icon">🧩</div>
-                <div class="track-node-name">Problem Solving</div>
-                <div class="track-node-level">Level 1</div>
-              </div>
-              <div class="track-flow-arrow"></div>
-            </div>
-            <div class="track-flow-node">
-              <div class="track-node-card track-node-problem">
-                <div class="track-node-icon">🧩</div>
-                <div class="track-node-name">Problem Solving</div>
-                <div class="track-node-level">Level 2</div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-      </div>
-
-      <!-- ═══ BRANCH 2→3 (two branches: Web Dev→FE+BE, Programming→PyWeb+GameDev) ═══ -->
-      <div class="track-col-branches">
-        <!-- Branch: Intro to Web Dev → Frontend + Backend -->
-        <div class="track-branch-junction">
-          <div class="track-branch-h-line"></div>
-          <div class="track-branch-circle"></div>
-          <div class="track-branch-v-lines">
-            <div class="track-branch-v-line"></div>
-            <div class="track-branch-v-line"></div>
-          </div>
-        </div>
-        <!-- Branch: Intro to Programming → Python Web + Game Dev -->
-        <div class="track-branch-junction">
-          <div class="track-branch-h-line"></div>
-          <div class="track-branch-circle"></div>
-          <div class="track-branch-v-lines">
-            <div class="track-branch-v-line"></div>
-            <div class="track-branch-v-line"></div>
           </div>
         </div>
       </div>
 
-      <!-- ═══════════════════════════════════════════════════════ -->
-      <!-- COLUMN 3 — Specializations (grouped by parent track) -->
-      <!-- ═══════════════════════════════════════════════════════ -->
-      <div class="track-col track-col-spec">
-
-        <!-- Frontend + Backend (from Web Dev) -->
-        <div class="track-spec-group">
-          <div class="track-spec-container track-lane-web">
-            <div class="track-header">
-              <div class="track-icon">🎨</div>
-              <div class="track-title">Intro to Frontend</div>
+      <!-- Intro to Programming -->
+      <div class="track-lane track-node-python track-at-prog">
+        <div class="track-title">Intro to Programming</div>
+        <div class="track-flow">
+          <div class="track-flow-node">
+            <div class="track-node-card">
+              <img src="assets/python_logo.png" alt="Python" class="track-node-logo-sm">
+              <div class="track-node-name">Python</div>
+              <div class="track-node-level">Level 1</div>
             </div>
-            <div class="track-flow">
-              <div class="track-flow-node">
-                <div class="track-node-card track-node-web">
-                  <div class="track-node-icon">🎨</div>
-                  <div class="track-node-name">Level 1</div>
-                </div>
-                <div class="track-flow-arrow"></div>
-              </div>
-              <div class="track-flow-node">
-                <div class="track-node-card track-node-web track-node-final">
-                  <div class="track-node-icon">🎨</div>
-                  <div class="track-node-name">Level 2</div>
-                </div>
-              </div>
+            <div class="track-flow-arrow"></div>
+          </div>
+          <div class="track-flow-node">
+            <div class="track-node-card">
+              <img src="assets/python_logo.png" alt="Python" class="track-node-logo-sm">
+              <div class="track-node-name">Python</div>
+              <div class="track-node-level">Level 2</div>
+            </div>
+            <div class="track-flow-arrow"></div>
+          </div>
+          <div class="track-flow-node">
+            <div class="track-node-card track-node-project">
+              <svg class="track-node-svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/></svg>
+              <div class="track-node-name">Python</div>
+              <div class="track-node-level">Project</div>
             </div>
           </div>
-
-          <div class="track-spec-container track-lane-backend">
-            <div class="track-header">
-              <div class="track-icon">⚙️</div>
-              <div class="track-title">Intro to Backend</div>
-            </div>
-            <div class="track-flow">
-              <div class="track-flow-node">
-                <div class="track-node-card track-node-backend">
-                  <div class="track-node-icon">⚙️</div>
-                  <div class="track-node-name">Level 1</div>
-                </div>
-                <div class="track-flow-arrow"></div>
-              </div>
-              <div class="track-flow-node">
-                <div class="track-node-card track-node-backend">
-                  <div class="track-node-icon">⚙️</div>
-                  <div class="track-node-name">Level 2</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Python Web + Game Dev (from Programming) -->
-        <div class="track-spec-group">
-          <div class="track-spec-container track-lane-python">
-            <div class="track-header">
-              <div class="track-icon">🌐</div>
-              <div class="track-title">Intro to Python Web</div>
-            </div>
-            <div class="track-flow">
-              <div class="track-flow-node">
-                <div class="track-node-card track-node-python">
-                  <div class="track-node-icon">🌐</div>
-                  <div class="track-node-name">Level 1</div>
-                  <div class="track-node-level">Streamlit</div>
-                </div>
-                <div class="track-flow-arrow"></div>
-              </div>
-              <div class="track-flow-node">
-                <div class="track-node-card track-node-python">
-                  <div class="track-node-icon">🌐</div>
-                  <div class="track-node-name">Level 2</div>
-                  <div class="track-node-level">Streamlit</div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="track-spec-container track-lane-gamedev">
-            <div class="track-header">
-              <div class="track-icon">🎮</div>
-              <div class="track-title">Intro to Game Dev</div>
-            </div>
-            <div class="track-flow">
-              <div class="track-flow-node">
-                <div class="track-node-card track-node-gamedev">
-                  <div class="track-node-icon">🎮</div>
-                  <div class="track-node-name">Level 1</div>
-                  <div class="track-node-level">pgzero</div>
-                </div>
-                <div class="track-flow-arrow"></div>
-              </div>
-              <div class="track-flow-node">
-                <div class="track-node-card track-node-gamedev">
-                  <div class="track-node-icon">🎮</div>
-                  <div class="track-node-name">Level 2</div>
-                  <div class="track-node-level">pgzero</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-      </div>
-
-      <!-- ═══ BRANCH 3→4 (Backend + Python Web → Database) ═══ -->
-      <div class="track-col-branch">
-        <div class="track-branch-junction">
-          <div class="track-branch-v-lines">
-            <div class="track-branch-v-line"></div>
-            <div class="track-branch-v-line"></div>
-          </div>
-          <div class="track-branch-circle"></div>
-          <div class="track-branch-h-line"></div>
         </div>
       </div>
 
-      <!-- ═══════════════════════════════════════════════════════ -->
-      <!-- COLUMN 4 — Database -->
-      <!-- ═══════════════════════════════════════════════════════ -->
-      <div class="track-col track-col-db">
-        <div class="track-spec-container track-lane-database">
-          <div class="track-header">
-            <div class="track-icon">🗄</div>
-            <div class="track-title">Intro to Database</div>
-          </div>
-          <div class="track-flow">
-            <div class="track-flow-node">
-              <div class="track-node-card track-node-database">
-                <div class="track-node-icon">🗄</div>
-                <div class="track-node-name">Level 1</div>
-                <div class="track-node-level">SQL · SQLite</div>
-              </div>
-              <div class="track-flow-arrow"></div>
+      <!-- Split: Programming → Problem Solving / Game & Story -->
+      <div class="track-split-top track-at-s3a"></div>
+      <div class="track-split-bottom track-at-s3b"></div>
+
+      <!-- Intro to Problem Solving -->
+      <div class="track-lane track-node-problem track-at-ps">
+        <div class="track-title">Intro to Problem Solving</div>
+        <div class="track-flow">
+          <div class="track-flow-node">
+            <div class="track-node-card">
+              <svg class="track-node-svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M19.439 7.85c-.049.322.059.648.289.878l1.568 1.568c.47.47.706 1.087.706 1.704s-.235 1.233-.706 1.704l-1.611 1.611a.98.98 0 0 1-.837.276c-.47-.07-.802-.48-.968-.925a2.501 2.501 0 1 0-3.214 3.214c.446.166.855.497.925.968a.979.979 0 0 1-.276.837l-1.61 1.61a2.404 2.404 0 0 1-1.705.707 2.402 2.402 0 0 1-1.704-.706l-1.568-1.568a1.026 1.026 0 0 0-.877-.29c-.493.074-.84.504-1.02.968a2.5 2.5 0 1 1-3.237-3.237c.464-.18.894-.527.967-1.02a1.026 1.026 0 0 0-.289-.877l-1.568-1.568A2.402 2.402 0 0 1 1.998 12c0-.617.236-1.234.706-1.704L4.23 8.77c.24-.24.581-.353.917-.303.515.077.877.528 1.073 1.01a2.5 2.5 0 1 0 3.259-3.259c-.482-.196-.933-.558-1.01-1.073-.05-.336.062-.676.303-.917l1.525-1.525A2.402 2.402 0 0 1 12 1.998c.617 0 1.234.236 1.704.706l1.568 1.568c.23.23.556.338.877.29.493-.074.84-.504 1.02-.968a2.5 2.5 0 1 1 3.237 3.237c-.464.18-.894.527-.967 1.02Z"/></svg>
+              <div class="track-node-name">Level 1</div>
             </div>
-            <div class="track-flow-node">
-              <div class="track-node-card track-node-database">
-                <div class="track-node-icon">🗄</div>
-                <div class="track-node-name">Level 2</div>
-                <div class="track-node-level">SQL · SQLite</div>
-              </div>
+            <div class="track-flow-arrow"></div>
+          </div>
+          <div class="track-flow-node">
+            <div class="track-node-card">
+              <svg class="track-node-svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M19.439 7.85c-.049.322.059.648.289.878l1.568 1.568c.47.47.706 1.087.706 1.704s-.235 1.233-.706 1.704l-1.611 1.611a.98.98 0 0 1-.837.276c-.47-.07-.802-.48-.968-.925a2.501 2.501 0 1 0-3.214 3.214c.446.166.855.497.925.968a.979.979 0 0 1-.276.837l-1.61 1.61a2.404 2.404 0 0 1-1.705.707 2.402 2.402 0 0 1-1.704-.706l-1.568-1.568a1.026 1.026 0 0 0-.877-.29c-.493.074-.84.504-1.02.968a2.5 2.5 0 1 1-3.237-3.237c.464-.18.894-.527.967-1.02a1.026 1.026 0 0 0-.289-.877l-1.568-1.568A2.402 2.402 0 0 1 1.998 12c0-.617.236-1.234.706-1.704L4.23 8.77c.24-.24.581-.353.917-.303.515.077.877.528 1.073 1.01a2.5 2.5 0 1 0 3.259-3.259c-.482-.196-.933-.558-1.01-1.073-.05-.336.062-.676.303-.917l1.525-1.525A2.402 2.402 0 0 1 12 1.998c.617 0 1.234.236 1.704.706l1.568 1.568c.23.23.556.338.877.29.493-.074.84-.504 1.02-.968a2.5 2.5 0 1 1 3.237 3.237c-.464.18-.894.527-.967 1.02Z"/></svg>
+              <div class="track-node-name">Level 2</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="track-flow-arrow track-at-arr"></div>
+
+      <!-- Intro to Python Web -->
+      <div class="track-lane track-node-python track-at-pyweb">
+        <div class="track-title">Intro to Python Web</div>
+        <div class="track-flow">
+          <div class="track-flow-node">
+            <div class="track-node-card">
+              <img src="assets/streamlit_logo.svg" alt="Streamlit" class="track-node-logo-sm">
+              <div class="track-node-name">Level 1</div>
+              <div class="track-node-level">Streamlit</div>
+            </div>
+            <div class="track-flow-arrow"></div>
+          </div>
+          <div class="track-flow-node">
+            <div class="track-node-card">
+              <img src="assets/streamlit_logo.svg" alt="Streamlit" class="track-node-logo-sm">
+              <div class="track-node-name">Level 2</div>
+              <div class="track-node-level">Streamlit</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Intro to Game & Story Dev -->
+      <div class="track-lane track-node-gamedev track-at-game">
+        <div class="track-title">Intro to Game &amp; Story Dev</div>
+        <div class="track-flow">
+          <div class="track-flow-node">
+            <div class="track-node-card">
+              <img src="assets/pgzero_logo.svg" alt="pgzero" class="track-node-logo-sm">
+              <div class="track-node-name">Game Dev L1</div>
+              <div class="track-node-level">pgzero</div>
+            </div>
+            <div class="track-flow-arrow"></div>
+          </div>
+          <div class="track-flow-node">
+            <div class="track-node-card">
+              <img src="assets/pgzero_logo.svg" alt="pgzero" class="track-node-logo-sm">
+              <div class="track-node-name">Game Dev L2</div>
+              <div class="track-node-level">pgzero</div>
+            </div>
+            <div class="track-flow-arrow"></div>
+          </div>
+          <div class="track-flow-node">
+            <div class="track-node-card">
+              <svg class="track-node-svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+              <div class="track-node-name">Story Dev L1</div>
+            </div>
+            <div class="track-flow-arrow"></div>
+          </div>
+          <div class="track-flow-node">
+            <div class="track-node-card">
+              <svg class="track-node-svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+              <div class="track-node-name">Story Dev L2</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Merge: Backend + Python Web → Database -->
+      <div class="track-merge-top track-at-ma"></div>
+      <div class="track-merge-bottom track-at-mb"></div>
+
+      <!-- Intro to Database -->
+      <div class="track-lane track-node-database track-at-db">
+        <div class="track-title">Intro to Database</div>
+        <div class="track-flow">
+          <div class="track-flow-node">
+            <div class="track-node-card">
+              <img src="assets/sqlite_logo.svg" alt="SQLite" class="track-node-logo-sm">
+              <div class="track-node-name">Level 1</div>
+              <div class="track-node-level">SQL · SQLite</div>
+            </div>
+            <div class="track-flow-arrow"></div>
+          </div>
+          <div class="track-flow-node">
+            <div class="track-node-card">
+              <img src="assets/sqlite_logo.svg" alt="SQLite" class="track-node-logo-sm">
+              <div class="track-node-name">Level 2</div>
+              <div class="track-node-level">SQL · SQLite</div>
             </div>
           </div>
         </div>
       </div>
 
     </div><!-- end track-tree -->
+
+    <div class="track-legend">
+      <div class="track-legend-item">
+        <span class="track-dot track-node-web"></span>
+        <span>Web</span>
+      </div>
+      <div class="track-legend-item">
+        <span class="track-dot track-node-python"></span>
+        <span>Programming</span>
+      </div>
+      <div class="track-legend-item">
+        <span class="track-dot track-node-backend"></span>
+        <span>Backend</span>
+      </div>
+      <div class="track-legend-item">
+        <span class="track-dot track-node-gamedev"></span>
+        <span>Game &amp; Story</span>
+      </div>
+      <div class="track-legend-item">
+        <span class="track-dot track-node-database"></span>
+        <span>Database</span>
+      </div>
+      <div class="track-legend-item">
+        <span class="track-dot track-node-project"></span>
+        <span>Projects</span>
+      </div>
+    </div>
 
     <div class="arabic" lang="ar" style="text-align:center;margin-top:8px;">مسار البرمجيات: من Scratch Jr إلى Database — مساران Web و Python يلتقيان في قواعد البيانات.</div>
   </div>

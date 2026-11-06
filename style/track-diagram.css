@@ -97,28 +97,16 @@
 }
 
 /* ── Per-variant overrides (differ in more than colour) ── */
-.track-node-project,
-.track-node-database {
+.track-node-card:is(.track-node-project, .track-node-database) {
   background: linear-gradient(135deg, color-mix(in srgb, var(--track-color) 8%, transparent), color-mix(in srgb, var(--track-color) 2%, transparent));
   box-shadow: 0 2px 10px color-mix(in srgb, var(--track-color) 15%, transparent);
 }
-.track-node-database {
+.track-node-card.track-node-database {
   box-shadow: 0 2px 12px color-mix(in srgb, var(--track-color) 15%, transparent);
 }
-:is(.track-node-project, .track-node-database) :is(.track-node-name, .track-node-icon, .track-node-level) {
+.track-node-card:is(.track-node-project, .track-node-database) :is(.track-node-name, .track-node-icon, .track-node-level) {
   color: var(--track-color);
 }
-/* Dark capstone node: keeps its parent variant's glow, own border/text colour. */
-.track-node-final {
-  background: linear-gradient(135deg, #0a0e1a, #131b2e);
-  border-color: #7671ff;
-}
-.track-node-final .track-node-name,
-.track-node-final .track-node-icon,
-.track-node-final .track-node-level {
-  color: #7671ff;
-}
-
 /* ── Node Content ────────────────────────────────────── */
 .track-node-logo {
   height: 30px;
@@ -127,8 +115,20 @@
 }
 .track-node-logo-sm {
   height: 24px;
+  max-width: 76px;
   margin-bottom: 2px;
   object-fit: contain;
+}
+/* Inline line icon; stroke follows the card colour. Sized like .track-node-logo-sm. */
+.track-node-svg {
+  height: 24px;
+  aspect-ratio: 1;
+  margin-bottom: 2px;
+  fill: none;
+  stroke: var(--track-color);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
 .track-node-icon {
   font-size: 1.1em;
@@ -150,11 +150,13 @@
 }
 
 /* ════════════════════════════════════════════════════════════
-   SOFTWARE TRACK — 4-Column Horizontal Tree
-   Col 1: Entry → Col 2: Intro → Col 3: Specs → Col 4: Database
+   SOFTWARE TRACK (s06) — swim-lane grid
+   Lanes and connector cells are placed by grid area. The four
+   rows are equal (1fr) with no row gap, so every row boundary is
+   a lane centre and the bracket pieces can use 50% / 0 / 100%.
    ════════════════════════════════════════════════════════════ */
 
-/* ── Main Tree Container (vertical by default) ────────────────── */
+/* ── Main Tree Container (vertical by default; used by s07) ──── */
 .track-tree {
   display: flex;
   flex-direction: column;
@@ -167,170 +169,108 @@
   transform-origin: top center;
 }
 
-/* ── Horizontal modifier (4-column layout) ───────────────────── */
-.track-tree.track-tree-h {
-  flex-direction: row;
-  align-items: center;
-  gap: 2px;
-  flex-wrap: nowrap;
-  width: max-content;
+.track-tree.track-tree-grid {
+  --track-line: color-mix(in srgb, var(--on-surface-muted) 35%, transparent);
+  display: grid;
+  grid-template-columns: auto 40px auto minmax(40px, 1fr) auto 40px auto 40px auto;
+  grid-template-rows: repeat(4, 1fr);
+  grid-template-areas:
+    "entry s1a web  web  web  s2a fe    .  .  "
+    "entry s1a web  web  web  s2b be    ma db "
+    "entry s1b prog s3a  ps   arr pyweb mb db "
+    "entry s1b prog s3b  game game game game game";
+  gap: 0;
+  align-items: stretch; /* connector cells fill their rows */
+  width: max-content; /* real width, so fitSlides scales it */
   align-self: center;
 }
-/* Columns keep their content width; fitSlides scales the whole row instead. */
-.track-tree-h > .track-col {
-  flex: 0 0 auto;
+.track-at-entry { grid-area: entry; align-self: center; }
+.track-at-web   { grid-area: web; }
+.track-at-fe    { grid-area: fe; }
+.track-at-be    { grid-area: be; }
+.track-at-prog  { grid-area: prog; }
+.track-at-ps    { grid-area: ps; }
+.track-at-pyweb { grid-area: pyweb; }
+.track-at-game  { grid-area: game; justify-self: start; }
+.track-at-db    { grid-area: db; }
+.track-at-s1a { grid-area: s1a; }
+.track-at-s1b { grid-area: s1b; }
+.track-at-s2a { grid-area: s2a; }
+.track-at-s2b { grid-area: s2b; }
+.track-at-s3a { grid-area: s3a; }
+.track-at-s3b { grid-area: s3b; }
+.track-at-ma  { grid-area: ma; }
+.track-at-mb  { grid-area: mb; }
+.track-at-arr { grid-area: arr; }
+.track-tree-grid > .track-lane {
+  align-self: center;
+  margin: 6px 0;
+}
+.track-tree-grid > .track-flow-arrow {
+  align-self: center;
+  width: auto;
+  margin: 0 6px 0 0;
 }
 
-/* ── Column (vertical flex) ──────────────────────────────────── */
-.track-col {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  flex: 1;
-  min-width: 0;
-  align-items: center;
-}
-
-/* ── Column: Entry courses ───────────────────────────────────── */
-.track-col-entry {
-  flex: 0 0 auto;
-}
-
-/* ── Column: Intro containers ────────────────────────────────── */
-.track-col-intro {
-  gap: 12px;
-}
-
-/* ── Column: Specializations ─────────────────────────────────── */
-.track-col-spec {
-  gap: 12px;
-}
-
-/* ── Column: Database ────────────────────────────────────────── */
-.track-col-db {
-  flex: 0 0 auto;
-}
-
-/* ── Single branch between columns ───────────────────────────── */
-.track-col-branch {
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
-  align-self: stretch;
-  justify-content: center;
-  flex-shrink: 0;
-  min-width: 50px;
-}
-
-/* ── Two branches between columns (stacked) ──────────────────── */
-.track-col-branches {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  align-items: stretch;
-  align-self: stretch;
-  flex-shrink: 0;
-  min-width: 50px;
-}
-
-/* ── Specification group (stacked vertically with subtle background) */
-.track-spec-group {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  background: rgba(118,113,255,0.03);
-  border: 1px solid rgba(118,113,255,0.08);
-  border-radius: var(--radius-md);
-  padding: 8px 12px;
-}
-
-/* ════════════════════════════════════════════════════════════
-   BRANCH JUNCTION — Line + Circle style
-   Clean, minimal junction for split and converge points
-   ════════════════════════════════════════════════════════════ */
-
-/* ── Base junction container (cross/plus shape) ──────────────── */
-.track-branch-junction {
+/* ── Bracket connectors ─────────────────────────────────────── */
+/* A split is two stacked cells: -top draws the stub from the source
+   (left) plus the upper elbow; -bottom draws the lower elbow plus the
+   dot. A merge is the mirror image (elbows on the left, stub right). */
+.track-split-top,
+.track-split-bottom,
+.track-merge-top,
+.track-merge-bottom {
   position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex: 1;
-  min-height: 40px;
 }
-
-/* ── Junction circle (accent color) ──────────────────────────── */
-.track-branch-circle {
+.track-split-top::before,
+.track-split-bottom::before,
+.track-merge-top::before,
+.track-merge-bottom::before {
+  content: '';
+  position: absolute;
+  border: 0 solid var(--track-line);
+}
+.track-split-top::before    { top: calc(50% - 1px); bottom: 0; left: 50%; right: 0; border-width: 2px 0 0 2px; border-top-left-radius: 8px; }
+.track-split-bottom::before { top: 0; bottom: calc(50% - 1px); left: 50%; right: 0; border-width: 0 0 2px 2px; border-bottom-left-radius: 8px; }
+.track-merge-top::before    { top: calc(50% - 1px); bottom: 0; left: 0; right: 50%; border-width: 2px 2px 0 0; border-top-right-radius: 8px; }
+.track-merge-bottom::before { top: 0; bottom: calc(50% - 1px); left: 0; right: 50%; border-width: 0 2px 2px 0; border-bottom-right-radius: 8px; }
+/* Stub between the joined side and the elbow, on the shared row boundary. */
+.track-split-top::after,
+.track-merge-top::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  height: 2px;
+  width: 50%;
+  background: var(--track-line);
+}
+.track-split-top::after { left: 0; }
+.track-merge-top::after { right: 0; }
+/* Dot at the split / merge point. */
+.track-split-bottom::after,
+.track-merge-bottom::after {
+  content: '';
+  position: absolute;
+  z-index: 1;
+  top: -4px;
+  left: calc(50% - 3px);
   width: 8px;
   height: 8px;
-  background: var(--track-accent);
   border-radius: 50%;
+  background: var(--track-accent);
   box-shadow: 0 0 6px rgba(118,113,255,0.4);
-  flex-shrink: 0;
-  z-index: 2;
-  position: relative;
 }
+.track-merge-bottom::after { left: calc(50% - 5px); }
 
-/* ── Horizontal line (spans full width of junction) ──────────── */
-.track-branch-h-line {
-  position: absolute;
-  width: 100%;
-  height: 2px;
-  background: var(--on-surface-muted);
-  opacity: 0.3;
-  top: 50%;
-  transform: translateY(-50%);
-}
-
-/* ── Vertical lines container (spans full height) ────────────── */
-.track-branch-v-lines {
-  display: flex;
-  flex-direction: column;
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-}
-
-/* ── Individual vertical line (each fills half the height) ───── */
-.track-branch-v-line {
-  display: block;
-  width: 2px;
-  flex: 1;
-  background: var(--on-surface-muted);
-  opacity: 0.3;
-}
-
-/* ── Track Container ────────────────────────────────── */
+/* ── Lane (tint follows --track-color) ──────────────── */
 .track-lane {
-  background: rgba(118,113,255,0.03);
-  border: 1px solid rgba(118,113,255,0.08);
+  background: color-mix(in srgb, var(--track-color) 3%, transparent);
+  border: 1px solid color-mix(in srgb, var(--track-color) 12%, transparent);
   border-radius: var(--radius-md);
-  padding: 8px 12px;
+  padding: 8px 12px 10px;
 }
-
-/* ── Track Header ────────────────────────────────────── */
-.track-header {
-  display: flex;
-  align-items: center;
-  gap: 6px;
+.track-lane > .track-title {
   margin-bottom: 6px;
-  padding-bottom: 5px;
-  border-bottom: 1px solid rgba(118,113,255,0.08);
-}
-.track-icon {
-  font-size: 0.95em;
-  width: 22px;
-  height: 22px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: rgba(118,113,255,0.08);
-  border-radius: 5px;
-  font-family: var(--font-mono);
-  font-weight: 700;
-  color: var(--track-accent);
 }
 .track-title {
   font-family: var(--font-heading);
@@ -339,21 +279,18 @@
   color: var(--primary-container);
 }
 
-/* ── Track Flow (horizontal nodes) ──────────────────── */
+/* ── Track Flow (horizontal nodes, equal-height cards) ── */
 .track-flow {
   display: flex;
   flex-wrap: nowrap;
-  align-items: center;
+  align-items: stretch;
   gap: 0;
-  overflow-x: auto;
-  overflow-y: hidden;
-  padding: 4px 0;
 }
 
 /* ── Flow Node Container ────────────────────────────── */
 .track-flow-node {
   display: flex;
-  align-items: center;
+  align-items: stretch;
   flex-shrink: 0;
 }
 
@@ -366,6 +303,7 @@
   position: relative;
   margin: 0 2px;
   flex-shrink: 0;
+  align-self: center;
 }
 .track-flow-arrow::after {
   content: '';
@@ -378,39 +316,6 @@
   border-top: 4px solid transparent;
   border-bottom: 4px solid transparent;
   opacity: 0.3;
-}
-
-/* ════════════════════════════════════════════════════════════
-   TRACK BRANCHES — Split after main flow (Frontend/Backend, Web/Game)
-   Uses same bracket + dot style as main entry split
-   ════════════════════════════════════════════════════════════ */
-
-/* ── Individual specialization container ─────────────────────── */
-.track-spec-container {
-  background: rgba(118,113,255,0.03);
-  border: 1px solid rgba(118,113,255,0.08);
-  border-radius: var(--radius-md);
-  padding: 6px 10px;
-  flex: 1;
-  min-width: 0;
-}
-.track-spec-container .track-flow {
-  gap: 0;
-}
-.track-spec-container .track-header {
-  margin-bottom: 4px;
-  padding-bottom: 4px;
-}
-
-/* ── Tinted lane variants (tint follows --track-color) ─────── */
-.track-lane-backend  { --track-color: #6a1b9a; }
-.track-lane-gamedev  { --track-color: #e65100; }
-.track-lane-database { --track-color: #00897b; }
-.track-lane-backend,
-.track-lane-gamedev,
-.track-lane-database {
-  background: color-mix(in srgb, var(--track-color) 3%, transparent);
-  border-color: color-mix(in srgb, var(--track-color) 10%, transparent);
 }
 
 /* ════════════════════════════════════════════════════════════
@@ -612,7 +517,8 @@
   .track-node-logo {
     height: 20px;
   }
-  .track-node-logo-sm {
+  .track-node-logo-sm,
+  .track-node-svg {
     height: 16px;
   }
   .track-node-name {
@@ -625,12 +531,6 @@
     font-size: 0.45em;
     padding: 2px 6px;
   }
-  .track-col-branch {
-    min-width: 30px;
-  }
-  .track-col-branches {
-    min-width: 30px;
-  }
 }
 
 @media (max-width: 900px) {
@@ -642,27 +542,19 @@
     justify-content: center;
     gap: 6px;
   }
-  .track-col-branch,
-  .track-col-branches {
-    display: none;
-  }
-  .track-tree-h {
-    flex-wrap: wrap;
-    justify-content: center;
+  /* s06: drop the grid and stack the lanes in reading (DOM) order. */
+  .track-tree.track-tree-grid {
+    display: flex;
+    width: auto;
+    align-self: stretch;
     gap: 8px;
   }
-  /* Undo the desktop max-content sizing so the mobile layout fits the screen. */
-  .track-tree.track-tree-h {
-    width: auto;
-    align-self: auto;
-  }
-  .track-tree-h .track-col {
-    flex: 1 1 100%;
-    min-width: 200px;
-  }
-  .track-tree-h .track-col-branch,
-  .track-tree-h .track-col-branches {
+  .track-tree-grid > :is(.track-split-top, .track-split-bottom, .track-merge-top, .track-merge-bottom, .track-flow-arrow) {
     display: none;
+  }
+  .track-tree-grid > .track-lane {
+    align-self: stretch;
+    margin: 0;
   }
   .track-flow {
     flex-wrap: wrap;
@@ -671,10 +563,6 @@
   }
   .track-flow-arrow {
     display: none;
-  }
-  .track-spec-container {
-    width: 100%;
-    max-width: 300px;
   }
 }
 
@@ -692,7 +580,8 @@
   .track-node-logo {
     height: 16px;
   }
-  .track-node-logo-sm {
+  .track-node-logo-sm,
+  .track-node-svg {
     height: 12px;
   }
   .track-node-name {
