@@ -104,7 +104,7 @@
 .track-node-card.track-node-database {
   box-shadow: 0 2px 12px color-mix(in srgb, var(--track-color) 15%, transparent);
 }
-.track-node-card:is(.track-node-project, .track-node-database) :is(.track-node-name, .track-node-icon, .track-node-level) {
+.track-node-card:is(.track-node-project, .track-node-database) :is(.track-node-name, .track-node-level) {
   color: var(--track-color);
 }
 /* ── Node Content ────────────────────────────────────── */
@@ -129,11 +129,6 @@
   stroke-width: 2;
   stroke-linecap: round;
   stroke-linejoin: round;
-}
-.track-node-icon {
-  font-size: 1.1em;
-  margin-bottom: 1px;
-  line-height: 1;
 }
 .track-node-name {
   font-family: var(--font-heading);
@@ -354,6 +349,17 @@
   color: white;
   font-weight: 700;
 }
+/* 1em box = the old glyph size; stroke follows the white text colour. */
+.track-checkpoint-svg {
+  display: block;
+  height: 1em;
+  aspect-ratio: 1;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
 .track-checkpoint-label {
   font-family: var(--font-heading);
   font-size: 0.6em;
@@ -400,8 +406,10 @@
   min-width: 65px;
   padding: 6px 8px 5px;
 }
-.track-node-card--sm .track-node-icon {
-  font-size: 0.9em;
+/* 0.9em box (the old sm emoji size); 0,2,0 beats the media-query heights. */
+.track-node-card--sm .track-node-svg {
+  height: 0.9em;
+  margin-bottom: 1px;
 }
 .track-node-card--sm .track-node-name {
   font-size: 0.58em;
