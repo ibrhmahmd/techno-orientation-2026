@@ -66,7 +66,7 @@
             <div class="track-flow-arrow"></div>
           </div>
           <div class="track-flow-node">
-            <div class="track-node-card track-node-project">
+            <div class="compete-checkpoint track-node-card track-node-project" data-rail="top" data-rail-to="s6-comp-sw">
               <span class="track-icon track-icon-rocket" aria-hidden="true"></span>
               <div class="track-node-name">HTML+CSS</div>
               <div class="track-node-level">Project</div>
@@ -115,7 +115,7 @@
             <div class="track-flow-arrow"></div>
           </div>
           <div class="track-flow-node">
-            <div class="track-node-card">
+            <div class="compete-checkpoint track-node-card" data-rail="side" data-rail-to="s6-comp-sw">
               <span class="track-icon track-icon-layout" aria-hidden="true"></span>
               <div class="track-node-name">Level 2</div>
             </div>
@@ -136,7 +136,7 @@
             <div class="track-flow-arrow"></div>
           </div>
           <div class="track-flow-node">
-            <div class="track-node-card">
+            <div class="compete-checkpoint track-node-card" data-rail="side" data-rail-to="s6-comp-sw">
               <img src="assets/nodejs_logo.svg" alt="Node.js" class="track-node-logo-sm">
               <div class="track-node-name">Level 2</div>
               <div class="track-node-level">Node.js</div>
@@ -166,7 +166,7 @@
             <div class="track-flow-arrow"></div>
           </div>
           <div class="track-flow-node">
-            <div class="track-node-card track-node-project">
+            <div class="compete-checkpoint track-node-card track-node-project" data-rail="bottom" data-rail-to="s6-comp-sw">
               <span class="track-icon track-icon-rocket" aria-hidden="true"></span>
               <div class="track-node-name">Python</div>
               <div class="track-node-level">Project</div>
@@ -214,7 +214,7 @@
             <div class="track-flow-arrow"></div>
           </div>
           <div class="track-flow-node">
-            <div class="track-node-card">
+            <div class="compete-checkpoint track-node-card" data-rail="gap" data-rail-to="s6-comp-sw">
               <img src="assets/streamlit_logo.svg" alt="Streamlit" class="track-node-logo-sm">
               <div class="track-node-name">Level 2</div>
               <div class="track-node-level">Streamlit</div>
@@ -251,7 +251,7 @@
             <div class="track-flow-arrow"></div>
           </div>
           <div class="track-flow-node">
-            <div class="track-node-card">
+            <div class="compete-checkpoint track-node-card" data-rail="direct" data-rail-to="s6-comp-game">
               <span class="track-icon track-icon-book" aria-hidden="true"></span>
               <div class="track-node-name">Story Dev L2</div>
             </div>
@@ -276,7 +276,7 @@
             <div class="track-flow-arrow"></div>
           </div>
           <div class="track-flow-node">
-            <div class="track-node-card">
+            <div class="compete-checkpoint track-node-card" data-rail="direct" data-rail-to="s6-comp-sw">
               <img src="assets/sqlite_logo.svg" alt="SQLite" class="track-node-logo-sm">
               <div class="track-node-name">Level 2</div>
               <div class="track-node-level">SQL · SQLite</div>
@@ -285,21 +285,19 @@
         </div>
       </div>
 
-      <!-- Split: Database → its competitions -->
-      <div class="track-split-top track-split-3 track-at-s4a"></div>
-      <div class="track-split-bottom track-split-3 track-at-s4b"></div>
-
-      <!-- Split: Game & Story → its competitions -->
-      <div class="track-split-top track-split-3 track-at-s5a"></div>
-      <div class="track-split-bottom track-split-3 track-at-s5b"></div>
-
-      <!-- Competitions -->
-      <div class="compete-node track-node-database track-at-c1"><span class="track-icon track-icon-award" aria-hidden="true"></span><div>Leader of Software<small>Junior 9–15 · Senior 16–24</small></div></div>
-      <div class="compete-node track-node-database track-at-c2"><span class="track-icon track-icon-award" aria-hidden="true"></span><div>HealthInnovate<small>Ages 14–22 · teams of up to 3</small></div></div>
-      <div class="compete-node track-node-database track-at-c3"><span class="track-icon track-icon-award" aria-hidden="true"></span><div>I Am Inventor<small>Junior 11–16 · Senior 17–23</small></div></div>
-      <div class="compete-node track-node-gamedev track-at-c4"><span class="track-icon track-icon-award" aria-hidden="true"></span><div>Game to Gain<small>Junior 8–13 · Senior 14+</small></div></div>
-      <div class="compete-node track-node-gamedev track-at-c5"><span class="track-icon track-icon-award" aria-hidden="true"></span><div>Storytelling</div></div>
-      <div class="compete-node track-node-gamedev track-at-c6"><span class="track-icon track-icon-award" aria-hidden="true"></span><div>Film Festival<small>Ages 9–16</small></div></div>
+      <!-- Competitions: checkpoint rails (data-rail on the cards) are drawn by drawRails() in index.html -->
+      <div class="compete-box track-at-cbox1" id="s6-comp-sw">
+        <div class="compete-box-head"><b>Competitions</b><span><img src="assets/compete/aaffiat-leader.png" alt="">Afro-Asian Forum</span></div>
+        <div class="compete-row" style="--c: #3949ab"><img src="assets/compete/aaffiat-leader.png" alt=""><div><strong>Leader of Software</strong><small>Junior 9–15 · Senior 16–24</small></div></div>
+        <div class="compete-row" style="--c: #e53935"><img src="assets/compete/aaffiat-health.png" alt=""><div><strong>HealthInnovate</strong><small>Ages 14–22 · teams of up to 3</small></div></div>
+        <div class="compete-row" style="--c: #f9a825"><img src="assets/compete/aaffiat-inventor.png" alt=""><div><strong>I Am Inventor</strong><small>Junior 11–16 · Senior 17–23</small></div></div>
+      </div>
+      <div class="compete-box track-at-cbox2" id="s6-comp-game">
+        <div class="compete-box-head"><b>Competitions</b><span><img src="assets/compete/aaffiat-leader.png" alt="">Afro-Asian Forum</span></div>
+        <div class="compete-row" style="--c: #8e24aa"><img src="assets/compete/aaffiat-gametogain.png" alt=""><div><strong>Game to Gain</strong><small>Junior 8–13 · Senior 14+</small></div></div>
+        <div class="compete-row" style="--c: #00acc1"><img src="assets/compete/aaffiat-storytelling.png" alt=""><div><strong>Storytelling</strong></div></div>
+        <div class="compete-row" style="--c: #d81b60"><img src="assets/compete/aaffiat-film.png" alt=""><div><strong>Film Festival</strong><small>Ages 9–16</small></div></div>
+      </div>
 
     </div><!-- end track-tree -->
 
@@ -329,6 +327,7 @@
         <span>Projects</span>
       </div>
     </div>
+    <p class="track-legend-note">Each level = 4 sessions · Globe badge = checkpoint: enter a competition with +3 sessions of prep</p>
 
   </div>
 </section>

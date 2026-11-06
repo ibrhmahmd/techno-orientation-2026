@@ -1,44 +1,114 @@
 /* ════════════════════════════════════════════════════════════
    COMPETE — competitions each Software Track path qualifies for
-   Card column in s6's diagram, card grid on s6b. Lane colours come
-   from the .track-node-* classes (track-diagram.css), which set
-   --track-color.
+   s6: two competition boxes, globe-badged checkpoint cards and the
+   dashed rails drawn by drawRails() (index.html). s6b: card grid.
+   Lane colours come from the .track-node-* classes
+   (track-diagram.css), which set --track-color.
    ════════════════════════════════════════════════════════════ */
 
-.compete-node,
 .compete-grid { --compete-accent: #fb8c00; }
 
 .track-icon-award { --icon: url("../assets/icons/award.svg"); }
-:is(.compete-node, .compete-card) .track-icon {
+.compete-card .track-icon {
   height: 1.1em;
   margin: 0;
   flex: none;
   background-color: var(--compete-accent);
 }
 
-/* ── Card column (s6) — placed by .track-at-c1…c6 ─────── */
-.compete-node {
+/* ── Competition boxes (s6) — placed by .track-at-cbox1/2 ── */
+.compete-box {
+  position: relative;
+  z-index: 4; /* above the rails */
+  align-self: center;
+  min-width: 330px;
+  padding: 12px 14px 10px;
+  border-radius: 14px;
+  background: var(--surface-container-lowest);
+  box-shadow: 0 4px 18px rgba(11, 28, 48, 0.09);
+}
+.compete-box-head {
   display: flex;
   align-items: center;
-  gap: 8px;
-  min-width: 190px;
-  padding: 6px 12px 6px 10px;
-  border-left: 4px solid var(--track-color);
-  border-radius: var(--radius-md);
-  background: var(--surface-container-lowest);
-  box-shadow: 0 1px 6px rgba(11, 28, 48, 0.07);
-  font-family: var(--font-heading);
-  font-weight: 600;
-  font-size: 0.62em;
-  line-height: 1.25;
-  white-space: nowrap;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 4px;
 }
-.compete-node small {
-  display: block;
-  font-family: var(--font-body);
-  font-weight: 500;
-  font-size: 0.82em;
+.compete-box-head b {
+  font: 800 15px var(--font-heading);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--on-surface);
+}
+.compete-box-head span {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font: 500 10px var(--font-body);
   color: var(--on-surface-subtle);
+}
+.compete-box-head img { width: 20px; height: 20px; }
+/* --c: the competition's colour, set inline per row */
+.compete-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 6px;
+  padding: 5px 8px;
+  border-left: 5px solid var(--c);
+  border-radius: 10px;
+  background: color-mix(in srgb, var(--c) 7%, white);
+}
+.compete-row img { width: 34px; height: 34px; }
+.compete-row strong {
+  display: block;
+  font: 700 15px var(--font-heading);
+  color: var(--on-surface);
+}
+.compete-row small {
+  font: 500 11.5px var(--font-body);
+  color: var(--on-surface-muted);
+}
+
+/* ── Checkpoint cards, rails and +3 tags (s6) ───────────── */
+.compete-checkpoint::after {
+  content: '';
+  position: absolute;
+  top: -9px;
+  right: -9px;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: url("../assets/compete/aaffiat-blue.png") center / contain no-repeat;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.25);
+}
+.compete-rails {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 3;
+  overflow: visible;
+  pointer-events: none;
+}
+.compete-rails path {
+  fill: none;
+  stroke: #fb8c00;
+  stroke-width: 2;
+  stroke-dasharray: 6 5;
+  opacity: 0.7;
+}
+.compete-tag {
+  position: absolute;
+  z-index: 3;
+  transform: translate(-50%, -50%);
+  padding: 1px 7px;
+  border: 1px solid #ffcc80;
+  border-radius: 999px;
+  background: #fff3e0;
+  color: #e65100;
+  font: 700 10.5px var(--font-body);
+  white-space: nowrap;
 }
 
 /* ── Card grid (s6b) ──────────────────────────────────── */

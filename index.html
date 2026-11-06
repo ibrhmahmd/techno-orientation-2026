@@ -246,6 +246,8 @@ function fitSlides() {
     // Reset any previous scale before measuring
     content.style.transform = '';
     content.style.marginBottom = '';
+    // Rails are measured here, while the content is unscaled, so they hold at every scale
+    content.querySelectorAll('.track-tree').forEach(drawRails);
 
     const slideH = slide.clientHeight;
     const slideW = slide.clientWidth;
@@ -286,6 +288,54 @@ function fitSlides() {
   });
 
   document.body.classList.remove('measuring');
+}
+
+/* ════════════════════════════════════════════════════════════
+   CHECKPOINT RAILS — dashed SVG paths from each [data-rail] card
+   to the competition box named by data-rail-to, plus a tag per branch.
+     top    — up to the top rail, along it, down into the box top
+     side   — out of the card's right side, up a shared gutter to the top rail
+     bottom — down to the bottom rail, along it, up the box's left gutter into the box
+     gap    — down into the gap under its lane, across to the box's left gutter
+     direct — straight across into the box
+   Coordinates are unscaled tree px; fitSlides calls it on every fit and resize.
+   ════════════════════════════════════════════════════════════ */
+function drawRails(tree) {
+  tree.querySelectorAll(':scope > .compete-rails, :scope > .compete-tag').forEach(el => el.remove());
+  const cards = [...tree.querySelectorAll('[data-rail]')];
+  if (!cards.length) return;
+
+  const T = tree.getBoundingClientRect();
+  // .slide-content's transform transition means a cleared scale may still be animating: divide it out
+  const k = T.width / tree.offsetWidth;
+  const R = el => { const r = el.getBoundingClientRect(), l = (r.left - T.left) / k, t = (r.top - T.top) / k, w = r.width / k, h = r.height / k;
+    return { l, r: l + w, t, b: t + h, cx: l + w / 2, cy: t + h / 2 }; };
+  const lanes = [...tree.querySelectorAll('.track-lane')].map(R);
+  const topY = Math.min(...lanes.map(l => l.t)) - 46;
+  const botY = Math.max(...lanes.map(l => l.b)) + 40;
+  const sideX = Math.max(...cards.filter(c => c.dataset.rail === 'side').map(c => R(c.closest('.track-lane')).r)) + 12;
+
+  const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+  svg.setAttribute('class', 'compete-rails');
+  tree.appendChild(svg);
+  const path = d => { const p = document.createElementNS(svg.namespaceURI, 'path'); p.setAttribute('d', d); svg.appendChild(p); };
+  const tag = (x, y) => { const t = document.createElement('div'); t.className = 'compete-tag'; t.textContent = '+3 sessions'; t.style.left = x + 'px'; t.style.top = y + 'px'; tree.appendChild(t); };
+
+  cards.forEach(card => {
+    const C = R(card), L = R(card.closest('.track-lane')), B = R(document.getElementById(card.dataset.railTo));
+    const joinX = B.l - 20;
+    switch (card.dataset.rail) {
+      case 'top':    path(`M${C.cx} ${C.t}V${topY}H${B.cx}V${B.t}`); tag(C.cx, topY + (C.t - topY) * 0.45); break;
+      case 'side':   path(`M${C.r} ${C.t + 12}H${sideX}V${topY}`); tag(sideX + 34, C.t + 12); break;
+      case 'bottom': path(`M${C.cx} ${C.b}V${botY}H${joinX}V${B.b - 26}H${B.l}`); tag(C.cx, (C.b + botY) / 2 + 6); break;
+      case 'gap': { // halfway between this lane and the next lane below it
+        const gapY = (L.b + Math.min(...lanes.map(l => l.t).filter(t => t >= L.b))) / 2;
+        path(`M${C.cx} ${C.b}V${gapY}H${joinX}`); tag(C.cx + 46, gapY); break;
+      }
+      // tag tucked under the card: the card-to-box gap is narrower than a tag
+      case 'direct': path(`M${L.r} ${C.cy}H${B.l}`); tag(B.l - 40, C.b + 12); break;
+    }
+  });
 }
 
 /* ════════════════════════════════════════════════════════════
