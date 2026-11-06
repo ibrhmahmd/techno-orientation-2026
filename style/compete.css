@@ -1,0 +1,122 @@
+/* ════════════════════════════════════════════════════════════
+   COMPETE — competitions each Software Track path qualifies for
+   Strip on s6, card grid on s6b. Lane colours come from the
+   .track-node-* classes (track-diagram.css), which set --track-color.
+   ════════════════════════════════════════════════════════════ */
+
+.compete-strip,
+.compete-grid { --compete-accent: #fb8c00; }
+
+.track-icon-award { --icon: url("../assets/icons/award.svg"); }
+:is(.compete-strip, .compete-card) .track-icon {
+  height: 1.1em;
+  margin: 0;
+  flex: none;
+  background-color: var(--compete-accent);
+}
+
+/* ── Strip (s6) — tonal background, no border lines ───── */
+/* One row, as wide as its chips: s6's diagram is wider than .slide-content, so wrapping
+   at the content width would add a second row. max-content stays narrower than the diagram. */
+.compete-strip {
+  align-self: center;
+  width: max-content;
+  margin-top: 8px;
+  padding: 8px 14px;
+  border-radius: var(--radius-lg);
+  background: color-mix(in srgb, var(--compete-accent) 6%, var(--surface-container-lowest));
+}
+.compete-strip-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 6px;
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 0.55em;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--compete-accent);
+}
+.compete-chips {
+  display: flex;
+  gap: 10px;
+}
+.compete-chip {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 5px 11px;
+  border-radius: var(--radius-md);
+  background: var(--surface-container-lowest);
+  box-shadow: 0 1px 6px rgba(11, 28, 48, 0.07);
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: 0.62em;
+}
+.compete-dots { display: flex; gap: 3px; }
+.compete-chip small {
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: 0.82em;
+  color: var(--on-surface-subtle);
+}
+
+/* ── Card grid (s6b) ──────────────────────────────────── */
+.compete-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+  margin-top: 6px;
+}
+.compete-card {
+  padding: 16px 18px;
+  border-radius: var(--radius-lg);
+  background: var(--surface-container-lowest);
+  box-shadow: 0 2px 12px rgba(11, 28, 48, 0.07);
+  border-top: 4px solid var(--track-color);
+}
+.compete-card h3 {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 2px;
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 1em;
+}
+.compete-ages {
+  margin-bottom: 8px;
+  font-weight: 600;
+  font-size: 0.62em;
+  color: var(--compete-accent);
+}
+.compete-card p {
+  margin-bottom: 10px;
+  font-size: 0.7em;
+  line-height: 1.45;
+  color: var(--on-surface-muted);
+}
+.compete-from {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.56em;
+  color: var(--on-surface-subtle);
+}
+.compete-pill {
+  padding: 2px 9px;
+  border-radius: 999px;
+  background: var(--track-color);
+  color: #fff;
+  font-weight: 600;
+}
+
+@media (max-width: 1100px) {
+  .compete-grid { gap: 12px; }
+  .compete-card { padding: 12px 14px; }
+}
+@media (max-width: 600px) {
+  .compete-grid { grid-template-columns: 1fr; }
+}
