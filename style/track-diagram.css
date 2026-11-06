@@ -173,6 +173,12 @@
   align-items: center;
   gap: 2px;
   flex-wrap: nowrap;
+  width: max-content;
+  align-self: center;
+}
+/* Columns keep their content width; fitSlides scales the whole row instead. */
+.track-tree-h > .track-col {
+  flex: 0 0 auto;
 }
 
 /* ── Column (vertical flex) ──────────────────────────────────── */
@@ -644,6 +650,11 @@
     flex-wrap: wrap;
     justify-content: center;
     gap: 8px;
+  }
+  /* Undo the desktop max-content sizing so the mobile layout fits the screen. */
+  .track-tree.track-tree-h {
+    width: auto;
+    align-self: auto;
   }
   .track-tree-h .track-col {
     flex: 1 1 100%;

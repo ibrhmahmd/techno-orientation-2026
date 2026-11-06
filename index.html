@@ -267,7 +267,8 @@ function fitSlides() {
 
     // Force a layout flush before measuring
     const contentH = content.scrollHeight;
-    const contentW = content.scrollWidth;
+    // content.scrollWidth misses a child wider than .slide-content (e.g. the max-content Track diagram).
+    const contentW = Math.max(content.scrollWidth, ...[...content.children].map(k => k.scrollWidth));
 
     // Read computed padding applied by CSS
     const cs = getComputedStyle(slide);
