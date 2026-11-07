@@ -1,47 +1,57 @@
 # AGENTS.md
 
-Static HTML/CSS presentation — no build tools, no package manager, no tests.
+Static HTML/CSS slide deck: no build tools, no package manager, no tests. Deployed as plain files to GitHub Pages.
 
-## Quick Start
+## Serving
 
-Must use a local server (file:// protocol won't work for fetch-based slide loading):
+Slides load with `fetch`, so serve over HTTP (`file://` fails):
 
 ```bash
-npx serve .          # http://localhost:3000
-python -m http.server 8000
+python3 -m http.server 8000
+npx serve .
 ```
 
-VS Code: Live Server extension (port 5501).
+VS Code Live Server also works.
 
-## Architecture
+## Layout
 
-- `index.html` — Shell that fetches and assembles slides dynamically
-- `slides/` — 22 individual slide files (single source of truth for content)
-- `style/` — 8 CSS files (base, cards, grids, tree-flow, icons, media, animations, print)
-- `assets/` — PNGs (logos, images)
-- `DESIGN_SYSTEM.md` — Color palette, typography, component rules
+- `index.html` is the shell: the `SLIDES` array, the `<link>` tags, and the inline loader script.
+- `slides/` holds one file per slide. `sNN_` prefixes keep them in deck order.
+- `style/` holds the CSS. `assets/` holds images, logos and `assets/icons/*.svg`.
+- `DESIGN_SYSTEM.md` is the design philosophy. Tokens live in `:root` in `style/base.css`.
 
-## Critical Invariants
+## Invariants
 
-**Slide loader (`index.html:65-88`)** — The `SLIDES` array must exactly match files in `slides/`. Adding/removing a slide file requires updating this array.
+**`SLIDES` mirrors `slides/`.** The `SLIDES` array in `index.html` lists every file in `slides/`, exactly, in deck order. Add, remove or rename a slide file and the array changes with it.
 
-**Slide numbering is auto-generated** — Do not hardcode slide numbers in HTML. The loader injects `.slide-number` spans at runtime. The title slide (`#s1`) is excluded.
+**Slide ids are hand-written, stable and unique.** Each slide is `<section class="slide" id="sN" data-section="...">` with a `.slide-content` child. Ids (`s1`…`s22`, plus `s6b`) are written in the slide file, not generated. CSS targets them (`#s6` in `style/track-diagram.css`) and the nav dots link to `#id`, so a new slide gets a new id (like `s6b`) and existing ids keep theirs. Never renumber or duplicate an id.
 
-**Slide structure** — Every slide is `<section class="slide" id="sN" data-section="...">` with a `.slide-content` inner div. The `data-section` attribute drives section color theming via CSS.
+**`data-section` is one of** `opening | curriculum | competition | results | closing`. Each maps to `--section-color` / `--section-color-light` in `style/base.css`; a new value needs a new rule there.
 
-**CSS load order matters** — Cascading order in `index.html` must be preserved: base → cards → grids → tree-flow → icons → media → animations → print.
+**CSS load order** in `index.html` is base → cards → grids → tree → track-diagram → compete → icons → media → animations → print. Keep it.
 
-## Pending Work
+## Loader pipeline (inline in `index.html`)
 
-`SPEC-split-tree-flow.md` — Plan to split `style/tree-flow.css` (1109 lines) into `tree.css` (generic) + `sw-track.css` (slide-6-specific). Check this spec before modifying `tree-flow.css`.
+1. `loadSlides()` fetches each `SLIDES` entry in turn into `#slides-container`, builds the nav dots in `#slide-nav`, then runs `initScrollReveal()`, `initNavHighlight()` and `initArrowNavigation()`.
+2. `fitSlides()` scales each `.slide-content` with `transform: scale()` (max 1.3×) to fit the viewport, measuring the widest child. It re-runs after `document.fonts.ready` plus image decode, and on resize.
+3. `fitSlides()` calls `drawRails(tree)` for each `.track-tree`, which draws the dashed SVG checkpoint rails from `data-rail` / `data-rail-to` attributes.
 
-## Design System
+Let `fitSlides()` handle overflow: it already scales oversized content down, so leave out fixed heights and `overflow: hidden`.
 
-Colors and tokens defined in `style/base.css:10-38` as CSS custom properties. See `DESIGN_SYSTEM.md` for the design philosophy. Key rule: no 1px borders for sectioning — use tonal layering instead.
+## CSS modules
 
-## Common Pitfalls
+- `tree.css`: generic `.tree`, `.flow-*`, `.timeline-*` components.
+- `track-diagram.css`: the `track-` prefix, shared by s06 and s07. Colour variants (`.track-node-*`) set only `--track-color`. `.track-tree-grid` lays the tree out with `grid-template-areas`.
+- `compete.css`: the `compete-` prefix: competition boxes, checkpoint badges, rails and `+3 sessions` tags.
 
-- Editing a slide file without updating the `SLIDES` array = broken loading
-- Hardcoding slide numbers = numbers break when slides are added/removed
-- Using file:// protocol = fetch errors
-- Modifying `tree-flow.css` without checking the split spec
+## Icons and images
+
+- Icons are CSS mask icons: `<span class="track-icon track-icon-<name>">`, with `<name>` from `assets/icons/<name>.svg`.
+- Slide files contain no inline `<svg>…</svg>`. VS Code Live Server injects its script before every `</svg>` but sets Content-Length for only one injection, which truncates the response. Use a mask icon or an `<img>`. SVG created at runtime by JS is fine.
+- `assets/logo.png` is the dark logo used in the `.logo-slot` corners; `assets/logo-white.png` is for dark backgrounds.
+- Keep images small: convert large photos to WebP (the slide-16 photo is a 138 KB WebP).
+- `export/` is git-ignored and holds exported PDFs.
+
+## Design rule
+
+Section with tonal layering (background shifts), never 1px borders. See `DESIGN_SYSTEM.md`.

@@ -1,55 +1,36 @@
 # 2026 Academic Orientation Presentation
 
-Precision Engine v3.0 — 22-slide presentation for Techno Kids & Techno Future Academy.
+Precision Engine v3.0: a 23-slide presentation for Techno Kids & Techno Future Academy.
 
 **Live:** [GitHub Pages](https://ibrhmahmd.github.io/techno-orientation-2026/)
 
 ## Quick Start
 
-Slides are loaded dynamically from individual files. **You need a local server:**
+Plain static files, no build step. Slides are fetched at runtime, so you need a local server:
 
 ```bash
-# Python
-cd techno-orientation-2026
-python -m http.server 8000
-# Open http://localhost:8000
-
-# Node.js
-npx serve .
-# Open http://localhost:3000
-
-# VS Code
-# Install "Live Server" extension, right-click index.html → "Open with Live Server"
+python3 -m http.server 8000   # http://localhost:8000
+npx serve .                   # http://localhost:3000
 ```
+
+Or, in VS Code, use the Live Server extension: right-click `index.html` → "Open with Live Server".
 
 ## File Structure
 
-```
-├── index.html                 ← Shell (loads slides dynamically)
-├── slides/                    ← Individual slide files (single source of truth)
-│   ├── s01_title.html
-│   ├── s02_skill_gap.html
-│   └── ... (22 files)
-├── style/
-│   ├── base.css              ← Design tokens + reset
-│   ├── cards.css             ← Card components
-│   ├── grids.css             ← Grid layouts
-│   ├── tree-flow.css         ← Tree flowchart system
-│   ├── icons.css             ← Icon styling
-│   ├── media.css             ← Responsive breakpoints
-│   ├── animations.css        ← Reveal animations
-│   └── print.css             ← Print stylesheet
-├── assets/                    ← Images, logos (27 PNGs)
-└── parts/                     ← Header/footer shell fragments
+```text
+├── index.html          ← Shell: SLIDES list, stylesheets, loader script
+├── slides/             ← One HTML file per slide (s01_title.html … s22_closing.html)
+├── style/              ← CSS, loaded in the order set in index.html
+├── assets/             ← Logos, images, icons/ (SVG mask icons)
+└── DESIGN_SYSTEM.md    ← Colours, typography, component rules
 ```
 
 ## Editing Slides
 
-1. Open the individual slide file in `slides/` (e.g., `slides/s06_software.html`)
-2. Make your changes
-3. Refresh the browser — changes appear automatically
+1. Edit the slide file in `slides/` (e.g. `slides/s06_software.html`).
+2. Refresh the browser.
 
-**No rebuild needed.** Edit one file, see changes immediately.
+Adding or removing a slide file? Update the `SLIDES` array in `index.html` to match. See `AGENTS.md` for the rules on slide ids and sections.
 
 ## Keyboard Shortcuts
 
@@ -62,8 +43,8 @@ npx serve .
 
 ## Design System
 
-See `doc_templates/design-system-guide.md` in the [main curriculum repo](https://github.com/ibrhmahmd/Techno-Futues-Documetation) for colors, typography, and component specs.
+See [`DESIGN_SYSTEM.md`](DESIGN_SYSTEM.md). Tokens are CSS custom properties in `style/base.css`.
 
 ## Export
 
-PDF and PPTX export scripts live in the parent `techno_documentation` repo under `presentations/2026-academic-orientation/`.
+Exported PDFs go in `export/` (git-ignored).
